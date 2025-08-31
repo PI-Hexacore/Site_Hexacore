@@ -5,6 +5,7 @@
     --roxo: #312244;
 }
 
+
 body {
     margin: 0%;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -19,99 +20,152 @@ body {
     position: fixed;
 }
 
-/*celular*/
+/*hero*/
 
 .section {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     width: 100%;
     background-color: var(--verde1);
-    padding: 4rem 1.5rem; 
     box-sizing: border-box;
     color: aliceblue;
-    justify-content: center; /* Centraliza verticalmente*/
+    justify-content: center;
     align-items: center;
+    padding-bottom: 10vh;
+
+}
+
+.section .container {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-around;
+}
+
+.section .texto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     text-align: center;
-    font-size: 4vb;
+    font-size: 0.65rem;
+    text-align: left;
+    justify-content: space-around;
+}
+
+.section.hero .texto h1{
+    font-size: 1.5rem;
 }
 
 .section.hero {
-    padding-top: 20vh; 
+    padding-top: 20vh;
 }
 
-.texto h1 {
-    font-size: 1.5em;
-}
-
-.texto p {
-    font-size: 1em;
-    margin: 1rem 0;
-}
-
-.botoes {
+.botoes{
+    width: 100%;
     display: flex;
-    flex-direction: column; 
-    align-items: center;
-    margin-top: 1.5rem;
-}
-
-.imagem {
-    margin-top: 2rem; 
-}
-
-.imagem img {
-    width: 80vw; 
-    max-width: 350px;
-    height: auto; 
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    margin: 0; 
+    justify-content: space-evenly;
+    align-items: flex-start;
 }
 
 .botao {
-    background: linear-gradient(#ffffff 0%, #e5c0ef 100%);
+    background: linear-gradient(#ffffff 0%, #a4a4a4 100%);
     border: none;
     border-radius: 4px;
-    width: 40%; 
-    height:5vh;
-    font-size: large;
-    margin: auto; 
+    width: 40%;
+    height: 7vh;
+    margin: auto;
     cursor: pointer;
     color: var(--verde1);
+    font-size: 0.6rem;
 }
 
-.botao:hover {
-     background: linear-gradient(#bbbbbb 0%, #897a8d 100%);
+.imagem img {
+    width: 35vw;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    margin-left: 5vw;
 }
 
+/*hero celular*/
+@media (max-width: 600px) {
 
-/*telas maiores*/
-
-@media (min-width: 768px) {
-    .section {
-        flex-direction: row; 
-        padding: 5rem 8rem;
-        justify-content: space-around;
-        text-align: left;
-        height: 67vh; 
+    body,
+    html {
+        overflow-x: hidden;
     }
 
-    .texto {
-
-        max-width: 50%;
+    .section.hero {
+        padding-top: 10vh;
     }
 
-    .botoes {
-        flex-direction: row;
-        justify-content: flex-end;
+    .section .container {
+        flex-direction: column;
+        align-items: center;
     }
 
-    .imagem {
-        margin-top: 0; 
+    .section .texto {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .botao {
+        width: 90%;
+        height: 6vh;
+        font-size: 1rem;
+        margin-bottom: 2vh;
     }
 
     .imagem img {
-        width: 30vw;
-        max-width: 450px;
+        width: 90%;
+        margin: 2rem auto 0;
+        display: block;
     }
+}
+
+/*cards*/
+
+.section.valores .texto {
+    text-align: center;
+}
+
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.card {
+    margin-top: 4vh;
+    width: 30%;
+    color: var(--verde1);
+    text-align: center;
+    background: aliceblue;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    font-size: 0.6rem;
+}
+
+/*card celular*/
+@media (max-width: 600px) {
+
+
+
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 80%;
+    }
+}
+
+
+/*personalize*/
+
+.personalize {
+    background-color: var(--verde2);
 }
