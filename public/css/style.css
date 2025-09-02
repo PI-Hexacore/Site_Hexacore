@@ -3,6 +3,11 @@
     --verde2: #065A60;
     --verde3: #144552;
     --roxo: #312244;
+
+    --verde1-escuro: #004244;
+    --verde2-escuro: #034045;
+    --verde3-escuro: #0d2f38;
+    --roxo-escuro:   #1e152a;
 }
 
 
@@ -26,7 +31,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: var(--verde1);
+    background: linear-gradient(to right, var(--verde1), var(--verde1-escuro));
     box-sizing: border-box;
     color: aliceblue;
     justify-content: center;
@@ -57,7 +62,7 @@ body {
 }
 
 .section.hero {
-    padding-top: 20vh;
+    padding-top: 6vh;
 }
 
 .botoes{
@@ -79,12 +84,18 @@ body {
     font-size: 0.6rem;
 }
 
+.botao:hover{
+    transform: scale(1.05);
+    background: linear-gradient(#cdcccc 0%, #a4a4a4 100%);
+
+}
+
 .imagem img {
     width: 35vw;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    margin-left: 5vw;
+    margin: 5vw;
 }
 
 /*hero celular*/
