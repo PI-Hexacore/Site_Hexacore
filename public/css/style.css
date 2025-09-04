@@ -55,6 +55,10 @@ body {
     color: aliceblue;
 }
 
+.botao.cadastrar:hover{
+    background: linear-gradient(to bottom, var(--verde3), var(--verde3-escuro));
+}
+
 .nav .logo{
     display: flex;
     color: aliceblue;
