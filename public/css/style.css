@@ -322,41 +322,12 @@ p img {
     font-size: 1.0rem;
 }
 
-/*ajustando as ondas*/
 
-img{
-    z-index: 1;
-}
 
-.texto{
-    z-index: 1;
-}
 
-.onda{
-    position: absolute;
-    z-index: 0;
-    width: 50vw;
-    left: 90vw;
-}
-
-.onda2{
-    position: absolute;
-    z-index: 0;
-    width: 50vw;
-    right: 90vw;
-    
-}
 
 
 @media (max-width: 600px) {
-
-    .onda{
-        width: 100vw;
-    }
-
-    .onda2{
-        width: 100vw;
-    }
 
     .footer .logo img {
         height: 10vw;
