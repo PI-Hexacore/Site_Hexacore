@@ -7,7 +7,7 @@
     --verde1-escuro: #004244;
     --verde2-escuro: #034045;
     --verde3-escuro: #0d2f38;
-    --roxo-escuro:   #1e152a;
+    --roxo-escuro: #1e152a;
 }
 
 
@@ -16,51 +16,49 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+    body,
+    html {
+        overflow-x: hidden;
+    }
+
 .nav {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 8vh;
+    height: 9.5vh;
     background: linear-gradient(to right, var(--roxo), var(--roxo-escuro));
     display: flex;
-    align-items: center; 
-    justify-content: center; 
-    padding: 0 2rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2vw;
     box-sizing: border-box;
     z-index: 2;
 }
 
 .nav .container {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
 .nav img {
-    height: 9vh; 
+    height: 9vh;
     cursor: pointer;
 }
 
-.nav .botoes{
-    width: 20%;    
+.nav .botoes {
+    width: 20%;
 }
 
-.nav .botoes .botao{
+.nav .botoes .botao {
     height: 6vh;
 }
 
-.botao.cadastrar{
-    background: linear-gradient(to bottom, var(--verde1), var(--verde1-escuro));
-    color: aliceblue;
-}
 
-.botao.cadastrar:hover{
-    background: linear-gradient(to bottom, var(--verde3), var(--verde3-escuro));
-}
 
-.nav .logo{
+.nav .logo {
     display: flex;
     color: aliceblue;
     font-weight: bold;
@@ -95,21 +93,16 @@ body {
     flex-direction: column;
     align-items: flex-start;
     text-align: center;
-    font-size: 0.65rem;
+    font-size: 1.2rem;
     text-align: left;
     justify-content: space-around;
-}
-
-
-.section.hero .texto h1{
-    font-size: 1.5rem;
 }
 
 .section.hero {
     padding-top: 6vh;
 }
 
-.botoes{
+.botoes {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -117,25 +110,34 @@ body {
 }
 
 .botao {
-    background: linear-gradient(#ffffff 0%, #a4a4a4 100%);
-    border: none;
+    background: none;
+    background-color: transparent;
+    border: 2px solid aliceblue;
     border-radius: 4px;
     width: 40%;
     height: 7vh;
     margin: auto;
     cursor: pointer;
-    color: var(--verde1);
-    font-size: 0.6rem;
+    color: aliceblue;
+    font-size: 1.4rem;
 }
 
-.botao:hover{
+.botao:hover {
     transform: scale(1.05);
-    background: linear-gradient(#cdcccc 0%, #a4a4a4 100%);
+}
 
+.botao.cadastrar {
+    background: linear-gradient(to bottom, var(--verde1), var(--verde1-escuro));
+    color: aliceblue;
+    border: none;
+}
+
+.botao.cadastrar:hover {
+    background: linear-gradient(to bottom, var(--verde3), var(--verde3-escuro));
 }
 
 .imagem img {
-    width: 35vw;
+    width: 40vw;
     height: auto;
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
@@ -158,14 +160,14 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover;
     z-index: -1;
-    filter: brightness(0.3);  
+    filter: brightness(0.3);
 }
 
 .hero .container {
     position: relative;
-    z-index: 1; 
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -177,10 +179,8 @@ body {
 /*hero celular*/
 @media (max-width: 600px) {
 
-    body,
-    html {
-        overflow-x: hidden;
-    }
+
+
 
     .section.hero {
         padding-top: 10vh;
@@ -207,20 +207,21 @@ body {
         width: 90%;
         margin: 2rem auto 0;
         display: block;
+        transition: transform 0.3s;
     }
 
-    .botoes{
+    .botoes {
         flex-direction: column;
     }
 
-    .nav .botoes{
+    .nav .botoes {
         flex-direction: row;
         width: 50%;
-        justify-content:space-around;
+        justify-content: space-around;
         margin-top: 2vh;
     }
 
-    .nav .botoes .botao{
+    .nav .botoes .botao {
         width: 45%;
         height: 4vh;
     }
@@ -229,13 +230,15 @@ body {
 
 /*cards*/
 
-.section.section.valores{
+.section.section.valores {
     background: linear-gradient(to right, var(--verde1), var(--verde1-escuro));
 }
 
-.section.valores .texto {
+.section.valores .texto h1 {
     text-align: center;
+    width: 100%;
 }
+
 
 
 .cards {
@@ -248,17 +251,16 @@ body {
 .card {
     margin-top: 4vh;
     width: 30%;
-    color: var(--verde1);
+    color: var(--roxo-escuro);
     text-align: center;
     background: aliceblue;
     border-radius: 5px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    font-size: 0.6rem;
+    font-size: 1.2rem;
 }
 
 /*card celular*/
 @media (max-width: 600px) {
-
 
 
     .cards {
@@ -274,51 +276,100 @@ body {
 
 /*personalize*/
 
+p img {
+    width: 1vw;
+}
+
 .personalize {
     background-color: var(--verde2);
 }
 
-.section.section.personalize{
+.section.section.personalize {
     background: linear-gradient(to right, var(--verde2), var(--verde2-escuro));
 }
 
 .section.section.simplifique {
     background: linear-gradient(to right, var(--verde3), var(--verde3-escuro));
 }
+
 .section.section.servicos {
     background: linear-gradient(to right, var(--verde3), var(--verde3-escuro));
 }
 
-/*footer*/
-
-.footer{
-    height: 20vh;
-    background: linear-gradient(to right, var(--roxo), var(--roxo-escuro));
-    color: aliceblue;
-    padding: 5vh;
+.section img:hover{
+    transform: scale(1.05);
 }
 
+/*footer*/
 
+.footer {
+    background: linear-gradient(to right, var(--roxo), var(--roxo-escuro));
+    text-align: center;
+}
 
 .footer .container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
 }
 
 .footer .logo img {
-    height: 50px;
+    height: 5vw;
 }
 
-.footer .links {
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    font-size: 0.5rem;
+.footer .links p {
+    color: #aaa;
+    font-size: 1.0rem;
 }
+
+/*ajustando as ondas*/
+
+img{
+    z-index: 1;
+}
+
+.texto{
+    z-index: 1;
+}
+
+.onda{
+    position: absolute;
+    z-index: 0;
+    width: 50vw;
+    left: 90vw;
+}
+
+.onda2{
+    position: absolute;
+    z-index: 0;
+    width: 50vw;
+    right: 90vw;
+    
+}
+
 
 @media (max-width: 600px) {
+
+    .onda{
+        width: 100vw;
+    }
+
+    .onda2{
+        width: 100vw;
+    }
+
+    .footer .logo img {
+        height: 10vw;
+    }
+
+    .lista {
+        text-align: start;
+    }
+
+    p img {
+        width: 3vw;
+    }
+
     .footer .container {
         flex-direction: column;
         align-items: center;
