@@ -24,17 +24,17 @@
       <div class="form">
         <label for="login-email">E-mail empresarial:</label>
         
-        <input type="email" id="login-email" class="input">
+        <input type="email" id="login_email" class="input">
 
         <label for="login-senha">Senha:</label>
         
-        <input type="password" id="login-senha" class="input"> 
+        <input type="password" id="login_senha" class="input"> 
 
         <label for="auth">Auth:</label>
         
         <input type="text" id="auth" class="input">
 
-        <button class="btn">Logar</button>
+        <button class="btn" onclick="entrar()">Logar</button>
       </div>
 
     </div>
@@ -43,3 +43,61 @@
 </body>
 
 </html>
+<script>
+    function entrar() {
+
+        var emailVar = login_email.value;
+        var senhaVar = login_senha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            return false;
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/empresas/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+
+                    setTimeout(() => {
+                        window.location = "./dashboard/dashboard.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+</script>

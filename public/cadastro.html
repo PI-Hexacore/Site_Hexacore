@@ -34,7 +34,7 @@
         <label for="senha">Criar senha:</label>
         <input type="password" id="senha" class="input" placeholder="********">
 
-        <button class="btn">Cadastrar</button>
+        <button class="btn" onclick="cadastrar()">Cadastrar</button>
 
       </div>
 
@@ -57,3 +57,54 @@
 </body>
 
 </html>
+<script>
+   function cadastrar() {
+    var nomeEmp = empresa.value;
+    var emailEmp = email.value;
+    var cnpjEmp= cnpj.value;
+    var senhaEmp = senha.value; 
+
+    if (
+      nomeEmp == "" ||
+      emailEmp == "" ||
+      senhaEmp == "" ||
+      cnpjEmp == ""
+    ) {
+      return false;
+    } else {
+      setInterval(5000);
+    }
+
+    fetch("/empresas/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeServer: nomeEmp,
+        emailServer: emailEmp,
+        cnpjServer: cnpjEmp,
+        senhaServer: senhaEmp,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
+
+</script>
