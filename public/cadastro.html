@@ -1,65 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro | HexaCore</title>
-    <link rel="stylesheet" href="./css/cadastro.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro | HexaCore</title>
+  <link rel="shortcut icon" href="./assets/imagens/hexacore.png">
+  <link rel="stylesheet" href="./css/cadastro.css">
 </head>
 
 <body>
-
   <video autoplay muted loop class="lg-video">
     <source src="./assets/videos/video-login-hexacore.mp4" type="video/mp4">
   </video>
 
-    <section class="container">
-
+  <section class="container">
     <button class="btn-voltar" onclick="window.location.href='index.html'">←</button>
     <h1 class="titulo">Cadastro</h1>
 
     <div class="form-box">
-
       <div class="form">
-        <label for="empresa">Empresa:</label>
+        <label for="empresa">Empresa: 🏦</label>
         <input type="text" id="empresa" class="input" placeholder="nome da empresa">
 
-        <label for="email">E-mail empresarial:</label>
+        <label for="email">E-mail empresarial: ✉️</label>
         <input type="email" id="email" class="input" placeholder="empresa@empresa">
 
-        <label for="cnpj">CNPJ:</label>
-        <input type="number" id="cnpj" class="input" placeholder="xx.xxx.xxx/xxxx-xx">
+        <label for="cnpj">CNPJ: 📃</label>
+        <input type="text" id="cnpj" class="input" placeholder="xx.xxx.xxx/xxxx-xx" maxlength="18" oninput="formatarCNPJ()">
 
-        <label for="senha">Criar senha:</label>
-        <input type="password" id="senha" class="input" placeholder="********">
+        <label for="senha">Criar senha: 🔒</label>
+        <div class="input-group">
+          <input type="password" id="senha" class="input" placeholder="********" oninput="validarSenha(); verificarSenhas()">
+          <button type="button" class="btn-olho" onclick="toggleSenha('senha', this)">👁️</button>
+        </div>
 
-        <button class="btn" onclick="cadastrar()">Cadastrar</button>
+        <label for="confirmarSenha">Confirmar senha: 🔐</label>
+        <div class="input-group">
+          <input type="password" id="confirmarSenha" class="input" placeholder="********" oninput="verificarSenhas()">
+          <button type="button" class="btn-olho" onclick="toggleSenha('confirmarSenha', this)">👁️</button>
+        </div>
 
+        <div class="info-box" id="dicas-senha" style="display: none;">
+          <b><p>Sua senha deve ter:</p></b>
+          <ul>
+            <li id="criterio-comprimento" class="senha-requisito">8 caracteres</li>
+            <li id="criterio-numero" class="senha-requisito">1 número</li>
+            <li id="criterio-especial" class="senha-requisito">1 caractere especial</li>
+            <li id="criterio-maiuscula" class="senha-requisito">1 letra maiúscula</li>
+          </ul>
+          <p id="mensagem-coincide"></p>
+        </div>
+
+        <button onclick="cadastrar()" class="btn">Cadastrar</button>
       </div>
 
       <div class="info-box">
-
         <p>⚠️ Você irá receber um AUTH (autenticador) em seu e-mail cadastrado para realizar o login.</p>
-        <br>
-        <b><p>Sua senha deve ter:</p></b>
-        <ul>
-          <li>8 caracteres</li>
-          <li>1 número</li>
-          <li>1 caractere especial</li>
-        </ul>
-
       </div>
-
     </div>
-
   </section>
-</body>
 
-</html>
-<script>
+  <script>
+    function validarSenha() {
+      var senha = document.getElementById('senha').value;
+
+      var criterioComprimento = document.getElementById('criterio-comprimento');
+      var criterioNumero = document.getElementById('criterio-numero');
+      var criterioEspecial = document.getElementById('criterio-especial');
+      var criterioMaiuscula = document.getElementById('criterio-maiuscula');
+      var dicasSenha = document.getElementById('dicas-senha');
+
+      if (senha.length > 0) {
+        dicasSenha.style.display = 'block';
+      } else {
+        dicasSenha.style.display = 'none';
+      }
+
+      if (senha.length >= 8) criterioComprimento.classList.add('valido');
+      else criterioComprimento.classList.remove('valido');
+
+      if (/[0-9]/.test(senha)) criterioNumero.classList.add('valido');
+      else criterioNumero.classList.remove('valido');
+
+      if (/[^A-Za-z0-9]/.test(senha)) criterioEspecial.classList.add('valido');
+      else criterioEspecial.classList.remove('valido');
+
+      if (/[A-Z]/.test(senha)) criterioMaiuscula.classList.add('valido');
+      else criterioMaiuscula.classList.remove('valido');
+    }
+
+    function verificarSenhas() {
+      var senha = document.getElementById('senha').value;
+      var confirmar = document.getElementById('confirmarSenha').value;
+      var mensagem = document.getElementById('mensagem-coincide');
+      var dicasSenha = document.getElementById('dicas-senha');
+
+      if (senha.length > 0) dicasSenha.style.display = 'block';
+
+      if (confirmar.length === 0) {
+        mensagem.textContent = "";
+        return;
+      }
+
+      if (senha === confirmar) {
+        mensagem.textContent = "✅ As senhas coincidem!";
+        mensagem.style.color = "green";
+      } else {
+        mensagem.textContent = "❌ As senhas não coincidem!";
+        mensagem.style.color = "red";
+      }
+    }
+
+    function toggleSenha(id, botao) {
+      var campo = document.getElementById(id);
+      if (campo.type === "password") {
+        campo.type = "text";
+        botao.textContent = "🔒";
+      } else {
+        campo.type = "password";
+        botao.textContent = src="👁️";
+      }
+    }
+    var input = cnpj.value;
+    
+    function formatarCNPJ() {
+      var input = document.getElementById('cnpj');
+      var valor = input.value;
+      var numeros = valor.replace(/\D/g, "");
+
+      var formatado = "";
+      if (numeros.length > 0) formatado = numeros.substring(0, 2);
+      if (numeros.length > 2) formatado += "." + numeros.substring(2, 5);
+      if (numeros.length > 5) formatado += "." + numeros.substring(5, 8);
+      if (numeros.length > 8) formatado += "/" + numeros.substring(8, 12);
+      if (numeros.length > 12) formatado += "-" + numeros.substring(12, 14);
+      
+      input.value = formatado;
+    }
+
    function cadastrar() {
-    var nomeEmp = empresa.value;
+    var nomeEmp = input;
     var emailEmp = email.value;
     var cnpjEmp= cnpj.value;
     var senhaEmp = senha.value; 
