@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hexacore Dashboard</title>
+  <link rel="stylesheet" href="dash.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <span class="logo-box">🎧</span>
+        <h2>Hexacore</h2>
+      </div>
+      <nav class="menu">
+        <a href="#" class="active">📊 Dashboard</a>
+        <a href="#">📈 Relatórios</a>
+        <a href="#">⚙️ Configurações</a>
+        <a href="#">🚪 Sair</a>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <header class="header">
+        <h1>Boas-vindas, user 👋</h1>
+      </header>
+
+      <section class="cards">
+        <div class="card" id="ouvintes">Nº de ouvintes do Brasil</div>
+        <div class="card" id="artista">Artista mais ouvido</div>
+        <div class="card" id="generoMais">Gênero mais ouvido</div>
+        <div class="card" id="generoMenos">Gênero menos ouvido</div>
+      </section>
+
+      <section class="dashboard">
+        <div class="map-card">
+          <h2>Filtrar por local</h2>
+          <select id="regionSelect">
+            <option value="brasil">Brasil</option>
+            <option value="sudeste">Estados Unidos</option>
+            <option value="nordeste">Japão</option>
+            <option value="sul">Australia</option>
+            <option value="norte">Coreia</option>
+            <option value="centro-oeste">Alemanha</option>
+          </select>
+          <div class="map-placeholder">🗺️ Brasil</div>
+        </div>
+
+        <div class="chart-card">
+          <h2>Top gêneros mais ouvidos</h2>
+          <canvas id="genreChart"></canvas>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
