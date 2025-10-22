@@ -1,93 +1,73 @@
-const ctx = document.getElementById("genreChart").getContext("2d");
+const ctx = document.getElementById('topGenerosChart');
 
-let genreChart = new Chart(ctx, {
-  type: "bar",
+new Chart(ctx, {
+  type: 'bar',
   data: {
-    labels: ["Pop", "Sertanejo", "Funk", "Rap", "Forró"],
-    datasets: [
-      {
-        label: "Milhões de reproduções",
-        data: [50, 45, 38, 30, 22],
-        backgroundColor: [
-          "#2563eb",
-          "#10b981",
-          "#f59e0b",
-          "#ef4444",
-          "#8b5cf6",
-        ],
-        borderRadius: 8,
-      },
-    ],
+    labels: ['Pop', 'Rock', 'Sertanejo', 'Funk', 'Trap'],
+    datasets: [{
+      label: 'Audições (em milhões)',
+      data: [12, 9, 7, 5, 4],
+      borderWidth: 1,
+      backgroundColor: '#05c8f8',
+      borderRadius: 8
+    }]
   },
   options: {
-    responsive: true,
     plugins: {
-      legend: { display: false },
+      legend: { display: false }
     },
     scales: {
       y: {
         beginAtZero: true,
+        ticks: { color: 'white' },
+        grid: { color: 'rgba(255,255,255,0.1)' }
       },
+      x: {
+        ticks: { color: 'white' },
+        grid: { display: false }
+      }
+    }
+  }
+});
+  const ctxArtistas = document.getElementById('artistasMomentoChart').getContext('2d');
+
+  const artistasMomentoChart = new Chart(ctxArtistas, {
+    type: 'bar',
+    data: {
+      labels: ['The Weeknd', 'Taylor Swift', 'Travis Scott', 'Bad Bunny', 'Drake', 'Billie Eilish'],
+      datasets: [{
+        label: 'Ouvintes (milhões)',
+        data: [98, 95, 90, 87, 83, 78],
+        backgroundColor: [
+          '#1db954',
+          '#1aa34a',
+          '#178f40',
+          '#147b36',
+          '#10682d',
+          '#0d5524'
+        ],
+        borderRadius: 6,
+      }]
     },
-  },
-});
-
-const dadosPorRegiao = {
-  brasil: {
-    ouvintes: "125M ouvintes",
-    artista: "Anitta",
-    generoMais: "Pop",
-    generoMenos: "Jazz",
-    chart: [50, 45, 38, 30, 22],
-  },
-  sudeste: {
-    ouvintes: "60M ouvintes",
-    artista: "Luan Santana",
-    generoMais: "Sertanejo",
-    generoMenos: "Forró",
-    chart: [40, 60, 30, 25, 15],
-  },
-  nordeste: {
-    ouvintes: "30M ouvintes",
-    artista: "Wesley Safadão",
-    generoMais: "Forró",
-    generoMenos: "Rock",
-    chart: [25, 30, 20, 15, 40],
-  },
-  sul: {
-    ouvintes: "20M ouvintes",
-    artista: "Melim",
-    generoMais: "Pop",
-    generoMenos: "Funk",
-    chart: [45, 25, 15, 20, 18],
-  },
-  norte: {
-    ouvintes: "10M ouvintes",
-    artista: "Gusttavo Lima",
-    generoMais: "Sertanejo",
-    generoMenos: "Rock",
-    chart: [15, 40, 10, 8, 5],
-  },
-  "centro-oeste": {
-    ouvintes: "5M ouvintes",
-    artista: "Marília Mendonça",
-    generoMais: "Sertanejo",
-    generoMenos: "Pop",
-    chart: [20, 55, 15, 10, 12],
-  },
-};
-
-document.getElementById("regionSelect").addEventListener("change", (e) => {
-  const regiao = e.target.value;
-  const dados = dadosPorRegiao[regiao];
-  const map = document.querySelector(".map-placeholder");
-
-  document.getElementById("ouvintes").textContent = dados.ouvintes;
-  document.getElementById("artista").textContent = `Artista: ${dados.artista}`;
-  document.getElementById("generoMais").textContent = `Mais ouvido: ${dados.generoMais}`;
-  document.getElementById("generoMenos").textContent = `Menos ouvido: ${dados.generoMenos}`;
-  map.textContent = `🗺️ ${regiao.charAt(0).toUpperCase() + regiao.slice(1)}`;
-
-  genreChart.data.datasets[0].data = dados.chart;
-  genreChart.update();
-});
+    options: {
+      plugins: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: 'Artistas do Momento (Top 6)',
+          color: '#fff',
+          font: { size: 18 }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#ccc' },
+          grid: { color: '#222' }
+        },
+        y: {
+          ticks: { color: '#ccc' },
+          grid: { color: '#222' }
+        }
+      }
+    }
+  });

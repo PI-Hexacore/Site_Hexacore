@@ -5,56 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hexacore Dashboard</title>
   <link rel="stylesheet" href="dash.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="container">
-    <aside class="sidebar">
-      <div class="logo">
-        <span class="logo-box">🎧</span>
-        <h2>Hexacore</h2>
-      </div>
-      <nav class="menu">
-        <a href="#" class="active">📊 Dashboard</a>
-        <a href="#">📈 Relatórios</a>
-        <a href="#">⚙️ Configurações</a>
-        <a href="#">🚪 Sair</a>
-      </nav>
-    </aside>
-    <main class="main-content">
-      <header class="header">
-        <h1>Boas-vindas, user 👋</h1>
-      </header>
+    <div class="sidebar">
+        <div class="logo"></div>
+        <div class="ola"> 
+    <div id="infoNome" class="infoUsuario"><br></div></div>
+    <div class="direcionamentos">
+    <div class="direcionamentosnav"><a> <img src="./../assets/dash.png" alt="">Dashboard</a></div></div>
 
-      <section class="cards">
-        <div class="card" id="ouvintes">Nº de ouvintes do Brasil</div>
-        <div class="card" id="artista">Artista mais ouvido</div>
-        <div class="card" id="generoMais">Gênero mais ouvido</div>
-        <div class="card" id="generoMenos">Gênero menos ouvido</div>
-      </section>
+     <div class="direcionamentos">
+    <div class="direcionamentosnav"><a href="#"><img src="./../assets/artistas.png" alt="">Artistas</a></div></div>
 
-      <section class="dashboard">
-        <div class="map-card">
-          <h2>Filtrar por local</h2>
-          <select id="regionSelect">
-            <option value="brasil">Brasil</option>
-            <option value="sudeste">Estados Unidos</option>
-            <option value="nordeste">Japão</option>
-            <option value="sul">Australia</option>
-            <option value="norte">Coreia</option>
-            <option value="centro-oeste">Alemanha</option>
-          </select>
-          <div class="map-placeholder">🗺️ Brasil</div>
-        </div>
+     <div class="direcionamentos">
+    <div class="direcionamentosnav"><a href="../batalha.html"> <img src="./../assets/perfil.png" alt="">Perfil</a></div></div>
 
-        <div class="chart-card">
-          <h2>Top gêneros mais ouvidos</h2>
-          <canvas id="genreChart"></canvas>
-        </div>
-      </section>
-    </main>
+    <div class="direcionamentos">
+    <div class="direcionamentosnav"><a onclick="limparSessao()" href="../login.html"> <img src="./../assets/sair.png" alt="">Sair da Conta</a></div></div>
+    </div>
+    </div>
+    <div class="main-content">
+    <div class="parent">
+<div class="div1"> <p> Bem-vindo nomeUsuario</p> <p>Filtre <img src="../assets/107799.png"></p></div>
+<div class="div2"> <div class="kpi-card">
+            <h3>N° de ouvintes do Brasil</h3>
+            <p id="ouvintes">1.250.000</p>
+          </div></div>
+<div class="div3"> <div class="kpi-card">
+            <h3>Artista mais ouvido</h3>
+            <p id="artista">Anitta</p>
+          </div> </div>
+<div class="div4">  <div class="kpi-card">
+            <h3>Gênero mais ouvido</h3>
+            <p id="generoMais">Pop</p>
+          </div> </div>
+<div class="div5"> <div class="kpi-card">
+            <h3>Gênero menos ouvido</h3>
+            <p id="generoMenos">Jazz</p>
+          </div> </div>
+<div class="div6"> <div class="chart-container">
+  <h2>🎤 Artistas do Momento</h2>
+  <canvas id="artistasMomentoChart"></canvas>
+</div> </div>
+<div class="div7"> <div class="chart-container">
+          <h3>Top gêneros mais ouvidos</h3>
+          <canvas id="topGenerosChart"></canvas>
+        </div> </div>
+<div class="div8"> <div class="kpi-card">
+            <h3>Seu artista menos ouvido</h3>
+            <p id="ouvintes">Travis Scott</p>
+          </div> </div>
+<div class="div9"> <div class="kpi-card">
+            <h3>Seu artista mais ouvido</h3>
+            <p id="ouvintes">Gustavo Lima</p>
+          </div> </div>
+</div>
   </div>
 
-  <script src="script.js"></script>
+
+
 </body>
+  <script src="script.js"></script>
+
 </html>
