@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+<html lang="pt-BR"> <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro | HexaCore</title>
@@ -9,206 +8,203 @@
 </head>
 
 <body>
+
+  <header class="nav">
+    <div class="container-nav">
+      <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+        <img src="./assets/imagens/hexacore.png">
+        <p>Hexacore</p>
+      </div>
+      <div class="botoes">
+        <button class="botao entrar" onclick="window.location.href='login.html'">Entrar</button>
+        <button class="botao cadastrar" onclick="window.location.href='cadastro.html'">Cadastrar</button>
+      </div>
+    </div>
+  </header>
+
   <video autoplay muted loop class="lg-video">
     <source src="./assets/videos/video-login-hexacore.mp4" type="video/mp4">
   </video>
 
   <section class="container">
-  <button class="btn-voltar" onclick="window.location.href='index.html'">←</button>
-  <h1 class="titulo">Cadastro</h1>
+    <button class="btn-voltar" onclick="window.location.href='index.html'">←</button>
+    <h1 class="titulo">Cadastro</h1>
 
-  <div class="form-box">
+    <div class="form-box">
 
-    <!-- ETAPA 1: DADOS DA EMPRESA -->
-    <div id="etapa_1" class="etapa">
-      <div class="form">
-        <label for="razao_social">Razão social: </label>
-        <input type="text" id="razao_social" class="input" placeholder="Razão social empresarial">
+      <div id="etapa_1" class="etapa">
+        <div class="form">
+          <label for="razao_social">Razão social: </label>
+          <input type="text" id="razao_social" class="input" placeholder="Razão social empresarial">
 
-        <label for="nome_fantasia">Nome fantasia: </label>
-        <input type="text" id="nome_fantasia" class="input" placeholder="nome da empresa">
+          <label for="nome_fantasia">Nome fantasia: </label>
+          <input type="text" id="nome_fantasia" class="input" placeholder="nome da empresa">
 
-        <label for="cnpj">CNPJ:</label>
-        <input type="text" id="cnpj" class="input" placeholder="xx.xxx.xxx/xxxx-xx" maxlength="18" oninput="formatarCNPJ()">
+          <label for="cnpj">CNPJ:</label>
+          <input type="text" id="cnpj" class="input" placeholder="xx.xxx.xxx/xxxx-xx" maxlength="18" inputmode="numeric">
 
-        <label for="email">E-mail empresarial: </label>
-        <input type="email" id="email" class="input" placeholder="empresa@empresa">
+          <label for="email">E-mail empresarial: </label>
+          <input type="email" id="email" class="input" placeholder="empresa@empresa">
 
-        <label for="senha">Criar senha:</label>
-        <input type="password" id="senha" class="input" placeholder="********" oninput="validarSenha(); verificarSenhas();">
+          <label for="senha">Criar senha:</label>
+          <input type="password" id="senha" class="input" placeholder="********" oninput="validarSenha(); verificarSenhas();">
 
-        <label for="confirmarSenha">Confirmar senha:</label>
-        <input type="password" id="confirmarSenha" class="input" placeholder="********" oninput="verificarSenhas();">
+          <label for="confirmarSenha">Confirmar senha:</label>
+          <input type="password" id="confirmarSenha" class="input" placeholder="********" oninput="verificarSenhas();">
 
-        <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" class="input" placeholder="xx xxxxx-xxxx" maxlength="13" oninput="formatarTell()">
+          <label for="telefone">Telefone:</label>
+          <input type="text" id="telefone" class="input" placeholder="xx xxxxx-xxxx" maxlength="13" oninput="formatarTell()">
 
-        <div class="info-box" id="dicas_senha" style="display: none;">
-          <b><p>Sua senha deve ter:</p></b>
-          <ul>
-            <li id="criterio_comprimento" class="senha-requisito">8 caracteres</li>
-            <li id="criterio_numero" class="senha-requisito">1 número</li>
-            <li id="criterio_especial" class="senha-requisito">1 caractere especial</li>
-            <li id="criterio_maiuscula" class="senha-requisito">1 letra maiúscula</li>
-          </ul>
-          <p id="mensagem_coincide"></p>
+          <div class="info-box" id="dicas_senha" style="display: none;">
+            <b><p>Sua senha deve ter:</p></b>
+            <ul>
+              <li id="criterio_comprimento" class="senha-requisito">8 caracteres</li>
+              <li id="criterio_numero" class="senha-requisito">1 número</li>
+              <li id="criterio_especial" class="senha-requisito">1 caractere especial</li>
+              <li id="criterio_maiuscula" class="senha-requisito">1 letra maiúscula</li>
+            </ul>
+            <p id="mensagem_coincide"></p>
+          </div>
+
+          <div style="margin-top:16px;">
+            <button class="btn" onclick="irParaEtapa(2)">Próximo →</button>
+          </div>
         </div>
+        <br>
+      </div>
 
-        <div style="margin-top:16px;">
-          <button class="btn" onclick="irParaEtapa(2)">Próximo →</button>
+      <div id="etapa_2" class="etapa" style="display:none;">
+        <div class="form">
+          <label for="tipoLogradouro">Tipo logradouro:</label>
+          <input type="text" id="tipoLogradouro" class="input" placeholder="Ex: Rua / Av.">
+
+          <label for="logradouro">Logradouro:</label>
+          <input type="text" id="logradouro" class="input" placeholder="Nome da rua/avenida">
+
+          <label for="numLogradouro">Número:</label>
+          <input type="number" id="numLogradouro" class="input" placeholder="123">
+
+          <label for="bairro">Bairro:</label>
+          <input type="text" id="bairro" class="input" placeholder="Bairro">
+
+          <label for="cidade">Cidade:</label>
+          <input type="text" id="cidade" class="input" placeholder="Cidade">
+
+          <label for="uf">UF:</label>
+          <input type="text" id="uf" class="input" placeholder="SP" maxlength="2">
+
+          <label for="cep">CEP:</label>
+          <input type="text" id="cep" class="input" placeholder="00000-000" maxlength="9" oninput="formatarCEP()">
+
+          <div style="margin-top:16px;">
+            <button class="btn" onclick="irParaEtapa(1)">← Voltar</button>
+            <button class="btn" onclick="cadastrarEmpresa(), cadastrarEndereco()">Finalizar cadastro</button>
+          </div>
         </div>
       </div>
-      <br>
     </div>
-
-    <!-- ETAPA 2: ENDEREÇO -->
-    <div id="etapa_2" class="etapa" style="display:none;">
-      <div class="form">
-        <label for="tipoLogradouro">Tipo logradouro:</label>
-        <input type="text" id="tipoLogradouro" class="input" placeholder="Ex: Rua / Av.">
-
-        <label for="logradouro">Logradouro:</label>
-        <input type="text" id="logradouro" class="input" placeholder="Nome da rua/avenida">
-
-        <label for="numLogradouro">Número:</label>
-        <input type="number" id="numLogradouro" class="input" placeholder="123">
-
-        <label for="bairro">Bairro:</label>
-        <input type="text" id="bairro" class="input" placeholder="Bairro">
-
-        <label for="cidade">Cidade:</label>
-        <input type="text" id="cidade" class="input" placeholder="Cidade">
-
-        <label for="uf">UF:</label>
-        <input type="text" id="uf" class="input" placeholder="SP" maxlength="2">
-
-        <label for="cep">CEP:</label>
-        <input type="text" id="cep" class="input" placeholder="00000-000" maxlength="9" oninput="formatarCEP()">
-
-        <div style="margin-top:16px;">
-          <button class="btn" onclick="irParaEtapa(1)">← Voltar</button>
-          <button class="btn" onclick="cadastrarEmpresa(), cadastrarEndereco()">Finalizar cadastro</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
 
   <script>
+    const cnpjInput = document.getElementById('cnpj');
+    cnpjInput.addEventListener('input', function (event) {
+        let valor = event.target.value.replace(/\D/g, '');
+        valor = valor.slice(0, 14);
+        valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+        valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+        valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+        valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+        event.target.value = valor;
+    });
+
     function irParaEtapa(numero) {
-    if (numero === 1) {
-      etapa_1.style.display = "block";
-      etapa_2.style.display = "none";
-      razao_social.focus();
-    } 
-    else if (numero === 2) {
-      if (razao_social.value === "" || nome_fantasia.value === "" || cnpj.value === "" || email.value === "" || senha.value === "") 
-      {
-        alert("Preencha todos os campos obrigatórios da etapa 1 antes de continuar.");
-        return;
+      if (numero === 1) {
+        etapa_1.style.display = "block";
+        etapa_2.style.display = "none";
+        razao_social.focus();
+      } 
+      else if (numero === 2) {
+        if (razao_social.value === "" || nome_fantasia.value === "" || cnpj.value === "" || email.value === "" || senha.value === "") 
+        {
+          alert("Preencha todos os campos obrigatórios da etapa 1 antes de continuar.");
+          return;
+        }
+        etapa_1.style.display = "none";
+        etapa_2.style.display = "block";
+        tipoLogradouro.focus();
       }
-      etapa_1.style.display = "none";
-      etapa_2.style.display = "block";
-      tipoLogradouro.focus();
     }
-  }
 
     function validarSenha() {
-    var senhaValor = senha.value;
+      var senhaValor = senha.value;
+      var criterioComprimento = document.getElementById("criterio_comprimento");
+      var criterioNumero = document.getElementById("criterio_numero");
+      var criterioEspecial = document.getElementById("criterio_especial");
+      var criterioMaiuscula = document.getElementById("criterio_maiuscula");
+      var dicasSenha = document.getElementById("dicas_senha");
 
-    // Seleciona corretamente os elementos
-    var criterioComprimento = document.getElementById("criterio_comprimento");
-    var criterioNumero = document.getElementById("criterio_numero");
-    var criterioEspecial = document.getElementById("criterio_especial");
-    var criterioMaiuscula = document.getElementById("criterio_maiuscula");
-    var dicasSenha = document.getElementById("dicas_senha");
+      if (senhaValor.length > 0) {
+        dicasSenha.style.display = "block";
+      } else {
+        dicasSenha.style.display = "none";
+      }
 
-    // Mostra ou esconde o bloco de dicas
-    if (senhaValor.length > 0) {
-      dicasSenha.style.display = "block";
-    } else {
-      dicasSenha.style.display = "none";
+      if (senhaValor.length >= 8) criterioComprimento.classList.add("valido");
+      else criterioComprimento.classList.remove("valido");
+
+      if (/[0-9]/.test(senhaValor)) criterioNumero.classList.add("valido");
+      else criterioNumero.classList.remove("valido");
+
+      if (/[^A-Za-z0-9]/.test(senhaValor)) criterioEspecial.classList.add("valido");
+      else criterioEspecial.classList.remove("valido");
+
+      if (/[A-Z]/.test(senhaValor)) criterioMaiuscula.classList.add("valido");
+      else criterioMaiuscula.classList.remove("valido");
     }
 
-    // Valida comprimento
-    if (senhaValor.length >= 8) criterioComprimento.classList.add("valido");
-    else criterioComprimento.classList.remove("valido");
+    function verificarSenhas() {
+      var senhaValor = senha.value;
+      var confirmarValor = confirmarSenha.value;
+      var mensagem = document.getElementById("mensagem_coincide");
+      var dicasSenha = document.getElementById("dicas_senha");
 
-    // Valida número
-    if (/[0-9]/.test(senhaValor)) criterioNumero.classList.add("valido");
-    else criterioNumero.classList.remove("valido");
+      if (senhaValor.length > 0) dicasSenha.style.display = "block";
 
-    // Valida caractere especial
-    if (/[^A-Za-z0-9]/.test(senhaValor)) criterioEspecial.classList.add("valido");
-    else criterioEspecial.classList.remove("valido");
+      if (confirmarValor.length === 0) {
+        mensagem.textContent = "";
+        return;
+      }
 
-    // Valida letra maiúscula
-    if (/[A-Z]/.test(senhaValor)) criterioMaiuscula.classList.add("valido");
-    else criterioMaiuscula.classList.remove("valido");
-  }
-
-  function verificarSenhas() {
-    var senhaValor = senha.value;
-    var confirmarValor = confirmarSenha.value;
-    var mensagem = document.getElementById("mensagem_coincide");
-    var dicasSenha = document.getElementById("dicas_senha");
-
-    if (senhaValor.length > 0) dicasSenha.style.display = "block";
-
-    if (confirmarValor.length === 0) {
-      mensagem.textContent = "";
-      return;
+      if (senhaValor === confirmarValor) {
+        mensagem.textContent = "✅ As senhas coincidem!";
+        mensagem.style.color = "green";
+      } else {
+        mensagem.textContent = "❌ As senhas não coincidem!";
+        mensagem.style.color = "red";
+      }
     }
-
-    if (senhaValor === confirmarValor) {
-      mensagem.textContent = "✅ As senhas coincidem!";
-      mensagem.style.color = "green";
-    } else {
-      mensagem.textContent = "❌ As senhas não coincidem!";
-      mensagem.style.color = "red";
-    }
-  }
 
     function formatarCEP() {
       var valor = cep.value;
       var numeros = valor.replace(/\D/g, "");
-
       var formatado = "";
       if (numeros.length > 0) formatado = numeros.substring(0, 5);
       if (numeros.length > 5) formatado += "-" + numeros.substring(5, 8);
-
       cep.value = formatado;
     }
 
     function formatarTell() {
       var valor = telefone.value;
       var numeros = valor.replace(/\D/g, "");
-
       var formatado = "";
       if (numeros.length > 0) formatado = numeros.substring(0, 2);
       if (numeros.length > 2) formatado += " " + numeros.substring(2, 7);
       if (numeros.length > 7) formatado += "-" + numeros.substring(7, 11);
-
       telefone.value = formatado;
     }
 
 
-    function formatarCNPJ() {
-      var valor = cnpj.value;
-      var numeros = valor.replace(/\D/g, "");
-
-      var formatado = "";
-      if (numeros.length > 0) formatado = numeros.substring(0, 2);
-      if (numeros.length > 2) formatado += "." + numeros.substring(2, 5);
-      if (numeros.length > 5) formatado += "." + numeros.substring(5, 8);
-      if (numeros.length > 8) formatado += "/" + numeros.substring(8, 12);
-      if (numeros.length > 12) formatado += "-" + numeros.substring(12, 14);
-      
-      cnpj.value = formatado;
-    }
-
-    // Função para remover a formatação do CNPJ antes de enviar ao banco
     function desformatarCNPJ(cnpjFormatado) {
       return cnpjFormatado.replace(/\D/g, "");
     }
@@ -260,9 +256,7 @@
       })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
-
         if (resposta.ok) {
-          alert("Cadastro realizado com sucesso!");
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
@@ -275,7 +269,6 @@
       return false;
     }
     
-
     function cadastrarEndereco() {
       var tipoLogradouroEmp = tipoLogradouro.value;
       var LogradouroEmp = logradouro.value;

@@ -72,8 +72,7 @@ p {
 }
 
 .nav .logo img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
 }
 
 .nav .logo p {
@@ -107,19 +106,19 @@ p {
 .botao.entrar:hover {
     background: linear-gradient(135deg, var(--azul), var(--azul2));
     color: var(--branco);
+    border-color: transparent;
 }
 
 .botao.cadastrar {
     background: linear-gradient(135deg, var(--azul), var(--azul2));
     color: var(--branco);
-    border-image: linear-gradient(90deg, var(--azul), var(--azul2)) 1;
+    border: 2px solid transparent;
 }
 
 .botao.cadastrar:hover {
     background: transparent;
     border: 2px solid var(--azul);
     color: var(--azul);
-
 }
 
 
@@ -186,7 +185,7 @@ p {
 
 .valores .card:hover {
     transform: translateY(-8px);
-    cinza-borda: var(--azul);
+    border-color: var(--azul);
 }
 
 .valores .card h3 {
@@ -245,13 +244,13 @@ p {
     padding: 15px 40px;
     font-size: 1.2rem;
     font-weight: 600;
-     background: linear-gradient(135deg, var(--azul), var(--azul2));
+    background: linear-gradient(135deg, var(--azul), var(--azul2));
     color: var(--branco);
-    border-image: linear-gradient(90deg, var(--azul), var(--azul2)) 1;
+    border: 2px solid transparent;
 }
 
 .servicos .botao:hover {
-   background: transparent;
+    background: transparent;
     border: 2px solid var(--azul);
     color: var(--azul);
 }
@@ -271,7 +270,7 @@ p {
 }
 
 .footer .logo img {
-    width: 40px;
+    width: 60px;
 }
 
 .footer .links {
