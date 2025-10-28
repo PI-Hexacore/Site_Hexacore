@@ -85,7 +85,8 @@ body {
 .form-box {
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* Espaço entre a form e info-box */
+  gap: 2rem;
+  width: 350px; 
 }
 
 .form {

@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 
-function cadastrar(nomeEmp, emailEmp, cnpj, senha) {
+function cadastrarEmpresa(nomeEmp, emailEmp, cnpj, senha) {
   var instrucaoSql = `INSERT INTO empresa (nomeEmpresa, emailEmpresa, CNPJ, senhaEmpresa) VALUES ('${nomeEmp}', '${emailEmp}', '${cnpj}', '${senha}')`;
 
   return database.executar(instrucaoSql);
@@ -15,4 +15,4 @@ function autenticar(emailEmp, senha) {
     return database.executar(instrucaoSql);
 }
 
-module.exports = { autenticar, cadastrar};
+module.exports = { autenticar, cadastrarEmpresa};
