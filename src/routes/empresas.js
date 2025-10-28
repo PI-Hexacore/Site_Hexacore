@@ -3,7 +3,7 @@ var router = express.Router();
 
 var empresaController = require("../controllers/empresaController");
 
-router.post("/cadastrarEmpresa", function (req, res) {
+router.post("/cadastrar", function (req, res) {
     empresaController.cadastrar(req, res);
 })
 

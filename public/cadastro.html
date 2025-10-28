@@ -40,6 +40,9 @@
         <label for="confirmarSenha">Confirmar senha:</label>
         <input type="password" id="confirmarSenha" class="input" placeholder="********" oninput="verificarSenhas();">
 
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" class="input" placeholder="xx xxxxx-xxxx" maxlength="13" oninput="formatarTell()">
+
         <div class="info-box" id="dicas_senha" style="display: none;">
           <b><p>Sua senha deve ter:</p></b>
           <ul>
@@ -148,7 +151,7 @@
   function verificarSenhas() {
     var senhaValor = senha.value;
     var confirmarValor = confirmarSenha.value;
-    var mensagem = document.getElementById("mensagem-coincide");
+    var mensagem = document.getElementById("mensagem_coincide");
     var dicasSenha = document.getElementById("dicas_senha");
 
     if (senhaValor.length > 0) dicasSenha.style.display = "block";
@@ -178,6 +181,18 @@
       cep.value = formatado;
     }
 
+    function formatarTell() {
+      var valor = telefone.value;
+      var numeros = valor.replace(/\D/g, "");
+
+      var formatado = "";
+      if (numeros.length > 0) formatado = numeros.substring(0, 2);
+      if (numeros.length > 2) formatado += " " + numeros.substring(2, 7);
+      if (numeros.length > 7) formatado += "-" + numeros.substring(7, 11);
+
+      telefone.value = formatado;
+    }
+
 
     function formatarCNPJ() {
       var valor = cnpj.value;
@@ -198,26 +213,37 @@
       return cnpjFormatado.replace(/\D/g, "");
     }
 
+    function desformatarCEP(cepFormatado) {
+      return cepFormatado.replace(/\D/g, "");
+    }
+
+    function desformatarTell(tellFormatado) {
+      return tellFormatado.replace(/\D/g, "");
+    }
+
     function cadastrarEmpresa() {
       var razaoEmp = razao_social.value;
       var nomeEmp = nome_fantasia.value;
       var emailEmp = email.value;
       var cnpjEmp = cnpj.value;
-      var senhaEmp = senha.value; 
+      var senhaEmp = senha.value;
+      var telefoneEmp = telefone.value; 
 
       if (
         razaoEmp === "" ||
         nomeEmp === "" ||
         emailEmp === "" ||
+        cnpjEmp === "" ||
         senhaEmp === "" ||
-        cnpjEmp === ""
+        telefoneEmp === ""
       ) {
         alert("Preencha todos os campos!");
         return false;
       }
 
       var cnpjLimpo = desformatarCNPJ(cnpjEmp);
-
+      var tellLimpo = desformatarTell(telefoneEmp);
+      
       fetch("/empresas/cadastrar", {
         method: "POST",
         headers: {
@@ -229,6 +255,7 @@
           emailServer: emailEmp,
           cnpjServer: cnpjLimpo,
           senhaServer: senhaEmp,
+          telefoneServer: tellLimpo,
         }),
       })
       .then(function (resposta) {
@@ -236,9 +263,6 @@
 
         if (resposta.ok) {
           alert("Cadastro realizado com sucesso!");
-          setTimeout(() => {
-            window.location = "login.html";
-          }, 2000);
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
@@ -253,36 +277,42 @@
     
 
     function cadastrarEndereco() {
-      var razaoEmp = razao_social.value;
-      var nomeEmp = nome_fantasia.value;
-      var emailEmp = email.value;
-      var cnpjEmp = cnpj.value;
-      var senhaEmp = senha.value; 
+      var tipoLogradouroEmp = tipoLogradouro.value;
+      var LogradouroEmp = logradouro.value;
+      var numLogradouroEmp = numLogradouro.value;
+      var bairroEmp = bairro.value;
+      var cidadeEmp = cidade.value; 
+      var ufEmp = uf.value; 
+      var cepEmp = cep.value; 
 
       if (
-        razaoEmp === "" ||
-        nomeEmp === "" ||
-        emailEmp === "" ||
-        senhaEmp === "" ||
-        cnpjEmp === ""
+        tipoLogradouroEmp === "" ||
+        LogradouroEmp === "" ||
+        numLogradouroEmp === "" ||
+        bairroEmp === "" ||
+        cidadeEmp === "" ||
+        ufEmp === "" ||
+        cepEmp === ""
       ) {
         alert("Preencha todos os campos!");
         return false;
       }
 
-      var cnpjLimpo = desformatarCNPJ(cnpjEmp);
+      var cepLimpo = desformatarCEP(cepEmp);
 
-      fetch("/empresas/cadastrar", {
+      fetch("/endereco/cadastrar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          razaoServer: razaoEmp,
-          nomeServer: nomeEmp,
-          emailServer: emailEmp,
-          cnpjServer: cnpjLimpo,
-          senhaServer: senhaEmp,
+          tipoLogradouroServer: tipoLogradouroEmp,
+          logradouroServer: LogradouroEmp,
+          numeroServer: numLogradouroEmp,
+          bairroServer: bairroEmp,
+          cidadeServer: cidadeEmp,
+          ufServer: ufEmp,
+          cepServer: cepLimpo
         }),
       })
       .then(function (resposta) {
