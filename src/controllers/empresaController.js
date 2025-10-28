@@ -2,24 +2,32 @@ var empresaModel = require("../models/empresaModel");
 
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+
+    var razaoEmp = req.body.razaoServer;
     var nomeEmp = req.body.nomeServer;
-    var cnpj = req.body.cnpjServer;
     var emailEmp = req.body.emailServer;
-    var senha = req.body.senhaServer;
+    var cnpjEmp = req.body.cnpjServer;
+    var senhaEmp = req.body.senhaServer;
+    var telefoneEmp = req.body.telefoneServer;
+    
 
     // Faça as validações dos valores
-    if (nomeEmp == undefined) {
+    if (razaoEmp == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if(nomeEmp == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (emailEmp == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (cnpj == undefined){
+    } else if (cnpjEmp == undefined){
        res.status(400).send("Seu cnpj está undefined!");
-    } else if (senha == undefined) {
+    } else if (senhaEmp == undefined) {
         res.status(400).send("Sua senha está undefined!");
+    } else if (telefoneEmp == undefined) {
+        res.status(400).send("Seu telefone está undefined!");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        empresaModel.cadastrar(nomeEmp,emailEmp,cnpj,  senha)
+        empresaModel.cadastrar(razaoEmp, nomeEmp, emailEmp, cnpjEmp, senhaEmp, telefoneEmp)
             .then(
                 function (resultado) {
                     res.json(resultado);
