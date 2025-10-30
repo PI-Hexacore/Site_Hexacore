@@ -23,25 +23,25 @@
     <div id="etapa_1" class="etapa">
       <div class="form">
         <label for="razao_social">Razão social: </label>
-        <input type="text" id="razao_social" class="input" placeholder="Razão social empresarial">
+        <input type="text" id="razao_social" class="input" placeholder="Razão social empresarial" value="HexaCore Consulting">
 
         <label for="nome_fantasia">Nome fantasia: </label>
-        <input type="text" id="nome_fantasia" class="input" placeholder="nome da empresa">
+        <input type="text" id="nome_fantasia" class="input" placeholder="nome da empresa" value="hexacore">
 
         <label for="cnpj">CNPJ:</label>
-        <input type="text" id="cnpj" class="input" placeholder="xx.xxx.xxx/xxxx-xx" maxlength="18" oninput="formatarCNPJ()">
+        <input type="text" id="cnpj" class="input" placeholder="xx.xxx.xxx/xxxx-xx" maxlength="18" oninput="formatarCNPJ()" value="55.123.456/0001-55">
 
         <label for="email">E-mail empresarial: </label>
-        <input type="email" id="email" class="input" placeholder="empresa@empresa">
+        <input type="email" id="email" class="input" placeholder="empresa@empresa" value="hexacore@email.com">
 
         <label for="senha">Criar senha:</label>
-        <input type="password" id="senha" class="input" placeholder="********" oninput="validarSenha(); verificarSenhas();">
+        <input type="password" id="senha" class="input" placeholder="********" oninput="validarSenha(); verificarSenhas();" value="123456A@">
 
         <label for="confirmarSenha">Confirmar senha:</label>
-        <input type="password" id="confirmarSenha" class="input" placeholder="********" oninput="verificarSenhas();">
+        <input type="password" id="confirmarSenha" class="input" placeholder="********" oninput="verificarSenhas();" value="123456A@">
 
         <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" class="input" placeholder="xx xxxxx-xxxx" maxlength="13" oninput="formatarTell()">
+        <input type="text" id="telefone" class="input" placeholder="xx xxxxx-xxxx" maxlength="13" oninput="formatarTell()" value="11 96937-2801">
 
         <div class="info-box" id="dicas_senha" style="display: none;">
           <b><p>Sua senha deve ter:</p></b>
@@ -65,25 +65,25 @@
     <div id="etapa_2" class="etapa" style="display:none;">
       <div class="form">
         <label for="tipoLogradouro">Tipo logradouro:</label>
-        <input type="text" id="tipoLogradouro" class="input" placeholder="Ex: Rua / Av.">
+        <input type="text" id="tipoLogradouro" class="input" placeholder="Ex: Rua / Av." value="Rua">
 
         <label for="logradouro">Logradouro:</label>
-        <input type="text" id="logradouro" class="input" placeholder="Nome da rua/avenida">
+        <input type="text" id="logradouro" class="input" placeholder="Nome da rua/avenida" value="Arapoca">
 
         <label for="numLogradouro">Número:</label>
-        <input type="number" id="numLogradouro" class="input" placeholder="123">
+        <input type="number" id="numLogradouro" class="input" placeholder="123" value="416">
 
         <label for="bairro">Bairro:</label>
-        <input type="text" id="bairro" class="input" placeholder="Bairro">
+        <input type="text" id="bairro" class="input" placeholder="Bairro" value="Villa formosa">
 
         <label for="cidade">Cidade:</label>
-        <input type="text" id="cidade" class="input" placeholder="Cidade">
+        <input type="text" id="cidade" class="input" placeholder="Cidade" value="São Paulo">
 
         <label for="uf">UF:</label>
-        <input type="text" id="uf" class="input" placeholder="SP" maxlength="2">
+        <input type="text" id="uf" class="input" placeholder="SP" maxlength="2" value="SP">
 
         <label for="cep">CEP:</label>
-        <input type="text" id="cep" class="input" placeholder="00000-000" maxlength="9" oninput="formatarCEP()">
+        <input type="text" id="cep" class="input" placeholder="00000-000" maxlength="9" oninput="formatarCEP()" value="03362-000">
 
         <div style="margin-top:16px;">
           <button class="btn" onclick="irParaEtapa(1)">← Voltar</button>
