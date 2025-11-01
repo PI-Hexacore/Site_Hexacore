@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+    --cinza-fundo: #121212;
+    --cinza-card: #1E1E1E;
+    --azul-primario: #3A86FF;
+    --azul-secundario: #00C4FF;
+    --cinza-borda: #333333;
+    --texto-primario: #E0E0E0;
+    --texto-secundario: #B0B0B0;
+    --branco: #FFFFFF;
+    --vermelho: #c92a2a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--cinza-fundo);
+    color: var(--texto-primario);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    width: 260px;
+    height: 100vh;
+    flex-shrink: 0;
+}
+
+.sidebar {
+    width: 100%;
+    height: 100%;
+    background-color: var(--cinza-card);
+    border-right: 1px solid var(--cinza-borda);
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .logo {
+    height: 50px;
+    width: 100%;
+    margin-bottom: 30px;
+    background-image: url('../../assets/imagens/hexacore.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center left;
+}
+
+.sidebar .ola {
+    margin-bottom: 25px;
+    border-top: 1px solid var(--cinza-borda);
+    border-bottom: 1px solid var(--cinza-borda);
+    padding: 15px 0;
+}
+
+.sidebar .infoUsuario {
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+}
+
+.sidebar .infoUsuario b {
+    color: var(--texto-primario);
+    font-weight: 700;
+}
+
+.direcionamentos {
+    margin-bottom: 8px;
+}
+
+.direcionamentos:last-of-type {
+    margin-top: auto;
+}
+
+.direcionamentosnav a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--texto-secundario);
+    transition: all 0.3s ease;
+}
+
+.direcionamentosnav a:hover {
+    background-color: var(--cinza-fundo);
+    color: var(--texto-primario);
+}
+
+
+.direcionamentosnav a img {
+    width: 20px;
+    height: 20px;
+    filter: invert(0.7);
+}
+
+.direcionamentos:last-of-type .direcionamentosnav a:hover {
+    background-color: var(--vermelho);
+    color: var(--branco);
+}
+
+.direcionamentos:last-of-type .direcionamentosnav a img {
+    filter: invert(0.7);
+}
+
+.direcionamentos:last-of-type .direcionamentosnav a:hover img {
+    filter: none;
+}
+
+.main-content {
+    flex-grow: 1;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 30px;
+}
+
+
+.btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--cinza-card);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 12px;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--texto-primario);
+}
+
+.btn-add {
+  background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+  color: var(--branco);
+  border: 2px solid transparent;
+}
+
+.btn-add:hover {
+  background: transparent;
+  border: 2px solid var(--azul-primario);
+}
+
+
+.artist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.artist-card {
+    background-color: var(--cinza-card);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.artist-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--cinza-borda);
+}
+
+.artist-info {
+    flex-grow: 1;
+}
+
+.artist-info h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--texto-primario);
+    margin-bottom: 5px;
+}
+
+.artist-info p {
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+}
+
+.artist-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit {
+  background: transparent;
+  border: 2px solid var(--azul-primario);
+  color: var(--azul-primario);
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+  color: var(--branco);
+  border: 2px solid transparent;
+}
+
+.btn-delete {
+    background-color: transparent;
+    border: 2px solid var(--vermelho);
+    color: var(--vermelho);
+}
+
+.btn-delete:hover {
+    background-color: var(--vermelho);
+    color: var(--branco);
+}
+
+
