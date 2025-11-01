@@ -1,73 +1,94 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Perfil do Usuário - Hexacore</title>
   <link rel="stylesheet" href="perfil.css" />
 </head>
+
 <body>
+
   <div class="container">
-    <!-- Barra lateral -->
-    <aside class="sidebar">
-      <div class="logo">
-        <span class="logo-box">🎧</span>
-        <h2>Hexacore</h2>
+    <div class="sidebar">
+      <div class="logo"></div>
+      <div class="ola">
+        <div id="infoNome" class="infoUsuario"><br></div>
       </div>
-      <nav class="menu">
-        <a href="index.html">📊 Dashboard</a>
-        <a href="#">📈 Relatórios</a>
-        <a href="perfil.html" class="active">👤 Perfil</a>
-        <a href="#">⚙️ Configurações</a>
-        <a href="#">🚪 Sair</a>
-      </nav>
-    </aside>
+      
+      <div class="direcionamentos">
+        <div class="direcionamentosnav">
+          <a href="../dashboard.html"> <img src="../../assets/dash.png" alt="">Dashboard</a>
+        </div>
+      </div>
+      <div class="direcionamentos">
+        <div class="direcionamentosnav">
+          <a href="#"><img src="../../assets/artistas.png" alt="">Artistas</a>
+        </div>
+      </div>
+      <div class="direcionamentos">
+        <div class="direcionamentosnav active"> 
+          <a href="perfil.html"> <img src="../../assets/perfil.png" alt="">Perfil</a>
+        </div>
+      </div>
+      <div class="direcionamentos">
+        <div class="direcionamentosnav">
+          <a onclick="limparSessao()" href="../../login.html"> <img src="../../assets/sair.png" alt="">Sair da Conta</a>
+        </div>
+      </div>
 
-    <!-- Conteúdo principal -->
-    <main class="main-content">
-      <header class="header">
-        <h1>Meu Perfil</h1>
-        <p>Gerencie suas informações pessoais e preferências</p>
-      </header>
+    </div>
+  </div>
 
-      <section class="profile-content">
-        <div class="profile-card">
-          <div class="profile-avatar">
-            <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" alt="Avatar" />
-            <button class="btn-upload">Alterar foto</button>
+
+  <div class="main-content">
+    
+    <header class="header">
+      <h1>Meu Perfil</h1>
+      <p>Gerencie suas informações pessoais e preferências</p>
+    </header>
+
+    <section class="profile-content">
+      <div class="profile-card">
+        
+        <div class="profile-avatar">
+          <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" alt="Avatar" />
+          <button class="btn-upload">Alterar foto</button>
+        </div>
+
+        <form id="userForm" class="profile-form">
+          <div class="form-group">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" value="William Silva" />
           </div>
 
-          <form id="userForm" class="profile-form">
-            <div class="form-group">
-              <label for="nome">Nome completo</label>
-              <input type="text" id="nome" value="William Silva" />
-            </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" value="william@hexacore.com" />
+          </div>
 
-            <div class="form-group">
-              <label for="email">E-mail</label>
-              <input type="email" id="email" value="william@hexacore.com" />
-            </div>
+          <div class="form-group">
+            <label for="senha">Nova Senha</label>
+            <input type="password" id="senha" placeholder="" />
+          </div>
 
-            <div class="form-group">
-              <label for="senha">Senha</label>
-              <input type="password" id="senha" value="********" />
-            </div>
+          <div class="form-group">
+            <label for="cargo">Cargo</label>
+            <input type="text" id="cargo" value="Analista de Dados" />
+          </div>
 
-            <div class="form-group">
-              <label for="cargo">Cargo</label>
-              <input type="text" id="cargo" value="Analista de Dados" />
-            </div>
+          <div class="form-buttons">
+            <button type="button" class="btn-update" onclick="atualizarUsuario()">Salvar Alterações</button>
+            <button type="button" class="btn-delete" onclick="deletarUsuario()">Excluir Conta</button>
+          </div>
+        </form>
 
-            <div class="form-buttons">
-              <button type="button" class="btn-update" onclick="atualizarUsuario()">Salvar Alterações</button>
-              <button type="button" class="btn-delete" onclick="deletarUsuario()">Excluir Conta</button>
-            </div>
-          </form>
-        </div>
-      </section>
-    </main>
+      </div>
+    </section>
   </div>
 
   <script src="perfil.js"></script>
 </body>
 </html>
+
