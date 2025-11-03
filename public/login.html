@@ -46,10 +46,6 @@
         
         <input type="password" id="login_senha" class="input"> 
 
-        <label for="auth">Auth:</label>
-        
-        <input type="text" id="auth" class="input">
-
         <button class="btn" onclick="entrar()">Logar</button>
       </div>
 
@@ -78,8 +74,8 @@
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
+                emailEmp: emailVar,
+                senhaEmp: senhaVar
             })
         }).then(function (resposta) {
             console.log("ESTOU NO THEN DO entrar()!")
