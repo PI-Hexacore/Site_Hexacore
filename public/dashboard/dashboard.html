@@ -1,75 +1,114 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hexacore Dashboard</title>
   <link rel="stylesheet" href="dash.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="shortcut icon" href="../assets/logo.png" >
 </head>
+
 <body>
   <div class="container">
     <div class="sidebar">
-        <div class="logo"></div>
-        <div class="ola"> 
-    <div id="infoNome" class="infoUsuario"><br></div></div>
-    <div class="direcionamentos">
-    <div class="direcionamentosnav"><a> <img src="./../assets/dash.png" alt="">Dashboard</a></div></div>
+      <div class="logo"></div>
+      <div class="ola">
+        <div id="infoNome" class="infoUsuario"><br></div>
+      </div>
+      <div class="direcionamentos">
+        <div class="direcionamentosnav"><a> <img src="./../assets/dash.png" alt="">Dashboard</a></div>
+      </div>
 
-     <div class="direcionamentos">
-    <div class="direcionamentosnav"><a href="#"><img src="./../assets/artistas.png" alt="">Artistas</a></div></div>
+      <div class="direcionamentos">
+        <div class="direcionamentosnav"><a href="./artistas/artistas.html"><img src="./../assets/artistas.png" alt="">Artistas</a></div>
+      </div>
 
-     <div class="direcionamentos">
-    <div class="direcionamentosnav"><a href="../batalha.html"> <img src="./../assets/perfil.png" alt="">Perfil</a></div></div>
+      <div class="direcionamentos">
+        <div class="direcionamentosnav"><a href="./perfil/perfil.html"> <img src="./../assets/perfil.png" alt="">Perfil</a>
+        </div>
+      </div>
 
-    <div class="direcionamentos">
-    <div class="direcionamentosnav"><a onclick="limparSessao()" href="../login.html"> <img src="./../assets/sair.png" alt="">Sair da Conta</a></div></div>
+      <div class="direcionamentos">
+        <div class="direcionamentosnav"><a onclick="limparSessao()" href="../login.html"> <img
+              src="./../assets/sair.png" alt="">Sair da Conta</a></div>
+      </div>
     </div>
-    </div>
-    <div class="main-content">
+  </div>
+
+  <div class="main-content">
     <div class="parent">
-<div class="div1"> <p> Bem-vindo nomeUsuario</p> <p>Filtre <img src="../assets/107799.png"></p></div>
-<div class="div2"> <div class="kpi-card">
-            <h3>N° de ouvintes do Brasil</h3>
-            <p id="ouvintes">1.250.000</p>
-          </div></div>
-<div class="div3"> <div class="kpi-card">
-            <h3>Artista mais ouvido</h3>
-            <p id="artista">Anitta</p>
-          </div> </div>
-<div class="div4">  <div class="kpi-card">
-            <h3>Gênero mais ouvido</h3>
-            <p id="generoMais">Pop</p>
-          </div> </div>
-<div class="div5"> <div class="kpi-card">
-            <h3>Gênero menos ouvido</h3>
-            <p id="generoMenos">Jazz</p>
-          </div> </div>
-<div class="div6"> <div class="chart-container">
-  <h2>🎤 Artistas do Momento</h2>
-  <canvas id="artistasMomentoChart"></canvas>
-</div> </div>
-<div class="div7"> <div class="chart-container">
+      
+      <div class="div1">
+        <h3>Boas Vindas, <span id="nomeUsuarioBoasVindas">usuário</span>!</h3>
+        
+        <p>Filtro  <img src="../assets/107799.png"></p> 
+      </div>
+      
+      <div class="div2">
+        <div class="kpi-card">
+          <h3>N° de ouvintes do Brasil</h3>
+          <p id="ouvintes">1.250.000</p>
+        </div>
+      </div>
+      <div class="div3">
+        <div class="kpi-card">
+          <h3>Artista mais ouvido</h3>
+          <p id="artista">Anitta</p>
+        </div>
+      </div>
+      <div class="div4">
+        <div class="kpi-card">
+          <h3>Gênero mais ouvido</h3>
+          <p id="generoMais">Pop</p>
+        </div>
+      </div>
+      <div class="div5">
+        <div class="kpi-card">
+          <h3>Gênero menos ouvido</h3>
+          <p id="generoMenos">Jazz</p>
+        </div>
+      </div>
+      <div class="div6">
+        <div class="chart-container">
+          <h2>Artistas do Momento</h2>
+          <canvas id="artistasMomentoChart"></canvas>
+        </div>
+      </div>
+      <div class="div7">
+        <div class="chart-container">
           <h3>Top gêneros mais ouvidos</h3>
           <canvas id="topGenerosChart"></canvas>
-        </div> </div>
-<div class="div8"> <div class="kpi-card">
-            <h3>Seu artista menos ouvido</h3>
-            <p id="ouvintes">Travis Scott</p>
-          </div> </div>
-<div class="div9"> <div class="kpi-card">
-            <h3>Seu artista mais ouvido</h3>
-            <p id="ouvintes">Gustavo Lima</p>
-          </div> </div>
-</div>
+        </div>
+      </div>
+      <div class="div8">
+        <div class="kpi-card">
+          <h3>Seu artista menos ouvido</h3>
+          <p id="ouvintes">Travis Scott</p>
+        </div>
+      </div>
+      <div class="div9">
+        <div class="kpi-card">
+          <h3>Seu artista mais ouvido</h3>
+          <p id="ouvintes">Gustavo Lima</p>
+        </div>
+      </div>
+    </div>
   </div>
 
 
 
 </body>
-  <script src="script.js"></script>
+<script src="sessao.js"></script>
+<script src="script.js"></script>
+<script>
+  window.onload = function() {
+    validarSessao();
+    document.getElementById("nomeUsuarioBoasVindas").textContent = sessionStorage.NOME_USUARIO;
+  };
+</script>
 
 </html>

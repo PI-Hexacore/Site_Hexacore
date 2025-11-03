@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artistas - Hexacore</title>
+    <link rel="stylesheet" href="./artistas.css">
+    <link rel="shortcut icon" href="../../assets/logo.png">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo"></div>
+            <div class="ola">
+                <div id="infoNome" class="infoUsuario"><br></div>
+            </div>
+
+            <div class="direcionamentos">
+                <div class="direcionamentosnav">
+                    <a href="../dashboard.html"> <img src="../../assets/dash.png" alt="">Dashboard</a>
+                </div>
+            </div>
+            <div class="direcionamentos">
+                <div class="direcionamentosnav active">
+                    <a href="../artistas/artistas.html"><img src="../../assets/artistas.png" alt="">Artistas</a>
+                </div>
+            </div>
+            <div class="direcionamentos">
+                <div class="direcionamentosnav">
+                    <a href="../perfil/perfil.html"> <img src="../../assets/perfil.png" alt="">Perfil</a>
+                </div>
+            </div>
+            <div class="direcionamentos">
+                <div class="direcionamentosnav">
+                    <a onclick="limparSessao()" href="../../login.html"> <img src="../../assets/sair.png" alt="">Sair da Conta</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="main-content">
+
+        <header class="header">
+            <h1>Gerenciar Artistas</h1>
+            <button class="btn btn-add">Adicionar Artista</button>
+        </header>
+
+        <section class="artist-list">
+
+            <article class="artist-card">
+                <div class="artist-avatar">
+                    <img src="../../assets/anitta.jpg"/>
+                </div>
+                <div class="artist-info">
+                    <h3>Anitta</h3>
+                    <p>Dados do artista: 12.3M Ouvintes | Gênero: Pop, Funk</p>
+                </div>
+                <div class="artist-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Excluir</button>
+                </div>
+            </article>
+
+            <article class="artist-card">
+                <div class="artist-avatar">
+                    <img src="../../assets/gusttavo.jpg"/>
+                </div>
+                <div class="artist-info">
+                    <h3>Gusttavo Lima</h3>
+                    <p>Dados do artista: 10.1M Ouvintes | Gênero: Sertanejo</p>
+                </div>
+                <div class="artist-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete">Excluir</button>
+                </div>
+            </article>
+
+            <article class="artist-card">
+                <div class="artist-avatar">
+                    <img src="../../assets/travis-scott.jpg"/>
+                </div>
+                <div class="artist-info">
+                    <h3>Travis Scott</h3>
+                    <p>Dados do artista: 8.5M Ouvintes | Gênero: Trap, Hip-Hop</p>
+                </div>
+                <div class="artist-actions">
+                    <button class="btn btn-edit">Editar</button>
+                    <button class="btn btn-delete"> Excluir</button>
+                </div>
+            </article>
+
+
+        </section>
+
+        <script src="../sessao.js"></script>
+        <script>
+            window.onload = function() {
+                validarSessao();
+            };
+        </script>
+</body>
+</html>

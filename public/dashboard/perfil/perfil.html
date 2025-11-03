@@ -1,73 +1,175 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Perfil do Usuário - Hexacore</title>
   <link rel="stylesheet" href="perfil.css" />
+  <link rel="shortcut icon" href="../../assets/logo.png">
 </head>
+
 <body>
+
   <div class="container">
-    <!-- Barra lateral -->
-    <aside class="sidebar">
-      <div class="logo">
-        <span class="logo-box">🎧</span>
-        <h2>Hexacore</h2>
+    <div class="sidebar">
+      <div class="logo"></div>
+      <div class="ola">
+        <div id="infoNome" class="infoUsuario"><br></div>
       </div>
-      <nav class="menu">
-        <a href="index.html">📊 Dashboard</a>
-        <a href="#">📈 Relatórios</a>
-        <a href="perfil.html" class="active">👤 Perfil</a>
-        <a href="#">⚙️ Configurações</a>
-        <a href="#">🚪 Sair</a>
-      </nav>
-    </aside>
-
-    <!-- Conteúdo principal -->
-    <main class="main-content">
-      <header class="header">
-        <h1>Meu Perfil</h1>
-        <p>Gerencie suas informações pessoais e preferências</p>
-      </header>
-
-      <section class="profile-content">
-        <div class="profile-card">
-          <div class="profile-avatar">
-            <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" alt="Avatar" />
-            <button class="btn-upload">Alterar foto</button>
-          </div>
-
-          <form id="userForm" class="profile-form">
-            <div class="form-group">
-              <label for="nome">Nome completo</label>
-              <input type="text" id="nome" value="William Silva" />
-            </div>
-
-            <div class="form-group">
-              <label for="email">E-mail</label>
-              <input type="email" id="email" value="william@hexacore.com" />
-            </div>
-
-            <div class="form-group">
-              <label for="senha">Senha</label>
-              <input type="password" id="senha" value="********" />
-            </div>
-
-            <div class="form-group">
-              <label for="cargo">Cargo</label>
-              <input type="text" id="cargo" value="Analista de Dados" />
-            </div>
-
-            <div class="form-buttons">
-              <button type="button" class="btn-update" onclick="atualizarUsuario()">Salvar Alterações</button>
-              <button type="button" class="btn-delete" onclick="deletarUsuario()">Excluir Conta</button>
-            </div>
-          </form>
+      
+      <div class="direcionamentos">
+        <div class="direcionamentosnav">
+          <a href="../dashboard.html"> <img src="../../assets/dash.png" alt="">Dashboard</a>
         </div>
-      </section>
-    </main>
+      </div>
+      <div class="direcionamentos">
+        <div class="direcionamentosnav">
+          <a href="../artistas/artistas.html"><img src="../../assets/artistas.png" alt="">Artistas</a>
+        </div>
+      </div>
+      <div class="direcionamentos">
+        <div class="direcionamentosnav active"> 
+          <a href="perfil.html"> <img src="../../assets/perfil.png" alt="">Perfil</a>
+        </div>
+      </div>
+      <div class="direcionamentos">
+        <div class="direcionamentosnav">
+          <a onclick="limparSessao()" href="../../login.html"> <img src="../../assets/sair.png" alt="">Sair da Conta</a>
+        </div>
+      </div>
+
+    </div>
   </div>
 
+
+  <div class="main-content">
+    
+    <header class="header">
+      <h1>Meu Perfil</h1>
+      <p>Gerencie suas informações pessoais e preferências</p>
+    </header>
+
+    
+    <!-- Aba de Dados da Empresa -->
+    <div class="tabs">
+      <button class="tab-button active" onclick="showTab('empresa')">Dados da Empresa</button>
+      <button class="tab-button" onclick="showTab('endereco')">Endereço</button>
+    </div>
+    <section id="empresa" class="profile-content tab-content active">
+      <div class="profile-card">        
+        <form id="empresaForm" class="profile-form">
+          <div class="form-group">
+            <label for="razaoSocial">Razão Social</label>
+            <input type="text" id="razaoSocial" />
+          </div>
+          <div class="form-group">
+            <label for="nomeFantasia">Nome Fantasia</label>
+            <input type="text" id="nomeFantasia" />
+          </div>
+          <div class="form-group">
+            <label for="cnpj">CNPJ</label>
+            <input type="text" id="cnpj" />
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" />
+          </div>
+          <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" />
+          </div>
+          <div class="form-group">
+            <label for="senha">Nova Senha (deixe em branco para não alterar)</label>
+            <input type="password" id="senha" placeholder="********" />
+          </div>
+          <div class="form-group">
+            <label for="confirmeSenha">Confirme a Nova Senha</label>
+            <input type="password" id="confirmeSenha" placeholder="********" />
+          </div>
+          <div class="form-buttons">
+            <button type="button" class="btn-update" onclick="atualizarEmpresa()">Salvar Alterações</button>
+            <button type="button" class="btn-delete" onclick="deletarUsuario()">Excluir Conta</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Aba de Endereço -->
+    <section id="endereco" class="profile-content tab-content" style="display: none;">
+      <div class="profile-card">
+        <form id="enderecoForm" class="profile-form">
+          <div class="form-group">
+            <label for="cep">CEP</label>
+            <input type="text" id="cep" />
+          </div>
+          <div class="form-group">
+            <label for="logradouro">Logradouro</label>
+            <input type="text" id="logradouro" />
+          </div>
+          <div class="form-group">
+            <label for="numero">Número</label>
+            <input type="text" id="numero" />
+          </div>
+          <div class="form-group">
+            <label for="bairro">Bairro</label>
+            <input type="text" id="bairro" />
+          </div>
+          <div class="form-group">
+            <label for="cidade">Cidade</label>
+            <input type="text" id="cidade" />
+          </div>
+          <div class="form-group">
+            <label for="uf">UF</label>
+            <input type="text" id="uf" maxlength="2" />
+          </div>
+          <div class="form-buttons">
+            <button type="button" class="btn-update" onclick="atualizarEndereco()">Salvar Alterações</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="../sessao.js"></script>
   <script src="perfil.js"></script>
+</body>
+
+</html>
+        <!-- </div>
+
+        <form id="userForm" class="profile-form">
+          <div class="form-group">
+            <label for="nome">Nome fantasia</label>
+            <input type="text" id="nome" value="" />
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" value="" />
+          </div>
+
+          <div class="form-group">
+            <label for="senha">Nova Senha</label>
+            <input type="password" id="senha" placeholder="" />
+          </div>
+
+          <div class="form-group">
+            <label for="senha">confirme a Nova Senha</label>
+            <input type="password" id="confirmeSenha" placeholder="" />
+          </div>
+
+          <div class="form-buttons">
+            <button type="button" class="btn-update" onclick="atualizarUsuario()">Salvar Alterações</button>
+            <button type="button" class="btn-delete" onclick="deletarUsuario()">Excluir Conta</button>
+          </div>
+        </form>
+
+      </div> -->
+    </section>
+  </div>
+
+  <script src="perfil.js", src="sessao.js"></script>
 </body>
 </html>
