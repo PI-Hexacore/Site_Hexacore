@@ -23,4 +23,8 @@ router.get("/contar", function (req, res) {
     empresaController.contar(req, res);
 });
 
+router.get("/buscar/:idUsuario", function (req, res) {
+    empresaController.buscarPorId(req, res);
+});
+
 module.exports = router;

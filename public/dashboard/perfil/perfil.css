@@ -121,8 +121,8 @@ body {
 
 .main-content {
   flex-grow: 1;
-  height: 100vh;
   padding: 30px;
+  overflow-y: auto; /* Permite a rolagem vertical apenas na área de conteúdo */
 }
 
 .header {
@@ -142,6 +142,42 @@ body {
 .header p {
   font-size: 1rem;
   color: var(--texto-secundario);
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid var(--cinza-borda);
+  background-color: transparent;
+  color: var(--texto-secundario);
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: var(--cinza-borda);
+  color: var(--texto-primario);
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, var(--azul-primario), var(--azul-secundario));
+  color: var(--branco);
+  border-color: transparent;
+}
+
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
 }
 
 .profile-card {

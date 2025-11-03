@@ -53,7 +53,7 @@ function buscarPorId(req, res) {
     enderecoModel.buscarPorId(idUsuario)
         .then(function (resultado) {
             if (resultado.length > 0) {
-                res.json(resultado[0]);
+                res.json(resultado); // Retorna o array completo
             } else {
                 res.status(404).send("Nenhum endereço encontrado para este usuário!");
             }

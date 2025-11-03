@@ -17,7 +17,7 @@
     <div class="sidebar">
       <div class="logo"></div>
       <div class="ola">
-        <div id="b_usuario" class="infoUsuario"><br></div>
+        <div id="infoNome" class="infoUsuario"><br></div>
       </div>
       <div class="direcionamentos">
         <div class="direcionamentosnav"><a> <img src="./../assets/dash.png" alt="">Dashboard</a></div>
@@ -43,7 +43,7 @@
     <div class="parent">
       
       <div class="div1">
-        <p>Boas Vindas <span id="b_usuario">Usuário</span></p>
+        <h3>Boas Vindas, <span id="nomeUsuarioBoasVindas">usuário</span>!</h3>
         
         <p>Filtro  <img src="../assets/107799.png"></p> 
       </div>
@@ -102,6 +102,13 @@
 
 
 </body>
-<script src="script.js", src="sessao.js"></script>
+<script src="sessao.js"></script>
+<script src="script.js"></script>
+<script>
+  window.onload = function() {
+    validarSessao();
+    document.getElementById("nomeUsuarioBoasVindas").textContent = sessionStorage.NOME_USUARIO;
+  };
+</script>
 
 </html>

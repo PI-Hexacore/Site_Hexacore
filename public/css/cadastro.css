@@ -45,12 +45,11 @@ body {
 }
 
 .nav .container-nav {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 100%; /* Garante que o container da nav use toda a largura */
+    padding: 0 40px; /* Adiciona um espaçamento nas laterais */
 }
 
 .nav .logo {

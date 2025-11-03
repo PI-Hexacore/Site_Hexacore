@@ -85,14 +85,35 @@
 
                 resposta.json().then(json => {
                     console.log(json);
-                    console.log(JSON.stringify(json));
-                    sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
 
-                    setTimeout(() => {
+                    // Buscar dados completos da empresa e endereço
+                    const idUsuario = json.id;
+                    Promise.all([
+                        fetch(`/empresas/buscar/${idUsuario}`),
+                        fetch(`/endereco/buscar/${idUsuario}`)
+                    ]).then(async ([resEmpresa, resEndereco]) => {
+                        const empresaData = await resEmpresa.json();
+                        const enderecoData = await resEndereco.json();
+
+                        // Armazenar tudo no sessionStorage
+                        sessionStorage.ID_USUARIO = idUsuario;
+                        sessionStorage.EMAIL_USUARIO = empresaData[0].email;
+                        sessionStorage.NOME_USUARIO = empresaData[0].nomeFantasia;
+                        sessionStorage.RAZAO_SOCIAL = empresaData[0].razaoSocial;
+                        sessionStorage.CNPJ = empresaData[0].cnpj;
+                        sessionStorage.TELEFONE = empresaData[0].telefone;
+
+                        if (enderecoData && enderecoData.length > 0) {
+                            sessionStorage.CEP = enderecoData[0].cep;
+                            sessionStorage.LOGRADOURO = enderecoData[0].logradouro;
+                            sessionStorage.NUMERO = enderecoData[0].numero;
+                            sessionStorage.BAIRRO = enderecoData[0].bairro;
+                            sessionStorage.CIDADE = enderecoData[0].cidade;
+                            sessionStorage.UF = enderecoData[0].uf;
+                        }
+
                         window.location = "./dashboard/dashboard.html";
-                    }, 1000); // apenas para exibir o loading
+                    });
 
                 });
 
@@ -102,6 +123,7 @@
 
                 resposta.text().then(texto => {
                     console.error(texto);
+                    alert("Email ou senha inválidos!"); // Adiciona feedback para o usuário
                 });
             }
 

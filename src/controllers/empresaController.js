@@ -62,12 +62,7 @@ function autenticar(req, res) {
 
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
-                        res.json({
-                            id: resultadoAutenticar[0].id, // idUsuario as id
-                            nome: resultadoAutenticar[0].nome,
-                            email: resultadoAutenticar[0].email,
-                            senha: resultadoAutenticar[0].senha
-                                    });
+                        res.json(resultadoAutenticar[0]); // Retorna o objeto completo do usuário
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
@@ -154,10 +149,26 @@ function contar(req, res) {
         );
 }
 
+function buscarPorId(req, res) {
+    var idUsuario = req.params.idUsuario;
+    empresaModel.buscarPorId(idUsuario)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.json(resultado); // Retorna o array com os dados da empresa
+            } else {
+                res.status(404).send("Nenhuma empresa encontrada para este usuário!");
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     atualizar,
     deletar,
-    contar // Exportando a nova função
+    contar,
+    buscarPorId // Exportando a nova função
 }

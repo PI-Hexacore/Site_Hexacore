@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-  if (validarSessao()) {
+  validarSessao(); // Garante que o nome seja exibido e a sessão validada
+  if (sessionStorage.ID_USUARIO) { // Verifica se a sessão é válida
     carregarDadosEmpresa();
     carregarDadosEndereco();
   }
@@ -26,34 +27,22 @@ function showTab(tabName) {
 }
 
 function carregarDadosEmpresa() {
-  const idUsuario = sessionStorage.ID_USUARIO;
-  fetch(`/empresas/buscar/${idUsuario}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data) {
-        document.getElementById("razaoSocial").value = data.razaoSocial;
-        document.getElementById("nomeFantasia").value = data.nomeFantasia;
-        document.getElementById("cnpj").value = data.cnpj;
-        document.getElementById("email").value = data.email;
-        document.getElementById("telefone").value = data.telefone;
-      }
-    }).catch(err => console.error("Erro ao carregar dados da empresa:", err));
+  // Preenche o formulário com os dados do sessionStorage
+  document.getElementById("razaoSocial").value = sessionStorage.RAZAO_SOCIAL || "";
+  document.getElementById("nomeFantasia").value = sessionStorage.NOME_USUARIO || "";
+  document.getElementById("cnpj").value = sessionStorage.CNPJ || "";
+  document.getElementById("email").value = sessionStorage.EMAIL_USUARIO || "";
+  document.getElementById("telefone").value = sessionStorage.TELEFONE || "";
 }
 
 function carregarDadosEndereco() {
-  const idUsuario = sessionStorage.ID_USUARIO;
-  fetch(`/endereco/buscar/${idUsuario}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data) {
-        document.getElementById("cep").value = data.cep;
-        document.getElementById("logradouro").value = data.logradouro;
-        document.getElementById("numero").value = data.numero;
-        document.getElementById("bairro").value = data.bairro;
-        document.getElementById("cidade").value = data.cidade;
-        document.getElementById("uf").value = data.uf;
-      }
-    }).catch(err => console.error("Erro ao carregar dados do endereço:", err));
+  // Preenche o formulário com os dados do sessionStorage
+  document.getElementById("cep").value = sessionStorage.CEP || "";
+  document.getElementById("logradouro").value = sessionStorage.LOGRADOURO || "";
+  document.getElementById("numero").value = sessionStorage.NUMERO || "";
+  document.getElementById("bairro").value = sessionStorage.BAIRRO || "";
+  document.getElementById("cidade").value = sessionStorage.CIDADE || "";
+  document.getElementById("uf").value = sessionStorage.UF || "";
 }
 
 function atualizarEmpresa() {
