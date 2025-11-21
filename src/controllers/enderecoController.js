@@ -67,11 +67,27 @@ function atualizar(req, res) {
     var idUsuario = req.params.idUsuario;
     var { cep, logradouro, numero, bairro, cidade, uf } = req.body;
 
-    if (!cep || !logradouro || !numero || !bairro || !cidade || !uf) {
-        return res.status(400).send("Todos os campos do endereço são obrigatórios.");
+    if (idUsuario == undefined) {
+        return res.status(400).send("O idUsuario está undefined!");
     }
 
-    enderecoModel.atualizar(idUsuario, cep, logradouro, numero, bairro, cidade, uf)
+    var dadosAtualizacao = {
+        cep: cep || req.body.cepEmp,
+        logradouro: logradouro || req.body.logradouroEmp,
+        numero: numero || req.body.numeroEmp,
+        bairro: bairro || req.body.bairroEmp,
+        cidade: cidade || req.body.cidadeEmp,
+        uf: uf || req.body.ufEmp
+    };
+    var possuiCampos = Object.values(dadosAtualizacao).some(function (valor) {
+        return valor !== undefined && valor !== null && valor !== "";
+    });
+
+    if (!possuiCampos) {
+        return res.status(400).send("Nenhum dado foi enviado para atualização do endereço!");
+    }
+
+    enderecoModel.atualizar(idUsuario, dadosAtualizacao)
         .then(function (resultado) {
             res.json(resultado);
         })

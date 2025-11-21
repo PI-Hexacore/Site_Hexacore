@@ -23,16 +23,39 @@ function buscarPorId(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
-function atualizar(idUsuario, nome, email, senha) {
-    console.log("ACESSEI O EMPRESA MODEL \n function atualizar():", idUsuario, nome, email, senha);
-    
-    var instrucaoSql = `UPDATE Usuario SET nm_fantasia = '${nome}', ds_email = '${email}'`;
+function atualizar(idUsuario, dadosAtualizacao) {
+    console.log("ACESSEI O EMPRESA MODEL \n function atualizar():", idUsuario, dadosAtualizacao);
 
-    if (senha != null && senha != "") {
-        instrucaoSql += `, ds_senha = '${senha}'`;
+    var campos = [];
+
+    if (dadosAtualizacao.razaoSocial) {
+        campos.push(`nm_razao_social = '${dadosAtualizacao.razaoSocial}'`);
+    }
+    if (dadosAtualizacao.nomeFantasia) {
+        campos.push(`nm_fantasia = '${dadosAtualizacao.nomeFantasia}'`);
+    }
+    if (dadosAtualizacao.cnpj) {
+        campos.push(`cd_cnpj = '${dadosAtualizacao.cnpj}'`);
+    }
+    if (dadosAtualizacao.email) {
+        campos.push(`ds_email = '${dadosAtualizacao.email}'`);
+    }
+    if (dadosAtualizacao.telefone) {
+        campos.push(`cd_telefone = '${dadosAtualizacao.telefone}'`);
+    }
+    if (dadosAtualizacao.senha != null && dadosAtualizacao.senha !== "") {
+        campos.push(`ds_senha = '${dadosAtualizacao.senha}'`);
     }
 
-    instrucaoSql += ` WHERE id_Usuario = ${idUsuario};`;
+    if (campos.length === 0) {
+        throw new Error("Nenhum campo válido para atualizar o usuário.");
+    }
+
+    var instrucaoSql = `
+        UPDATE Usuario
+        SET ${campos.join(", ")}
+        WHERE id_Usuario = ${idUsuario};
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
