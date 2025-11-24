@@ -18,6 +18,9 @@ var app = express();
 
 var empresasRouter = require("./src/routes/empresas");
 var enderecoRouter = require("./src/routes/endereco");
+var dashboardRouter = require("./src/routes/dashboard");
+var artistasRouter = require("./src/routes/artistas");
+var musicasRouter = require("./src/routes/musicas");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,6 +31,9 @@ app.use(cors());
 
 app.use("/empresas", empresasRouter);
 app.use("/endereco", enderecoRouter);
+app.use("/", dashboardRouter);
+app.use("/artistas", artistasRouter);
+app.use("/musicas", musicasRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
