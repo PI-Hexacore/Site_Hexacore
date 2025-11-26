@@ -6,7 +6,7 @@ async function buscarDadosDashboard(idUsuario) {
     const ouvintesBrasilPromise = database.executar(
         `SELECT COALESCE(SUM(m.qt_stream), 0) AS ouvintesBrasil
            FROM Musica m
-          WHERE m.nm_pais = 'Brasil';`
+          WHERE UPPER(TRIM(m.nm_pais)) IN ('BRASIL', 'BRAZIL');`
     );
 
     const artistasGlobaisPromise = database.executar(
