@@ -179,8 +179,8 @@ body {
     color: var(--texto-primario);
 }
 /* Destaque azul da nova identidade */
-.kpi-card p#artista, 
-.kpi-card p#generoMais {
+.kpi-card p#artistaMaisOuvido, 
+.kpi-card p#generoMaisOuvido {
     color: var(--azul-primario);
 }
 
@@ -227,5 +227,4 @@ body {
 .div9 .kpi-card p {
     color: var(--azul-primario);
 }
-
 

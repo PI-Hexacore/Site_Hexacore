@@ -1,5 +1,7 @@
 const database = require("../database/db");
 
+const SEM_DADOS_LABEL = "sem dados";
+
 async function buscarDadosDashboard(idUsuario) {
     const ouvintesBrasilPromise = database.executar(
         `SELECT COALESCE(SUM(m.qt_stream), 0) AS ouvintesBrasil
@@ -59,13 +61,25 @@ async function buscarDadosDashboard(idUsuario) {
     const resumoArtistas = artistas || [];
     const resumoArtistasBrasil = artistasBrasil || [];
 
+    const possuiArtistas = resumoArtistas.length > 0;
+    const possuiGeneros = resumoGeneros.length > 0;
+    const artistasBrasilComStreams = resumoArtistasBrasil.filter((artista) => Number(artista.total_streams) > 0);
+    const resumoOuvintesBrasil = ouvintesBrasil?.[0]?.ouvintesBrasil;
+    const ouvintesBrasilNumero = possuiArtistas && resumoOuvintesBrasil !== undefined && resumoOuvintesBrasil !== null
+        ? Number(resumoOuvintesBrasil)
+        : null;
+
     return {
-        ouvintesBrasil: Number(ouvintesBrasil?.[0]?.ouvintesBrasil || 0),
-        artistaMaisOuvido: resumoArtistas?.[0]?.nome || null,
-        generoMaisOuvido: resumoGeneros?.[0]?.genero || null,
-        generoMenosOuvido: resumoGeneros.length ? resumoGeneros[resumoGeneros.length - 1].genero : null,
-        seuArtistaMaisOuvido: resumoArtistasBrasil?.[0]?.nome || null,
-        seuArtistaMenosOuvido: resumoArtistasBrasil.length ? resumoArtistasBrasil[resumoArtistasBrasil.length - 1].nome : null,
+        ouvintesBrasil: Number.isFinite(ouvintesBrasilNumero) ? ouvintesBrasilNumero : null,
+        artistaMaisOuvido: possuiArtistas ? resumoArtistas?.[0]?.nome || null : null,
+        generoMaisOuvido: possuiGeneros ? resumoGeneros?.[0]?.genero || null : null,
+        generoMenosOuvido: possuiGeneros ? resumoGeneros[resumoGeneros.length - 1].genero : null,
+        seuArtistaMaisOuvido: artistasBrasilComStreams.length
+            ? artistasBrasilComStreams[0].nome
+            : SEM_DADOS_LABEL,
+        seuArtistaMenosOuvido: artistasBrasilComStreams.length
+            ? artistasBrasilComStreams[artistasBrasilComStreams.length - 1].nome
+            : SEM_DADOS_LABEL,
         artistasMomento: resumoArtistas.slice(0, 6).map((artista) => ({
             nome: artista.nome,
             ouvintes: Number(artista.total_streams) || 0

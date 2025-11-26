@@ -47,61 +47,42 @@
 
         <header class="header">
             <h1>Gerenciar Artistas</h1>
-            <button class="btn btn-add">Adicionar Artista</button>
+            <button class="btn btn-add" id="btnToggleForm" type="button">Adicionar Artista</button>
         </header>
 
-        <section class="artist-list">
+        <section class="artist-form" id="formArtistaWrapper">
+            <h2>Novo artista</h2>
+            <form id="formArtista">
+                <div class="form-group">
+                    <label for="nomeArtista">Nome do artista</label>
+                    <input type="text" id="nomeArtista" name="nm_artista" placeholder="Nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="generoArtista">Gênero musical</label>
+                    <input type="text" id="generoArtista" name="ds_genero_musical" placeholder="Ex.: Pop, Rock">
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="spotifyTop">ID Spotify Top (opcional)</label>
+                        <input type="number" id="spotifyTop" name="fk_dados_spotify_top" placeholder="ID referente aos dados do top">
+                    </div>
+                    <div class="form-group">
+                        <label for="spotifyYoutube">ID Spotify/Youtube (opcional)</label>
+                        <input type="number" id="spotifyYoutube" name="fk_dados_spotify_youtube" placeholder="ID referente aos dados do YouTube">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-add">Salvar</button>
+                    <button type="button" id="btnCancelar" class="btn btn-cancelar">Cancelar</button>
+                </div>
+            </form>
+        </section>
 
-            <article class="artist-card">
-                <div class="artist-avatar">
-                    <img src="../../assets/anitta.jpg"/>
-                </div>
-                <div class="artist-info">
-                    <h3>Anitta</h3>
-                    <p>Dados do artista: 12.3M Ouvintes | Gênero: Pop, Funk</p>
-                </div>
-                <div class="artist-actions">
-                    <button class="btn btn-edit">Editar</button>
-                    <button class="btn btn-delete">Excluir</button>
-                </div>
-            </article>
-
-            <article class="artist-card">
-                <div class="artist-avatar">
-                    <img src="../../assets/gusttavo.jpg"/>
-                </div>
-                <div class="artist-info">
-                    <h3>Gusttavo Lima</h3>
-                    <p>Dados do artista: 10.1M Ouvintes | Gênero: Sertanejo</p>
-                </div>
-                <div class="artist-actions">
-                    <button class="btn btn-edit">Editar</button>
-                    <button class="btn btn-delete">Excluir</button>
-                </div>
-            </article>
-
-            <article class="artist-card">
-                <div class="artist-avatar">
-                    <img src="../../assets/travis-scott.jpg"/>
-                </div>
-                <div class="artist-info">
-                    <h3>Travis Scott</h3>
-                    <p>Dados do artista: 8.5M Ouvintes | Gênero: Trap, Hip-Hop</p>
-                </div>
-                <div class="artist-actions">
-                    <button class="btn btn-edit">Editar</button>
-                    <button class="btn btn-delete"> Excluir</button>
-                </div>
-            </article>
-
-
+        <section class="artist-list" id="listaArtistas">
+            <p class="lista-vazia">Carregando artistas...</p>
         </section>
 
         <script src="../sessao.js"></script>
-        <script>
-            window.onload = function() {
-                validarSessao();
-            };
-        </script>
+        <script src="artistas.js"></script>
 </body>
 </html>
