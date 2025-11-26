@@ -6,9 +6,7 @@ async function buscarDadosDashboard(idUsuario) {
     const ouvintesBrasilPromise = database.executar(
         `SELECT COALESCE(SUM(m.qt_stream), 0) AS ouvintesBrasil
            FROM Musica m
-     INNER JOIN Artista a ON a.id_artista = m.fk_artista
-          WHERE m.nm_pais = 'Brasil'
-            AND a.fk_usuario IS NULL;`
+          WHERE m.nm_pais = 'Brasil';`
     );
 
     const artistasGlobaisPromise = database.executar(
@@ -18,7 +16,6 @@ async function buscarDadosDashboard(idUsuario) {
             COALESCE(SUM(m.qt_stream), 0) AS total_streams
          FROM Artista a
     LEFT JOIN Musica m ON m.fk_artista = a.id_artista
-        WHERE a.fk_usuario IS NULL
      GROUP BY a.id_artista
      ORDER BY total_streams DESC;`
     );
@@ -29,7 +26,6 @@ async function buscarDadosDashboard(idUsuario) {
             COALESCE(SUM(m.qt_stream), 0) AS total_streams
          FROM Artista a
     LEFT JOIN Musica m ON m.fk_artista = a.id_artista
-        WHERE a.fk_usuario IS NULL
      GROUP BY a.ds_genero_musical
      ORDER BY total_streams DESC;`
     );

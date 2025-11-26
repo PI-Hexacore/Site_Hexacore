@@ -164,7 +164,7 @@ async function carregarDashboard() {
   }
 
   try {
-    const resposta = await fetch('/dashboard', {
+    const resposta = await fetch('/api/dashboard', {
       headers: {
         'x-user-id': idUsuario
       }

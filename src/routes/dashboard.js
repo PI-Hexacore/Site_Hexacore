@@ -3,7 +3,7 @@ const router = express.Router();
 
 const dashboardController = require("../controllers/dashboardController");
 
-router.get("/dashboard", function (req, res) {
+router.get("/api/dashboard", function (req, res) {
     dashboardController.obterDashboard(req, res);
 });
 
