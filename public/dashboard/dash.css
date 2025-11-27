@@ -93,11 +93,7 @@ body {
     color: var(--texto-primario);
 }
 
-.direcionamentosnav.active a {
-    background-color: var(--azul-primario);
-    color: var(--branco);
-    font-weight: 700;
-}
+.direcionamentosnav.active a { background-color: rgba(58,134,255,0.08); color: var(--texto-primario); }
 
 .direcionamentosnav a img {
     width: 20px;
