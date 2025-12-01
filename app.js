@@ -18,6 +18,9 @@ var app = express();
 
 var empresasRouter = require("./src/routes/empresas");
 var enderecoRouter = require("./src/routes/endereco");
+var dashboardRouter = require("./src/routes/dashboard");
+var artistasRouter = require("./src/routes/artistas");
+var musicasRouter = require("./src/routes/musicas");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,11 +31,14 @@ app.use(cors());
 
 app.use("/empresas", empresasRouter);
 app.use("/endereco", enderecoRouter);
+app.use("/", dashboardRouter);
+app.use("/artistas", artistasRouter);
+app.use("/musicas", musicasRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
     \n\n\n                                                                                                 
-    Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar .: http://${HOST_APP}:${PORTA_APP} :. \n\n
+    Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar .: http://http://hexacoreconsulting.duckdns.org/ :. \n\n
     Você está rodando sua aplicação em ambiente de .:${process.env.AMBIENTE_PROCESSO}:. \n\n
     \tSe .:desenvolvimento:. você está se conectando ao banco local. \n
     \tSe .:producao:. você está se conectando ao banco remoto. \n\n

@@ -75,7 +75,7 @@ function atualizarEmpresa() {
   };
 
   fetch(`/empresas/atualizar/${idUsuario}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(corpo),
   })
@@ -111,7 +111,7 @@ function atualizarEndereco() {
   const corpo = { cep, logradouro, numero, bairro, cidade, uf };
 
   fetch(`/endereco/atualizar/${idUsuario}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(corpo),
   })

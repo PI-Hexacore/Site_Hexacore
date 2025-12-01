@@ -20,7 +20,7 @@
         <div id="infoNome" class="infoUsuario"><br></div>
       </div>
       <div class="direcionamentos">
-        <div class="direcionamentosnav"><a> <img src="./../assets/dash.png" alt="">Dashboard</a></div>
+        <div class="direcionamentosnav active"><a> <img src="./../assets/dash.png" alt="">Dashboard</a></div>
       </div>
 
       <div class="direcionamentos">
@@ -29,6 +29,12 @@
 
       <div class="direcionamentos">
         <div class="direcionamentosnav"><a href="./perfil/perfil.html"> <img src="./../assets/perfil.png" alt="">Perfil</a>
+        </div>
+      </div>
+
+      <div class="direcionamentos">
+        <div class="direcionamentosnav">
+          <a href="./notificacao/slack.html"><img src=".././assets/notificacao.png" alt="">Notificações</a>
         </div>
       </div>
 
@@ -51,25 +57,25 @@
       <div class="div2">
         <div class="kpi-card">
           <h3>N° de ouvintes do Brasil</h3>
-          <p id="ouvintes">1.250.000</p>
+          <p id="totalOuvintesBrasil">--</p>
         </div>
       </div>
       <div class="div3">
         <div class="kpi-card">
           <h3>Artista mais ouvido</h3>
-          <p id="artista">Anitta</p>
+          <p id="artistaMaisOuvido">--</p>
         </div>
       </div>
       <div class="div4">
         <div class="kpi-card">
           <h3>Gênero mais ouvido</h3>
-          <p id="generoMais">Pop</p>
+          <p id="generoMaisOuvido">--</p>
         </div>
       </div>
       <div class="div5">
         <div class="kpi-card">
           <h3>Gênero menos ouvido</h3>
-          <p id="generoMenos">Jazz</p>
+          <p id="generoMenosOuvido">--</p>
         </div>
       </div>
       <div class="div6">
@@ -87,13 +93,13 @@
       <div class="div8">
         <div class="kpi-card">
           <h3>Seu artista menos ouvido</h3>
-          <p id="ouvintes">Travis Scott</p>
+          <p id="artistaMenosOuvidoUsuario">--</p>
         </div>
       </div>
       <div class="div9">
         <div class="kpi-card">
           <h3>Seu artista mais ouvido</h3>
-          <p id="ouvintes">Gustavo Lima</p>
+          <p id="artistaMaisOuvidoUsuario">--</p>
         </div>
       </div>
     </div>
@@ -104,11 +110,4 @@
 </body>
 <script src="sessao.js"></script>
 <script src="script.js"></script>
-<script>
-  window.onload = function() {
-    validarSessao();
-    document.getElementById("nomeUsuarioBoasVindas").textContent = sessionStorage.NOME_USUARIO;
-  };
-</script>
-
 </html>

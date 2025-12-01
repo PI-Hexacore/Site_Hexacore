@@ -93,11 +93,7 @@ body {
     color: var(--texto-primario);
 }
 
-.direcionamentosnav.active a {
-    background-color: var(--azul-primario);
-    color: var(--branco);
-    font-weight: 700;
-}
+.direcionamentosnav.active a { background-color: rgba(58,134,255,0.08); color: var(--texto-primario); }
 
 .direcionamentosnav a img {
     width: 20px;
@@ -179,8 +175,8 @@ body {
     color: var(--texto-primario);
 }
 /* Destaque azul da nova identidade */
-.kpi-card p#artista, 
-.kpi-card p#generoMais {
+.kpi-card p#artistaMaisOuvido, 
+.kpi-card p#generoMaisOuvido {
     color: var(--azul-primario);
 }
 
@@ -227,5 +223,4 @@ body {
 .div9 .kpi-card p {
     color: var(--azul-primario);
 }
-
 

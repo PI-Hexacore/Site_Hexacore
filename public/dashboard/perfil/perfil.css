@@ -119,6 +119,9 @@ body {
   filter: none;
 }
 
+.direcionamentosnav.active a { background-color: rgba(58,134,255,0.08); color: var(--texto-primario); }
+
+
 .main-content {
   flex-grow: 1;
   padding: 30px;

@@ -11,7 +11,7 @@ router.get("/buscar/:idUsuario", function (req, res) {
     enderecoController.buscarPorId(req, res);
 });
 
-router.put("/atualizar/:idUsuario", function (req, res) {
+router.patch("/atualizar/:idUsuario", function (req, res) {
     enderecoController.atualizar(req, res);
 });
 

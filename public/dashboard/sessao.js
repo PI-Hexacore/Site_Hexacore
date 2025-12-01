@@ -9,12 +9,13 @@ function validarSessao() {
     if (email != null && nome != null && id != null) {
         if (infoNome) {
             infoNome.innerHTML = `Olá, <b>${nome}</b>`;
-        }
+        } 
         return true; // Retorna true se a sessão for válida
-    } else {
-        window.location = "../login.html";
-        return false; // Retorna false se a sessão for inválida
-    }
+    } 
+    // else {
+    //     window.location = "../login.html";
+    //     return false; // Retorna false se a sessão for inválida
+    // }
 }
 
 function limparSessao() {

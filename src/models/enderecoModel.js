@@ -14,10 +14,35 @@ function buscarPorId(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
-function atualizar(idUsuario, cep, logradouro, numero, bairro, cidade, uf) {
+function atualizar(idUsuario, dadosAtualizacao) {
+    var campos = [];
+
+    if (dadosAtualizacao.cep) {
+        campos.push(`cd_cep = '${dadosAtualizacao.cep}'`);
+    }
+    if (dadosAtualizacao.logradouro) {
+        campos.push(`nm_logradouro = '${dadosAtualizacao.logradouro}'`);
+    }
+    if (dadosAtualizacao.numero) {
+        campos.push(`nr_logradouro = '${dadosAtualizacao.numero}'`);
+    }
+    if (dadosAtualizacao.bairro) {
+        campos.push(`nm_bairro = '${dadosAtualizacao.bairro}'`);
+    }
+    if (dadosAtualizacao.cidade) {
+        campos.push(`nm_cidade = '${dadosAtualizacao.cidade}'`);
+    }
+    if (dadosAtualizacao.uf) {
+        campos.push(`sg_uf = '${dadosAtualizacao.uf}'`);
+    }
+
+    if (campos.length === 0) {
+        throw new Error("Nenhum campo válido para atualizar o endereço.");
+    }
+
     var instrucaoSql = `
         UPDATE Endereco 
-        SET cd_cep = '${cep}', nm_logradouro = '${logradouro}', nr_logradouro = '${numero}', nm_bairro = '${bairro}', nm_cidade = '${cidade}', sg_uf = '${uf}' 
+        SET ${campos.join(", ")} 
         WHERE fk_Usuario = ${idUsuario};
     `;
     return database.executar(instrucaoSql);

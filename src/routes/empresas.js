@@ -11,7 +11,7 @@ router.post("/cadastrar", function (req, res) {
     empresaController.cadastrar(req, res);
 });
 
-router.put("/atualizar/:idUsuario", function (req, res) {
+router.patch("/atualizar/:idUsuario", function (req, res) {
     empresaController.atualizar(req, res);
 });
 

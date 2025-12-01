@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notificações - Hexacore</title>
+
+  <!-- Link para o CSS (coloque notificacoes.css no mesmo diretório) -->
+  <link rel="stylesheet" href="slack.css" />
+</head>
+<body>
+
+  <div class="container">
+    <!-- SIDEBAR (mesma estrutura do seu layout original) -->
+    <div class="sidebar">
+      <div class="logo"></div>
+
+      <div class="ola">
+        <div id="infoNome" class="infoUsuario"></div>
+      </div>
+
+      <div class="direcionamentos">
+        <div class="direcionamentosnav">
+          <a href="../dashboard.html"><img src="../../assets/dash.png" alt="">Dashboard</a>
+        </div>
+      </div>
+
+      <div class="direcionamentos">
+        <div class="direcionamentosnav">
+          <a href="../artistas/artistas.html"><img src="../../assets/artistas.png" alt="">Artistas</a>
+        </div>
+      </div>
+
+      <div class="direcionamentos">
+        <div class="direcionamentosnav"><a href="../perfil/perfil.html"> <img src="../../assets/perfil.png" alt="">Perfil</a>
+        </div>
+      </div>
+
+      <div class="direcionamentos">
+        <div class="direcionamentosnav active">
+          <a href="slack.html"><img src="../../assets/notificacao.png" alt="">Notificações</a>
+        </div>
+      </div>
+
+      <div class="direcionamentos" style="margin-top:auto;">
+        <div class="direcionamentosnav">
+          <a onclick="limparSessao()" href="../../login.html"><img src="../../assets/sair.png" alt="">Sair da Conta</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <header class="header">
+      <h1>NOTIFICAÇÕES</h1>
+      <p>Configure suas notificações</p>
+    </header>
+
+    <section class="notificacoes-area">
+
+      <div class="top-row">
+        <!-- DROPDOWN BOTÃO (usa .botao.entrar para manter estilo) -->
+        <div class="dropdown">
+          <button id="btnDropdown" class="botao entrar dropdown-btn" aria-expanded="false">
+            Escolher canal <span class="seta">▾</span>
+          </button>
+
+          <!-- conteudo do dropdown (inicia escondido) -->
+          <div id="dropdownContent" class="dropdown-content escondido" role="dialog" aria-label="Canais Slack">
+            <p class="titulo-canais">Canais disponíveis no Slack:</p>
+
+            <label class="opcao-canal">
+              <input type="radio" name="canal" value="chanel-hexa" checked>
+              chanel-hexa
+            </label>
+
+            <label class="opcao-canal">
+              <input type="radio" name="canal" value="chanel-core">
+              chanel-core
+            </label>
+          </div>
+        </div>
+
+        <!-- BOTAO DESATIVAR/ATIVAR (usa .btn para manter o gradiente azul) -->
+        <div class="acoes">
+          <button id="btnToggle" class="btn">Desativar notificações</button>
+        </div>
+      </div>
+
+      <!-- espaço para mensagens / cards (você pode popular via JS/Slack) -->
+      <div id="feed" class="feed">
+        <!-- Exemplo de card de notificação (padrão visual do wireframe) -->
+        <!--
+        <div class="card-notificacao">
+          <div class="card-text">Exemplo de notificação vinda do Slack</div>
+          <button class="btn-remover">✕</button>
+        </div>
+        -->
+      </div>
+
+    </section>
+  </div>
+</body>
+</html>
+
+
+<script>
+
+const btnDropdown = document.getElementById("btnDropdown");
+const dropdownContent = document.getElementById("dropdownContent");
+const btnToggle = document.getElementById("btnToggle");
+let ativo = true;
+
+// abre e fecha o filtro
+btnDropdown.addEventListener("click", () => {
+  dropdownContent.classList.toggle("escondido");
+});
+
+// ativa / desativa notificações
+btnToggle.addEventListener("click", () => {
+  ativo = !ativo;
+  btnToggle.textContent = ativo 
+    ? "Desativar notificações" 
+    : "Ativar notificações";
+});
+
+</script>
