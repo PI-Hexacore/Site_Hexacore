@@ -55,83 +55,85 @@
 </body>
 
 </html>
+
+<script src="login.js"></script>
 <script>
-    function entrar() {
+    // function entrar() {
 
-        var emailVar = login_email.value;
-        var senhaVar = login_senha.value;
+    //     var emailVar = login_email.value;
+    //     var senhaVar = login_senha.value;
 
-        if (emailVar == "" || senhaVar == "") {
-            return false;
-        }
+    //     if (emailVar == "" || senhaVar == "") {
+    //         return false;
+    //     }
 
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
+    //     console.log("FORM LOGIN: ", emailVar);
+    //     console.log("FORM SENHA: ", senhaVar);
 
-        fetch("/empresas/autenticar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailEmp: emailVar,
-                senhaEmp: senhaVar
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+    //     fetch("/empresas/autenticar", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             emailEmp: emailVar,
+    //             senhaEmp: senhaVar
+    //         })
+    //     }).then(function (resposta) {
+    //         console.log("ESTOU NO THEN DO entrar()!")
 
-            if (resposta.ok) {
-                console.log(resposta);
+    //         if (resposta.ok) {
+    //             console.log(resposta);
 
-                resposta.json().then(json => {
-                    console.log(json);
+    //             resposta.json().then(json => {
+    //                 console.log(json);
 
-                    // Buscar dados completos da empresa e endereço
-                    const idUsuario = json.id;
-                    Promise.all([
-                        fetch(`/empresas/buscar/${idUsuario}`),
-                        fetch(`/endereco/buscar/${idUsuario}`)
-                    ]).then(async ([resEmpresa, resEndereco]) => {
-                        const empresaData = await resEmpresa.json();
-                        const enderecoData = await resEndereco.json();
+    //                 // Buscar dados completos da empresa e endereço
+    //                 const idUsuario = json.id;
+    //                 Promise.all([
+    //                     fetch(`/empresas/buscar/${idUsuario}`),
+    //                     fetch(`/endereco/buscar/${idUsuario}`)
+    //                 ]).then(async ([resEmpresa, resEndereco]) => {
+    //                     const empresaData = await resEmpresa.json();
+    //                     const enderecoData = await resEndereco.json();
 
-                        // Armazenar tudo no sessionStorage
-                        sessionStorage.ID_USUARIO = idUsuario;
-                        sessionStorage.EMAIL_USUARIO = empresaData[0].email;
-                        sessionStorage.NOME_USUARIO = empresaData[0].nomeFantasia;
-                        sessionStorage.RAZAO_SOCIAL = empresaData[0].razaoSocial;
-                        sessionStorage.CNPJ = empresaData[0].cnpj;
-                        sessionStorage.TELEFONE = empresaData[0].telefone;
+    //                     // Armazenar tudo no sessionStorage
+    //                     sessionStorage.ID_USUARIO = idUsuario;
+    //                     sessionStorage.EMAIL_USUARIO = empresaData[0].email;
+    //                     sessionStorage.NOME_USUARIO = empresaData[0].nomeFantasia;
+    //                     sessionStorage.RAZAO_SOCIAL = empresaData[0].razaoSocial;
+    //                     sessionStorage.CNPJ = empresaData[0].cnpj;
+    //                     sessionStorage.TELEFONE = empresaData[0].telefone;
 
-                        if (enderecoData && enderecoData.length > 0) {
-                            sessionStorage.CEP = enderecoData[0].cep;
-                            sessionStorage.LOGRADOURO = enderecoData[0].logradouro;
-                            sessionStorage.NUMERO = enderecoData[0].numero;
-                            sessionStorage.BAIRRO = enderecoData[0].bairro;
-                            sessionStorage.CIDADE = enderecoData[0].cidade;
-                            sessionStorage.UF = enderecoData[0].uf;
-                        }
+    //                     if (enderecoData && enderecoData.length > 0) {
+    //                         sessionStorage.CEP = enderecoData[0].cep;
+    //                         sessionStorage.LOGRADOURO = enderecoData[0].logradouro;
+    //                         sessionStorage.NUMERO = enderecoData[0].numero;
+    //                         sessionStorage.BAIRRO = enderecoData[0].bairro;
+    //                         sessionStorage.CIDADE = enderecoData[0].cidade;
+    //                         sessionStorage.UF = enderecoData[0].uf;
+    //                     }
 
-                        window.location = "./dashboard/dashboard.html";
-                    });
+    //                     window.location = "./dashboard/dashboard.html";
+    //                 });
 
-                });
+    //             });
 
-            } else {
+    //         } else {
 
-                console.log("Houve um erro ao tentar realizar o login!");
+    //             console.log("Houve um erro ao tentar realizar o login!");
 
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    alert("Email ou senha inválidos!"); // Adiciona feedback para o usuário
-                });
-            }
+    //             resposta.text().then(texto => {
+    //                 console.error(texto);
+    //                 alert("Email ou senha inválidos!"); // Adiciona feedback para o usuário
+    //             });
+    //         }
 
-        }).catch(function (erro) {
-            console.log(erro);
-        })
+    //     }).catch(function (erro) {
+    //         console.log(erro);
+    //     })
 
-        return false;
-    }
+    //     return false;
+    // }
 
 </script>

@@ -107,256 +107,258 @@
     </div>
   </section>
 
+  <script src="cadastro.js"></script>
+
 
   <script>
-    const cnpjInput = document.getElementById('cnpj');
-    cnpjInput.addEventListener('input', function (event) {
-        let valor = event.target.value.replace(/\D/g, '');
-        valor = valor.slice(0, 14);
-        valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
-        valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
-        valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
-        valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
-        event.target.value = valor;
-    });
+    // const cnpjInput = document.getElementById('cnpj');
+    // cnpjInput.addEventListener('input', function (event) {
+    //     let valor = event.target.value.replace(/\D/g, '');
+    //     valor = valor.slice(0, 14);
+    //     valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+    //     valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+    //     valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+    //     valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+    //     event.target.value = valor;
+    // });
 
-    function irParaEtapa(numero) {
-      if (numero === 1) {
-        etapa_1.style.display = "block";
-        etapa_2.style.display = "none";
-        razao_social.focus();
-      } 
-      else if (numero === 2) {
-        if (razao_social.value === "" || nome_fantasia.value === "" || cnpj.value === "" || email.value === "" || senha.value === "") 
-        {
-          alert("Preencha todos os campos obrigatórios da etapa 1 antes de continuar.");
-          return;
-        }
-        etapa_1.style.display = "none";
-        etapa_2.style.display = "block";
-        tipoLogradouro.focus();
-      }
-    }
+    // function irParaEtapa(numero) {
+    //   if (numero === 1) {
+    //     etapa_1.style.display = "block";
+    //     etapa_2.style.display = "none";
+    //     razao_social.focus();
+    //   } 
+    //   else if (numero === 2) {
+    //     if (razao_social.value === "" || nome_fantasia.value === "" || cnpj.value === "" || email.value === "" || senha.value === "") 
+    //     {
+    //       alert("Preencha todos os campos obrigatórios da etapa 1 antes de continuar.");
+    //       return;
+    //     }
+    //     etapa_1.style.display = "none";
+    //     etapa_2.style.display = "block";
+    //     tipoLogradouro.focus();
+    //   }
+    // }
 
-    function validarSenha() {
-      var senhaValor = senha.value;
-      var criterioComprimento = document.getElementById("criterio_comprimento");
-      var criterioNumero = document.getElementById("criterio_numero");
-      var criterioEspecial = document.getElementById("criterio_especial");
-      var criterioMaiuscula = document.getElementById("criterio_maiuscula");
-      var dicasSenha = document.getElementById("dicas_senha");
+    // function validarSenha() {
+    //   var senhaValor = senha.value;
+    //   var criterioComprimento = document.getElementById("criterio_comprimento");
+    //   var criterioNumero = document.getElementById("criterio_numero");
+    //   var criterioEspecial = document.getElementById("criterio_especial");
+    //   var criterioMaiuscula = document.getElementById("criterio_maiuscula");
+    //   var dicasSenha = document.getElementById("dicas_senha");
 
-      if (senhaValor.length > 0) {
-        dicasSenha.style.display = "block";
-      } else {
-        dicasSenha.style.display = "none";
-      }
+    //   if (senhaValor.length > 0) {
+    //     dicasSenha.style.display = "block";
+    //   } else {
+    //     dicasSenha.style.display = "none";
+    //   }
 
-      if (senhaValor.length >= 8) criterioComprimento.classList.add("valido");
-      else criterioComprimento.classList.remove("valido");
+    //   if (senhaValor.length >= 8) criterioComprimento.classList.add("valido");
+    //   else criterioComprimento.classList.remove("valido");
 
-      if (/[0-9]/.test(senhaValor)) criterioNumero.classList.add("valido");
-      else criterioNumero.classList.remove("valido");
+    //   if (/[0-9]/.test(senhaValor)) criterioNumero.classList.add("valido");
+    //   else criterioNumero.classList.remove("valido");
 
-      if (/[^A-Za-z0-9]/.test(senhaValor)) criterioEspecial.classList.add("valido");
-      else criterioEspecial.classList.remove("valido");
+    //   if (/[^A-Za-z0-9]/.test(senhaValor)) criterioEspecial.classList.add("valido");
+    //   else criterioEspecial.classList.remove("valido");
 
-      if (/[A-Z]/.test(senhaValor)) criterioMaiuscula.classList.add("valido");
-      else criterioMaiuscula.classList.remove("valido");
-    }
+    //   if (/[A-Z]/.test(senhaValor)) criterioMaiuscula.classList.add("valido");
+    //   else criterioMaiuscula.classList.remove("valido");
+    // }
 
-    function verificarSenhas() {
-      var senhaValor = senha.value;
-      var confirmarValor = confirmarSenha.value;
-      var mensagem = document.getElementById("mensagem_coincide");
-      var dicasSenha = document.getElementById("dicas_senha");
+    // function verificarSenhas() {
+    //   var senhaValor = senha.value;
+    //   var confirmarValor = confirmarSenha.value;
+    //   var mensagem = document.getElementById("mensagem_coincide");
+    //   var dicasSenha = document.getElementById("dicas_senha");
 
-      if (senhaValor.length > 0) dicasSenha.style.display = "block";
+    //   if (senhaValor.length > 0) dicasSenha.style.display = "block";
 
-      if (confirmarValor.length === 0) {
-        mensagem.textContent = "";
-        return;
-      }
+    //   if (confirmarValor.length === 0) {
+    //     mensagem.textContent = "";
+    //     return;
+    //   }
 
-      if (senhaValor === confirmarValor) {
-        mensagem.textContent = "✅ As senhas coincidem!";
-        mensagem.style.color = "green";
-      } else {
-        mensagem.textContent = "❌ As senhas não coincidem!";
-        mensagem.style.color = "red";
-      }
-    }
+    //   if (senhaValor === confirmarValor) {
+    //     mensagem.textContent = "✅ As senhas coincidem!";
+    //     mensagem.style.color = "green";
+    //   } else {
+    //     mensagem.textContent = "❌ As senhas não coincidem!";
+    //     mensagem.style.color = "red";
+    //   }
+    // }
 
-    function formatarCEP() {
-      var valor = cep.value;
-      var numeros = valor.replace(/\D/g, "");
-      var formatado = "";
-      if (numeros.length > 0) formatado = numeros.substring(0, 5);
-      if (numeros.length > 5) formatado += "-" + numeros.substring(5, 8);
-      cep.value = formatado;
-    }
+    // function formatarCEP() {
+    //   var valor = cep.value;
+    //   var numeros = valor.replace(/\D/g, "");
+    //   var formatado = "";
+    //   if (numeros.length > 0) formatado = numeros.substring(0, 5);
+    //   if (numeros.length > 5) formatado += "-" + numeros.substring(5, 8);
+    //   cep.value = formatado;
+    // }
 
-    function formatarTell() {
-      var valor = telefone.value;
-      var numeros = valor.replace(/\D/g, "");
-      var formatado = "";
-      if (numeros.length > 0) formatado = numeros.substring(0, 2);
-      if (numeros.length > 2) formatado += " " + numeros.substring(2, 7);
-      if (numeros.length > 7) formatado += "-" + numeros.substring(7, 11);
-      telefone.value = formatado;
-    }
+    // function formatarTell() {
+    //   var valor = telefone.value;
+    //   var numeros = valor.replace(/\D/g, "");
+    //   var formatado = "";
+    //   if (numeros.length > 0) formatado = numeros.substring(0, 2);
+    //   if (numeros.length > 2) formatado += " " + numeros.substring(2, 7);
+    //   if (numeros.length > 7) formatado += "-" + numeros.substring(7, 11);
+    //   telefone.value = formatado;
+    // }
 
 
-    function desformatarCNPJ(cnpjFormatado) {
-      return cnpjFormatado.replace(/\D/g, "");
-    }
+    // function desformatarCNPJ(cnpjFormatado) {
+    //   return cnpjFormatado.replace(/\D/g, "");
+    // }
 
-    function desformatarCEP(cepFormatado) {
-      return cepFormatado.replace(/\D/g, "");
-    }
+    // function desformatarCEP(cepFormatado) {
+    //   return cepFormatado.replace(/\D/g, "");
+    // }
 
-    function desformatarTell(tellFormatado) {
-      return tellFormatado.replace(/\D/g, "");
-    }
+    // function desformatarTell(tellFormatado) {
+    //   return tellFormatado.replace(/\D/g, "");
+    // }
 
-    function cadastrarEmpresa() {
-      var razaoEmp = razao_social.value;
-      var nomeEmp = nome_fantasia.value;
-      var emailEmp = email.value;
-      var cnpjEmp = cnpj.value;
-      var senhaEmp = senha.value;
-      var telefoneEmp = telefone.value; 
+    // function cadastrarEmpresa() {
+    //   var razaoEmp = razao_social.value;
+    //   var nomeEmp = nome_fantasia.value;
+    //   var emailEmp = email.value;
+    //   var cnpjEmp = cnpj.value;
+    //   var senhaEmp = senha.value;
+    //   var telefoneEmp = telefone.value; 
 
-      if (
-        razaoEmp === "" ||
-        nomeEmp === "" ||
-        emailEmp === "" ||
-        cnpjEmp === "" ||
-        senhaEmp === "" ||
-        telefoneEmp === ""
-      ) {
-        alert("Preencha todos os campos!");
-        return false;
-      }
+    //   if (
+    //     razaoEmp === "" ||
+    //     nomeEmp === "" ||
+    //     emailEmp === "" ||
+    //     cnpjEmp === "" ||
+    //     senhaEmp === "" ||
+    //     telefoneEmp === ""
+    //   ) {
+    //     alert("Preencha todos os campos!");
+    //     return false;
+    //   }
 
-      var cnpjLimpo = desformatarCNPJ(cnpjEmp);
-      var tellLimpo = desformatarTell(telefoneEmp);
+    //   var cnpjLimpo = desformatarCNPJ(cnpjEmp);
+    //   var tellLimpo = desformatarTell(telefoneEmp);
       
-      return fetch("/empresas/cadastrar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          razaoEmp: razaoEmp,
-          nomeEmp: nomeEmp,
-          emailEmp: emailEmp,
-          cnpjEmp: cnpjLimpo,
-          senhaEmp: senhaEmp,
-          telefoneEmp: tellLimpo,
-        }),
-      })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          return resposta.json();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro da empresa!";
-        }
-      });
-    }
+    //   return fetch("/empresas/cadastrar", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       razaoEmp: razaoEmp,
+    //       nomeEmp: nomeEmp,
+    //       emailEmp: emailEmp,
+    //       cnpjEmp: cnpjLimpo,
+    //       senhaEmp: senhaEmp,
+    //       telefoneEmp: tellLimpo,
+    //     }),
+    //   })
+    //   .then(function (resposta) {
+    //     if (resposta.ok) {
+    //       return resposta.json();
+    //     } else {
+    //       throw "Houve um erro ao tentar realizar o cadastro da empresa!";
+    //     }
+    //   });
+    // }
     
-    function cadastrarEndereco(fkUsuario) {
-      var tipoLogradouroEmp = tipoLogradouro.value;
-      var LogradouroEmp = logradouro.value;
-      var numLogradouroEmp = numLogradouro.value;
-      var bairroEmp = bairro.value;
-      var cidadeEmp = cidade.value; 
-      var ufEmp = uf.value; 
-      var cepEmp = cep.value; 
+    // function cadastrarEndereco(fkUsuario) {
+    //   var tipoLogradouroEmp = tipoLogradouro.value;
+    //   var LogradouroEmp = logradouro.value;
+    //   var numLogradouroEmp = numLogradouro.value;
+    //   var bairroEmp = bairro.value;
+    //   var cidadeEmp = cidade.value; 
+    //   var ufEmp = uf.value; 
+    //   var cepEmp = cep.value; 
 
-      if (
-        tipoLogradouroEmp === "" ||
-        LogradouroEmp === "" ||
-        numLogradouroEmp === "" ||
-        bairroEmp === "" ||
-        cidadeEmp === "" ||
-        ufEmp === "" ||
-        cepEmp === ""
-      ) {
-        alert("Preencha todos os campos!");
-        return false;
-      }
+    //   if (
+    //     tipoLogradouroEmp === "" ||
+    //     LogradouroEmp === "" ||
+    //     numLogradouroEmp === "" ||
+    //     bairroEmp === "" ||
+    //     cidadeEmp === "" ||
+    //     ufEmp === "" ||
+    //     cepEmp === ""
+    //   ) {
+    //     alert("Preencha todos os campos!");
+    //     return false;
+    //   }
 
-      var cepLimpo = desformatarCEP(cepEmp);
+    //   var cepLimpo = desformatarCEP(cepEmp);
 
-      return fetch("/endereco/cadastrar", { // Adicionado 'return'
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tipoLogradouroEmp: tipoLogradouroEmp,
-          logradouroEmp: LogradouroEmp,
-          numeroEmp: numLogradouroEmp,
-          bairroEmp: bairroEmp,
-          cidadeEmp: cidadeEmp,
-          ufEmp: ufEmp,
-          cepEmp: cepLimpo,
-          fkUsuario: fkUsuario // Enviando o ID do usuário
-        }),
-      })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          // A resposta.json() também retorna uma Promise, então precisamos encadear outro .then()
-          return resposta.json().then(function(json) {
-            console.log("Endereço cadastrado:", json);
-            alert("Cadastro realizado com sucesso!");
+    //   return fetch("/endereco/cadastrar", { // Adicionado 'return'
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       tipoLogradouroEmp: tipoLogradouroEmp,
+    //       logradouroEmp: LogradouroEmp,
+    //       numeroEmp: numLogradouroEmp,
+    //       bairroEmp: bairroEmp,
+    //       cidadeEmp: cidadeEmp,
+    //       ufEmp: ufEmp,
+    //       cepEmp: cepLimpo,
+    //       fkUsuario: fkUsuario // Enviando o ID do usuário
+    //     }),
+    //   })
+    //   .then(function (resposta) {
+    //     if (resposta.ok) {
+    //       // A resposta.json() também retorna uma Promise, então precisamos encadear outro .then()
+    //       return resposta.json().then(function(json) {
+    //         console.log("Endereço cadastrado:", json);
+    //         alert("Cadastro realizado com sucesso!");
             
-            // Redireciona para a página de login após o sucesso
-            window.location = "login.html";
-          });
-        } else {
-          // Se a resposta não for OK, lemos o texto do erro e rejeitamos a Promise
-          return resposta.text().then(function(texto) {
-            throw new Error("Houve um erro ao tentar realizar o cadastro do endereço: " + texto);
-          });
-        }
-      })
-      // O .catch principal será na função finalizarCadastro
-      ;
-    }
+    //         // Redireciona para a página de login após o sucesso
+    //         window.location = "login.html";
+    //       });
+    //     } else {
+    //       // Se a resposta não for OK, lemos o texto do erro e rejeitamos a Promise
+    //       return resposta.text().then(function(texto) {
+    //         throw new Error("Houve um erro ao tentar realizar o cadastro do endereço: " + texto);
+    //       });
+    //     }
+    //   })
+    //   // O .catch principal será na função finalizarCadastro
+    //   ;
+    // }
 
-    function finalizarCadastro() {
-      // 1. Primeiro, busca a contagem atual de usuários
-      fetch("/empresas/contar")
-        .then(function(respostaContagem) {
-          if (!respostaContagem.ok) {
-            throw new Error("Falha ao contar usuários.");
-          }
-          return respostaContagem.json();
-        })
-        .then(function(resultadoContagem) {
-          // 2. Calcula o próximo ID com base na sua lógica
-          let proximoId;
-          // O resultado é { total: <numero> }. Se for 0 ou undefined, proximoId será 1.
-          if (resultadoContagem.total == null || resultadoContagem.total == 0) {
-            proximoId = 1;
-          } else {
-            proximoId = resultadoContagem.total + 1;
-          }
+    // function finalizarCadastro() {
+    //   // 1. Primeiro, busca a contagem atual de usuários
+    //   fetch("/empresas/contar")
+    //     .then(function(respostaContagem) {
+    //       if (!respostaContagem.ok) {
+    //         throw new Error("Falha ao contar usuários.");
+    //       }
+    //       return respostaContagem.json();
+    //     })
+    //     .then(function(resultadoContagem) {
+    //       // 2. Calcula o próximo ID com base na sua lógica
+    //       let proximoId;
+    //       // O resultado é { total: <numero> }. Se for 0 ou undefined, proximoId será 1.
+    //       if (resultadoContagem.total == null || resultadoContagem.total == 0) {
+    //         proximoId = 1;
+    //       } else {
+    //         proximoId = resultadoContagem.total + 1;
+    //       }
 
-          // 3. Cadastra a empresa
-          return cadastrarEmpresa().then(function() {
-            // 4. Após cadastrar a empresa, cadastra o endereço com o ID calculado
-            return cadastrarEndereco(proximoId);
-          });
-        })
-        .catch(function(erro) {
-          // Este bloco captura qualquer erro em qualquer etapa do processo
-          console.error(`#ERRO no fluxo de cadastro: ${erro}`);
-          alert("Ocorreu um erro crítico durante o cadastro. Por favor, tente novamente.");
-        });
-    }
+    //       // 3. Cadastra a empresa
+    //       return cadastrarEmpresa().then(function() {
+    //         // 4. Após cadastrar a empresa, cadastra o endereço com o ID calculado
+    //         return cadastrarEndereco(proximoId);
+    //       });
+    //     })
+    //     .catch(function(erro) {
+    //       // Este bloco captura qualquer erro em qualquer etapa do processo
+    //       console.error(`#ERRO no fluxo de cadastro: ${erro}`);
+    //       alert("Ocorreu um erro crítico durante o cadastro. Por favor, tente novamente.");
+    //     });
+    // }
   </script>
 </body>
 </html>
