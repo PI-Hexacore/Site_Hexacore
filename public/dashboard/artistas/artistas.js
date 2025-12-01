@@ -260,3 +260,16 @@ function iniciarPaginaArtistas() {
 }
 
 window.addEventListener('load', iniciarPaginaArtistas);
+
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        alternarFormulario,
+        formatarStreams,
+        renderizarLista,
+        listarArtistas,
+        cadastrarArtista,
+        editarArtista,
+        excluirArtista,
+    };
+}
