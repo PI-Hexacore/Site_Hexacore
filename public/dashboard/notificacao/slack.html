@@ -5,15 +5,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Notificações - Hexacore</title>
-
-  <!-- Link para o CSS -->
   <link rel="stylesheet" href="slack.css" />
 </head>
 
 <body>
 
   <div class="container">
-    <!-- SIDEBAR -->
     <div class="sidebar">
       <div class="logo"></div>
 
@@ -53,7 +50,6 @@
     </div>
   </div>
 
-  <!-- MAIN CONTENT -->
   <div class="main-content">
     <header class="header">
       <h1>NOTIFICAÇÕES</h1>
@@ -63,14 +59,8 @@
     <section class="notificacoes-area">
 
       <div class="top-row">
-        <!-- DROPDOWN BOTÃO -->
-        <div class="dropdown">
-          <button id="btnDropdown" class="botao entrar dropdown-btn" aria-expanded="false">
-            Filtrar notificações <span class="seta">▾</span>
-          </button>
-
-          <!-- conteudo do dropdown-->
-          <div id="dropdownContent" class="dropdown-content escondido" role="dialog" aria-label="Canais Slack">
+        <div class="dropdown filtro-card">
+          <div id="dropdownContent" class="dropdown-content" role="region" aria-label="Canais Slack">
             <p class="titulo-canais">Notificações disponíveis:</p>
 
             <label class="opcao-canal">
@@ -88,30 +78,19 @@
               Artista
             </label>
 
-          
+            <label class="opcao-canal">
+              <input type="checkbox" name="canais" value="Desativar">
+              Desativar notificações
+            </label>
+
+            <button id="btnSalvar" class="btn config">
+              Salvar configurações
+            </button>
           </div>
 
         </div>
-
-        <button class="btn config">
-          Salvar configurações
-        </button>
-
-        <!-- BOTAO DESATIVAR/ATIVAR-->
-        <div class="acoes">
-          <button id="btnToggle" class="btn">Desativar notificações</button>
-        </div>
       </div>
-
-      <!-- espaço para mensagens / cards -->
       <div id="feed" class="feed">
-        <!-- Exemplo de card de notificação -->
-        <!--
-        <div class="card-notificacao">
-          <div class="card-text">Exemplo de notificação vinda do Slack</div>
-          <button class="btn-remover">✕</button>
-        </div>
-        -->
       </div>
 
 
@@ -125,22 +104,26 @@
 
 <script>
 
-  const btnDropdown = document.getElementById("btnDropdown");
-  const dropdownContent = document.getElementById("dropdownContent");
-  const btnToggle = document.getElementById("btnToggle");
-  let ativo = true;
+  const canaisCheckboxes = Array.from(document.querySelectorAll('.opcao-canal input'));
+  const desativarCheckbox = canaisCheckboxes.find((checkbox) => checkbox.value === 'Desativar');
 
-  // abre e fecha o filtro
-  btnDropdown.addEventListener("click", () => {
-    dropdownContent.classList.toggle("escondido");
-  });
+  canaisCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', () => {
+      const selecionandoDesativar = checkbox === desativarCheckbox && checkbox.checked;
+      const selecionandoOutro = checkbox !== desativarCheckbox && checkbox.checked;
 
-  // ativa / desativa notificações
-  btnToggle.addEventListener("click", () => {
-    ativo = !ativo;
-    btnToggle.textContent = ativo
-      ? "Desativar notificações"
-      : "Ativar notificações";
+      if (selecionandoDesativar) {
+        canaisCheckboxes.forEach((outro) => {
+          if (outro !== desativarCheckbox) {
+            outro.checked = false;
+          }
+        });
+      }
+
+      if (selecionandoOutro) {
+        desativarCheckbox.checked = false;
+      }
+    });
   });
 
 </script>
