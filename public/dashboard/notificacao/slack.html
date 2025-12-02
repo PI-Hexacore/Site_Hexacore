@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Notificações - Hexacore</title>
 
-  <!-- Link para o CSS (coloque notificacoes.css no mesmo diretório) -->
+  <!-- Link para o CSS -->
   <link rel="stylesheet" href="slack.css" />
 </head>
+
 <body>
 
   <div class="container">
-    <!-- SIDEBAR (mesma estrutura do seu layout original) -->
+    <!-- SIDEBAR -->
     <div class="sidebar">
       <div class="logo"></div>
 
@@ -32,7 +34,8 @@
       </div>
 
       <div class="direcionamentos">
-        <div class="direcionamentosnav"><a href="../perfil/perfil.html"> <img src="../../assets/perfil.png" alt="">Perfil</a>
+        <div class="direcionamentosnav"><a href="../perfil/perfil.html"> <img src="../../assets/perfil.png"
+              alt="">Perfil</a>
         </div>
       </div>
 
@@ -60,37 +63,49 @@
     <section class="notificacoes-area">
 
       <div class="top-row">
-        <!-- DROPDOWN BOTÃO (usa .botao.entrar para manter estilo) -->
+        <!-- DROPDOWN BOTÃO -->
         <div class="dropdown">
           <button id="btnDropdown" class="botao entrar dropdown-btn" aria-expanded="false">
-            Escolher canal <span class="seta">▾</span>
+            Filtrar notificações <span class="seta">▾</span>
           </button>
 
-          <!-- conteudo do dropdown (inicia escondido) -->
+          <!-- conteudo do dropdown-->
           <div id="dropdownContent" class="dropdown-content escondido" role="dialog" aria-label="Canais Slack">
-            <p class="titulo-canais">Canais disponíveis no Slack:</p>
+            <p class="titulo-canais">Notificações disponíveis:</p>
 
             <label class="opcao-canal">
-              <input type="radio" name="canal" value="chanel-hexa" checked>
-              chanel-hexa
+              <input type="checkbox" name="canais" value="País">
+              País
             </label>
 
             <label class="opcao-canal">
-              <input type="radio" name="canal" value="chanel-core">
-              chanel-core
+              <input type="checkbox" name="canais" value="Música">
+              Música
             </label>
+
+            <label class="opcao-canal">
+              <input type="checkbox" name="canais" value="Artista">
+              Artista
+            </label>
+
+          
           </div>
+
         </div>
 
-        <!-- BOTAO DESATIVAR/ATIVAR (usa .btn para manter o gradiente azul) -->
+        <button class="btn config">
+          Salvar configurações
+        </button>
+
+        <!-- BOTAO DESATIVAR/ATIVAR-->
         <div class="acoes">
           <button id="btnToggle" class="btn">Desativar notificações</button>
         </div>
       </div>
 
-      <!-- espaço para mensagens / cards (você pode popular via JS/Slack) -->
+      <!-- espaço para mensagens / cards -->
       <div id="feed" class="feed">
-        <!-- Exemplo de card de notificação (padrão visual do wireframe) -->
+        <!-- Exemplo de card de notificação -->
         <!--
         <div class="card-notificacao">
           <div class="card-text">Exemplo de notificação vinda do Slack</div>
@@ -99,30 +114,33 @@
         -->
       </div>
 
+
+
     </section>
   </div>
 </body>
+
 </html>
 
 
 <script>
 
-const btnDropdown = document.getElementById("btnDropdown");
-const dropdownContent = document.getElementById("dropdownContent");
-const btnToggle = document.getElementById("btnToggle");
-let ativo = true;
+  const btnDropdown = document.getElementById("btnDropdown");
+  const dropdownContent = document.getElementById("dropdownContent");
+  const btnToggle = document.getElementById("btnToggle");
+  let ativo = true;
 
-// abre e fecha o filtro
-btnDropdown.addEventListener("click", () => {
-  dropdownContent.classList.toggle("escondido");
-});
+  // abre e fecha o filtro
+  btnDropdown.addEventListener("click", () => {
+    dropdownContent.classList.toggle("escondido");
+  });
 
-// ativa / desativa notificações
-btnToggle.addEventListener("click", () => {
-  ativo = !ativo;
-  btnToggle.textContent = ativo 
-    ? "Desativar notificações" 
-    : "Ativar notificações";
-});
+  // ativa / desativa notificações
+  btnToggle.addEventListener("click", () => {
+    ativo = !ativo;
+    btnToggle.textContent = ativo
+      ? "Desativar notificações"
+      : "Ativar notificações";
+  });
 
 </script>

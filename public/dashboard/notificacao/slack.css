@@ -81,14 +81,13 @@ body {
 .direcionamentosnav a:hover { background-color: var(--cinza-fundo); color: var(--texto-primario); }
 .direcionamentosnav.active a { background-color: rgba(58,134,255,0.08); color: var(--texto-primario); }
 
-/* ========== MAIN CONTENT ========== */
+/*main*/
 .main-content {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
 }
 
-/* header grande como no wireframe */
 .header {
   margin-bottom: 24px;
 }
@@ -110,7 +109,10 @@ body {
   flex-wrap: wrap;
 }
 
-/* === BOTÕES (mesmo estilo do seu CSS original) === */
+/*botoes*/
+
+
+
 .botao {
     padding: 10px 22px;
     border: none;
@@ -154,10 +156,15 @@ body {
     color: var(--azul);
 }
 
+/* .btn.config{
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+} */
+
 /* dropdown button arrow */
 .dropdown-btn .seta { margin-left: 8px; font-size: 0.9rem; color: var(--texto-primario); }
 
-/* ========== DROPDOWN CARD ========== */
+/*dropdown card*/
 .dropdown {
   position: relative;
 }
@@ -175,6 +182,8 @@ body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
 
+
+
 .escondido { display: none; }
 
 .titulo-canais { color: var(--texto-secundario); margin-bottom: 10px; font-size: 0.95rem; }
@@ -190,7 +199,7 @@ body {
 }
 .opcao-canal input { accent-color: var(--azul); }
 
-/* ========== FEED / CARDS (exemplo) ========== */
+/* FEED / CARDS (exemplo) */
 .feed { margin-top: 28px; display:flex; flex-direction:column; gap:12px; max-width:760px; }
 
 /* card de notificação (exemplo) */
@@ -213,7 +222,7 @@ body {
 }
 .btn-remover:hover { color: var(--vermelho); }
 
-/* ========== RESPONSIVIDADE ========= */
+/*responsividade*/
 @media (max-width: 992px) {
   .sidebar .logo p { display:none; }
   .container { width: 100%; height: auto; }
