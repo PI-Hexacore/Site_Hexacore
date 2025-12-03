@@ -140,8 +140,9 @@ function atualizarGraficoArtistas(artistas = []) {
 }
 
 function preencherKpis(dados = {}) {
+  // Valores
   const referencia = {
-    totalOuvintesBrasil: formatarNumero(dados.ouvintesBrasil),
+    totalOuvintes: formatarNumero(dados.ouvintesValor),
     artistaMaisOuvido: formatarTexto(dados.artistaMaisOuvido),
     generoMaisOuvido: formatarTexto(dados.generoMaisOuvido),
     generoMenosOuvido: formatarTexto(dados.generoMenosOuvido),
@@ -155,6 +156,37 @@ function preencherKpis(dados = {}) {
       elemento.textContent = valor;
     }
   });
+
+  // Labels dinâmicos
+  if (dados.ouvintesLabel) {
+    const tituloOuvintes = document.getElementById("tituloOuvintes");
+    if (tituloOuvintes) tituloOuvintes.textContent = dados.ouvintesLabel;
+  }
+
+  if (dados.artistaLabel) {
+    const tituloArtista = document.getElementById("tituloArtistaMaisOuvido");
+    if (tituloArtista) tituloArtista.textContent = dados.artistaLabel;
+  }
+
+  if (dados.generoLabelMais) {
+    const tituloGeneroMais = document.getElementById("tituloGeneroMaisOuvido");
+    if (tituloGeneroMais) tituloGeneroMais.textContent = dados.generoLabelMais;
+  }
+
+  if (dados.generoLabelMenos) {
+    const tituloGeneroMenos = document.getElementById("tituloGeneroMenosOuvido");
+    if (tituloGeneroMenos) tituloGeneroMenos.textContent = dados.generoLabelMenos;
+  }
+
+  if (dados.seuArtistaLabelMais) {
+    const tituloSeuMais = document.getElementById("tituloArtistaMaisOuvidoUsuario");
+    if (tituloSeuMais) tituloSeuMais.textContent = dados.seuArtistaLabelMais;
+  }
+
+  if (dados.seuArtistaLabelMenos) {
+    const tituloSeuMenos = document.getElementById("tituloArtistaMenosOuvidoUsuario");
+    if (tituloSeuMenos) tituloSeuMenos.textContent = dados.seuArtistaLabelMenos;
+  }
 }
 
 async function carregarDashboard() {
@@ -207,3 +239,36 @@ function iniciarDashboard() {
 }
 
 window.addEventListener('load', iniciarDashboard);
+
+
+// Abrir e fechar modal
+const modalFiltro = document.getElementById("modalFiltroMusical");
+const botaoFiltre = document.getElementById("botaoFiltre");
+const fecharModal = document.querySelector(".fechar-modal-filtro");
+
+botaoFiltre.onclick = () => {
+  modalFiltro.style.display = "block";
+};
+
+fecharModal.onclick = () => {
+  modalFiltro.style.display = "none";
+};
+
+window.onclick = (evento) => {
+  if (evento.target === modalFiltro) {
+    modalFiltro.style.display = "none";
+  }
+};
+
+// Funções de ação
+function aplicarFiltro(nome) {
+  alert(`Aplicando filtro: ${nome}`);
+}
+
+function removerFiltro(nome) {
+  alert(`Removendo filtro: ${nome}`);
+}
+
+function editarFiltro(nome) {
+  alert(`Editando filtro: ${nome}`);
+}

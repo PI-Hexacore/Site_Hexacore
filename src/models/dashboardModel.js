@@ -2,65 +2,134 @@ const database = require("../database/db");
 
 const SEM_DADOS_LABEL = "sem dados";
 
-async function buscarDadosDashboard(idUsuario) {
-    const ouvintesBrasilPromise = database.executar(
-        `SELECT COALESCE(SUM(m.qt_stream), 0) AS ouvintesBrasil
-           FROM Musica m
-          WHERE UPPER(TRIM(m.nm_pais)) IN ('BRASIL', 'BRAZIL');`
+async function buscarDadosDashboard(idUsuario, idFiltro = null) {
+    let paisesFiltro = [];
+    let generosFiltro = [];
+
+    // Busca países e gêneros do filtro, se houver
+    if (idFiltro) {
+        try {
+            const paises = await database.executar(
+                `SELECT nm_pais FROM FiltroPais WHERE fk_filtro = ?;`,
+                [idFiltro]
+            );
+            const generos = await database.executar(
+                `SELECT nm_genero FROM FiltroGenero WHERE fk_filtro = ?;`,
+                [idFiltro]
+            );
+
+            paisesFiltro = paises.map(p => p.nm_pais);
+            generosFiltro = generos.map(g => g.nm_genero);
+        } catch (erro) {
+            console.error("Erro ao buscar países/gêneros do filtro:", erro);
+        }
+    }
+
+    // Helpers para montar cláusulas seguras
+    const wherePais = (alias = "m") =>
+        paisesFiltro.length
+            ? `AND ${alias}.nm_pais IN (${paisesFiltro.map(() => "?").join(",")})`
+            : "";
+
+    const whereGenero = (alias = "a") =>
+        generosFiltro.length
+            ? `AND ${alias}.ds_genero_musical IN (${generosFiltro.map(() => "?").join(",")})`
+            : "";
+
+    // Ouvintes (se não houver filtro, padrão Brasil)
+    const ouvintesPromise = database.executar(
+        `SELECT COALESCE(SUM(m.qt_stream), 0) AS ouvintes
+         FROM MusicaClient m
+         WHERE ${
+             paisesFiltro.length
+                 ? `m.nm_pais IN (${paisesFiltro.map(() => "?").join(",")})`
+                 : `UPPER(TRIM(m.nm_pais)) IN ('BRASIL','BRAZIL')`
+         }`,
+        paisesFiltro
     );
 
+    // Artistas globais
     const artistasGlobaisPromise = database.executar(
         `SELECT 
             a.id_artista AS idArtista,
             a.nm_artista AS nome,
             COALESCE(SUM(m.qt_stream), 0) AS total_streams
-         FROM Artista a
-    LEFT JOIN Musica m ON m.fk_artista = a.id_artista
+         FROM ArtistaClient a
+    LEFT JOIN MusicaClient m ON m.fk_artista = a.id_artista
+    WHERE 1=1
+    ${wherePais("m")}
+    ${whereGenero("a")}
      GROUP BY a.id_artista
-     ORDER BY total_streams DESC;`
+     ORDER BY total_streams DESC;`,
+        [...paisesFiltro, ...generosFiltro]
     );
 
+    // Gêneros globais
     const generosGlobaisPromise = database.executar(
         `SELECT 
             a.ds_genero_musical AS genero,
             COALESCE(SUM(m.qt_stream), 0) AS total_streams
-         FROM Artista a
-    LEFT JOIN Musica m ON m.fk_artista = a.id_artista
+         FROM ArtistaClient a
+    LEFT JOIN MusicaClient m ON m.fk_artista = a.id_artista
+    WHERE 1=1
+    ${wherePais("m")}
+    ${whereGenero("a")}
      GROUP BY a.ds_genero_musical
-     ORDER BY total_streams DESC;`
+     ORDER BY total_streams DESC;`,
+        [...paisesFiltro, ...generosFiltro]
     );
 
-    const artistasBrasilUsuarioPromise = database.executar(
+    // Artistas do usuário
+    const artistasUsuarioPromise = database.executar(
         `SELECT 
             a.nm_artista AS nome,
             COALESCE(SUM(m.qt_stream), 0) AS total_streams
-         FROM Artista a
-    LEFT JOIN Musica m 
-           ON m.fk_artista = a.id_artista 
-          AND m.nm_pais = 'Brasil'
-        WHERE a.fk_usuario = ?
-     GROUP BY a.id_artista
-     ORDER BY total_streams DESC;`,
-        [idUsuario]
+         FROM ArtistaGravadora a
+    LEFT JOIN MusicaClient m ON m.fk_artista = a.id_artista
+    ${paisesFiltro.length ? `AND m.nm_pais IN (${paisesFiltro.map(() => "?").join(",")})` : `AND m.nm_pais = 'Brasil'`}
+    WHERE a.fk_id_usuario = ?
+    GROUP BY a.id_artista, a.nm_artista
+    ORDER BY total_streams DESC;`,
+        [...paisesFiltro, idUsuario]
     );
 
-    const [ouvintesBrasil, artistasGlobais, generosGlobais, artistasBrasilUsuario] = await Promise.all([
-        ouvintesBrasilPromise,
+    const [ouvintes, artistasGlobais, generosGlobais, artistasUsuario] = await Promise.all([
+        ouvintesPromise,
         artistasGlobaisPromise,
         generosGlobaisPromise,
-        artistasBrasilUsuarioPromise
+        artistasUsuarioPromise
     ]);
 
     const resumoGenerosGlobais = generosGlobais || [];
     const resumoArtistasGlobais = artistasGlobais || [];
-    const resumoArtistasUsuario = artistasBrasilUsuario || [];
+    const resumoArtistasUsuario = artistasUsuario || [];
 
     const artistasUsuarioComStreams = resumoArtistasUsuario.filter((artista) => Number(artista.total_streams) > 0);
-    const resumoOuvintesBrasil = ouvintesBrasil?.[0]?.ouvintesBrasil;
-    const ouvintesBrasilNumero = Number(resumoOuvintesBrasil);
+    const resumoOuvintes = ouvintes?.[0]?.ouvintes;
+    const ouvintesNumero = Number(resumoOuvintes);
+
+    // Labels dinâmicos
+    const ouvintesLabel = paisesFiltro.length === 1
+        ? `N° de ouvintes de ${paisesFiltro[0]}`
+        : paisesFiltro.length > 1
+            ? "N° de ouvintes dos países selecionados"
+            : "N° de ouvintes do Brasil";
+
+    const artistaLabel = paisesFiltro.length
+        ? "Artista mais ouvido nos países selecionados"
+        : "Artista mais ouvido";
+
+    const generoLabelMais = generosFiltro.length
+        ? "Gênero mais ouvido nos gêneros selecionados"
+        : "Gênero mais ouvido";
+
+    const generoLabelMenos = generosFiltro.length
+        ? "Gênero menos ouvido nos gêneros selecionados"
+        : "Gênero menos ouvido";
 
     return {
-        ouvintesBrasil: Number.isFinite(ouvintesBrasilNumero) ? ouvintesBrasilNumero : null,
+        // Valores
+        ouvintesValor: Number.isFinite(ouvintesNumero) ? ouvintesNumero : null,
         artistaMaisOuvido: resumoArtistasGlobais?.[0]?.nome || null,
         generoMaisOuvido: resumoGenerosGlobais?.[0]?.genero || null,
         generoMenosOuvido: resumoGenerosGlobais.length
@@ -72,6 +141,16 @@ async function buscarDadosDashboard(idUsuario) {
         seuArtistaMenosOuvido: artistasUsuarioComStreams.length
             ? artistasUsuarioComStreams[artistasUsuarioComStreams.length - 1].nome
             : SEM_DADOS_LABEL,
+
+        // Labels dinâmicos
+        ouvintesLabel,
+        artistaLabel,
+        generoLabelMais,
+        generoLabelMenos,
+        seuArtistaLabelMais: "Seu artista mais ouvido",
+        seuArtistaLabelMenos: "Seu artista menos ouvido",
+
+        // Gráficos
         artistasMomento: resumoArtistasGlobais.slice(0, 6).map((artista) => ({
             nome: artista.nome,
             ouvintes: Number(artista.total_streams) || 0

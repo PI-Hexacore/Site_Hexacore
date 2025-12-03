@@ -21,6 +21,7 @@ var enderecoRouter = require("./src/routes/endereco");
 var dashboardRouter = require("./src/routes/dashboard");
 var artistasRouter = require("./src/routes/artistas");
 var musicasRouter = require("./src/routes/musicas");
+var filtrosRouter = require("./src/routes/filtros")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,6 +35,7 @@ app.use("/endereco", enderecoRouter);
 app.use("/", dashboardRouter);
 app.use("/artistas", artistasRouter);
 app.use("/musicas", musicasRouter);
+app.use("/filtros", filtrosRouter)
 
 app.listen(PORTA_APP, function () {
     console.log(`

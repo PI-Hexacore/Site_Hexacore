@@ -10,6 +10,177 @@
     --texto-secundario: #B0B0B0;
     --branco: #FFFFFF;
 }
+/* Estilo compartilhado para botões principais */
+.botao-estilo-filtro,
+#btnCriarFiltro {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  background-color: var(--azul-primario, #007bff);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover */
+.botao-estilo-filtro:hover,
+#btnCriarFiltro:hover {
+  background-color: #0056b3;
+}
+/* Títulos das seções */
+.secao-filtro h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000;
+}
+.secao-filtro input[type="checkbox"] {
+  transform: scale(1.3);
+  margin-right: 8px;
+}
+
+/* Texto geral dentro das seções */
+.secao-filtro label,
+.secao-filtro input[type="text"],
+.secao-filtro select {
+  font-size: 1.1rem;
+}
+
+/* Bloco separado para nome do filtro */
+.bloco-nome-filtro {
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Input estilizado */
+#nomeFiltro {
+  padding: 10px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Título do campo */
+.bloco-nome-filtro h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* Select de tipo de álbum */
+#tipoAlbum {
+  padding: 10px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+}
+
+/* Estiliza as opções do select (em navegadores que suportam) */
+#tipoAlbum option {
+  font-size: 1.1rem;
+  padding: 8px;
+}
+
+.modal-filtro-musical {
+  color: black;
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.6);
+  overflow-y: auto;
+}
+
+.conteudo-modal-filtro {
+  background-color: #fff;
+  margin: 2% auto;
+  padding: 30px;
+  width: 95%;
+  height: 90%;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fechar-modal-filtro {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 32px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.grade-modal-filtro {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.secao-filtro {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.item-filtro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+button {
+  padding: 8px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* Seção de criação com layout vertical */
+.secao-criacao {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Container para empurrar o botão para baixo */
+.container-botao-criar {
+  margin-top: auto;
+}
+
+/* Botão Criar Filtro em destaque */
+#botaoCriarFiltro {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#botaoCriarFiltro:hover {
+  background-color: #0056b3;
+}
 
 * {
     margin: 0;

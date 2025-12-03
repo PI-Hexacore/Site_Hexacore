@@ -51,33 +51,93 @@
       <div class="div1">
         <h3>Boas Vindas, <span id="nomeUsuarioBoasVindas">usuário</span>!</h3>
         
-        <p>Filtro  <img src="../assets/107799.png"></p> 
+       <!-- Botão existente no seu HTML -->
+        <div style="width: 80px;">
+<button id="botaoFiltre" class="botao-estilo-filtro">Filtre</button>
+</div>
+<!-- Modal de Filtros Musicais -->
+<div id="modalFiltroMusical" class="modal-filtro-musical">
+  <div class="conteudo-modal-filtro">
+    <span class="fechar-modal-filtro">&times;</span>
+
+    <div class="grade-modal-filtro">
+      <!-- Filtros do Usuário -->
+      <div class="secao-filtro">
+        <h3>Seus Filtros</h3>
+        <div id="listaFiltrosUsuario">
+          <div class="item-filtro">
+            <span>Filtro 1</span>
+            <button onclick="aplicarFiltro('Filtro 1')">✔️</button>
+            <button onclick="removerFiltro('Filtro 1')">🗑️</button>
+            <button onclick="editarFiltro('Filtro 1')">✏️</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Países -->
+      <div class="secao-filtro">
+        <h3>Países</h3>
+        <label><input type="checkbox" value="Argentina" /> Argentina</label><br />
+        <label><input type="checkbox" value="Brasil" checked /> Brasil</label>
+      </div>
+
+      <!-- Gêneros -->
+      <div class="secao-filtro">
+        <h3>Gêneros</h3>
+        <label><input type="checkbox" value="Funk" /> Funk</label><br />
+        <label><input type="checkbox" value="Pop" /> Pop</label><br />
+        <label><input type="checkbox" value="Rock" checked /> Rock</label>
+      </div>
+
+      <!-- Tipo de Álbum e Nome -->
+ <div class="secao-filtro secao-criacao">
+  <h3>Tipo de Álbum</h3>
+  <select id="tipoAlbum">
+    <option value="padrao">Todos Tipos</option>
+    <option value="single">Single</option>
+    <option value="album">Álbum</option>
+  </select>
+
+  <!-- Nova div separada para Nome do Filtro -->
+  <div class="bloco-nome-filtro">
+    <h3>Nome do Filtro</h3>
+    <input type="text" id="nomeFiltro" placeholder="Filtro 2" />
+  </div>
+
+  <div class="container-botao-criar">
+    <button id="btnCriarFiltro" onclick="criarFiltro()">Criar Filtro</button>
+  </div>
+</div>
+</div>
+  </div>
+</div>
       </div>
       
       <div class="div2">
-        <div class="kpi-card">
-          <h3>N° de ouvintes do Brasil</h3>
-          <p id="totalOuvintesBrasil">--</p>
-        </div>
-      </div>
-      <div class="div3">
-        <div class="kpi-card">
-          <h3>Artista mais ouvido</h3>
-          <p id="artistaMaisOuvido">--</p>
-        </div>
-      </div>
-      <div class="div4">
-        <div class="kpi-card">
-          <h3>Gênero mais ouvido</h3>
-          <p id="generoMaisOuvido">--</p>
-        </div>
-      </div>
-      <div class="div5">
-        <div class="kpi-card">
-          <h3>Gênero menos ouvido</h3>
-          <p id="generoMenosOuvido">--</p>
-        </div>
-      </div>
+  <div class="kpi-card">
+    <h3 id="tituloOuvintes">N° de ouvintes do Brasil</h3>
+    <p id="totalOuvintes">--</p>
+  </div>
+</div>
+<div class="div3">
+  <div class="kpi-card">
+    <h3 id="tituloArtistaMaisOuvido">Artista mais ouvido</h3>
+    <p id="artistaMaisOuvido">--</p>
+  </div>
+</div>
+<div class="div4">
+  <div class="kpi-card">
+    <h3 id="tituloGeneroMaisOuvido">Gênero mais ouvido</h3>
+    <p id="generoMaisOuvido">--</p>
+  </div>
+</div>
+<div class="div5">
+  <div class="kpi-card">
+    <h3 id="tituloGeneroMenosOuvido">Gênero menos ouvido</h3>
+    <p id="generoMenosOuvido">--</p>
+  </div>
+</div>
+
       <div class="div6">
         <div class="chart-container">
           <h2>Artistas do Momento</h2>
@@ -91,17 +151,17 @@
         </div>
       </div>
       <div class="div8">
-        <div class="kpi-card">
-          <h3>Seu artista menos ouvido</h3>
-          <p id="artistaMenosOuvidoUsuario">--</p>
-        </div>
-      </div>
-      <div class="div9">
-        <div class="kpi-card">
-          <h3>Seu artista mais ouvido</h3>
-          <p id="artistaMaisOuvidoUsuario">--</p>
-        </div>
-      </div>
+  <div class="kpi-card">
+    <h3 id="tituloArtistaMenosOuvidoUsuario">Seu artista menos ouvido</h3>
+    <p id="artistaMenosOuvidoUsuario">--</p>
+  </div>
+</div>
+<div class="div9">
+  <div class="kpi-card">
+    <h3 id="tituloArtistaMaisOuvidoUsuario">Seu artista mais ouvido</h3>
+    <p id="artistaMaisOuvidoUsuario">--</p>
+  </div>
+</div>
     </div>
   </div>
 
@@ -110,4 +170,5 @@
 </body>
 <script src="sessao.js"></script>
 <script src="script.js"></script>
+<script src="filtro.js"></script>
 </html>
