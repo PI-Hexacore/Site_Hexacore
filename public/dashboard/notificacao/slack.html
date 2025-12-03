@@ -77,25 +77,27 @@
               <input type="checkbox" name="canais" value="Artista">
               Artista
             </label>
-
-            <label class="opcao-canal">
-              <input type="checkbox" name="canais" value="Desativar">
-              Desativar notificações
-            </label>
-
-            <button id="btnSalvar" class="btn config">
-              Salvar configurações
-            </button>
           </div>
 
         </div>
+
+        <div class="acoes">
+          <button id="btnToggle" class="btn">Desativar notificações</button>
+
+          <button id="btnSalvar" class="btn config">
+            Salvar configurações
+          </button>
+        </div>
+
       </div>
+
       <div id="feed" class="feed">
       </div>
 
 
 
     </section>
+
   </div>
 </body>
 
@@ -107,23 +109,19 @@
   const canaisCheckboxes = Array.from(document.querySelectorAll('.opcao-canal input'));
   const desativarCheckbox = canaisCheckboxes.find((checkbox) => checkbox.value === 'Desativar');
 
-  canaisCheckboxes.forEach((checkbox) => {
-    checkbox.addEventListener('change', () => {
-      const selecionandoDesativar = checkbox === desativarCheckbox && checkbox.checked;
-      const selecionandoOutro = checkbox !== desativarCheckbox && checkbox.checked;
+  const btnToggle = document.getElementById("btnToggle");
+  let ativo = true;
 
-      if (selecionandoDesativar) {
-        canaisCheckboxes.forEach((outro) => {
-          if (outro !== desativarCheckbox) {
-            outro.checked = false;
-          }
-        });
-      }
-
-      if (selecionandoOutro) {
-        desativarCheckbox.checked = false;
-      }
-    });
+  // ativa / desativa notificações
+  btnToggle.addEventListener("click", () => {
+    ativo = !ativo;
+    btnToggle.textContent = ativo
+      ? "Desativar notificações"
+      : "Ativar notificações";
   });
+
+
+
+
 
 </script>
