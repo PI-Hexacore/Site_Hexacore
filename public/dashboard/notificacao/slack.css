@@ -167,19 +167,35 @@ body {
 /*dropdown card*/
 .dropdown {
   position: relative;
+  width: 100%;
+  max-width: 360px;
 }
 
 .dropdown-content {
-  position: absolute;
-  top: 58px;
-  left: 0;
-  width: 300px;
+  position: relative;
+  top: auto;
+  left: auto;
+  width: 100%;
   background: var(--cinza-fundo2);
   border: 1px solid var(--cinza-borda);
   border-radius: 12px;
   padding: 16px;
-  z-index: 60;
+  z-index: 1;
   box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filtro-card {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.dropdown .btn.config {
+  width: 100%;
+  margin-top: 6px;
 }
 
 
