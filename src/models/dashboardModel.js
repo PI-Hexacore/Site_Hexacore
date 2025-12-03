@@ -14,14 +14,16 @@ async function buscarDadosDashboard(idUsuario, idFiltro = null) {
                 [idFiltro]
             );
             const generos = await database.executar(
-                `SELECT nm_genero FROM FiltroGenero WHERE fk_filtro = ?;`,
+                `SELECT ds_genero FROM FiltroGenero WHERE fk_filtro = ?;`,
                 [idFiltro]
             );
 
-            paisesFiltro = paises.map(p => p.nm_pais);
-            generosFiltro = generos.map(g => g.nm_genero);
+            paisesFiltro = (paises || []).map(p => p.nm_pais).filter(p => p);
+            generosFiltro = (generos || []).map(g => g.ds_genero).filter(g => g);
         } catch (erro) {
             console.error("Erro ao buscar países/gêneros do filtro:", erro);
+            paisesFiltro = [];
+            generosFiltro = [];
         }
     }
 
@@ -29,23 +31,20 @@ async function buscarDadosDashboard(idUsuario, idFiltro = null) {
     const wherePais = (alias = "m") =>
         paisesFiltro.length
             ? `AND ${alias}.nm_pais IN (${paisesFiltro.map(() => "?").join(",")})`
-            : "";
+            : ""; // ✅ sem filtro = global
 
     const whereGenero = (alias = "a") =>
         generosFiltro.length
             ? `AND ${alias}.ds_genero_musical IN (${generosFiltro.map(() => "?").join(",")})`
-            : "";
+            : ""; // ✅ sem filtro = global
 
-    // Ouvintes (se não houver filtro, padrão Brasil)
+    // Ouvintes (agora global por padrão)
     const ouvintesPromise = database.executar(
         `SELECT COALESCE(SUM(m.qt_stream), 0) AS ouvintes
          FROM MusicaClient m
-         WHERE ${
-             paisesFiltro.length
-                 ? `m.nm_pais IN (${paisesFiltro.map(() => "?").join(",")})`
-                 : `UPPER(TRIM(m.nm_pais)) IN ('BRASIL','BRAZIL')`
-         }`,
-        paisesFiltro
+         WHERE 1=1
+         ${wherePais("m")}`,
+        paisesFiltro.length ? paisesFiltro : []
     );
 
     // Artistas globais
@@ -61,7 +60,7 @@ async function buscarDadosDashboard(idUsuario, idFiltro = null) {
     ${whereGenero("a")}
      GROUP BY a.id_artista
      ORDER BY total_streams DESC;`,
-        [...paisesFiltro, ...generosFiltro]
+        [...(paisesFiltro || []), ...(generosFiltro || [])]
     );
 
     // Gêneros globais
@@ -76,7 +75,7 @@ async function buscarDadosDashboard(idUsuario, idFiltro = null) {
     ${whereGenero("a")}
      GROUP BY a.ds_genero_musical
      ORDER BY total_streams DESC;`,
-        [...paisesFiltro, ...generosFiltro]
+        [...(paisesFiltro || []), ...(generosFiltro || [])]
     );
 
     // Artistas do usuário
@@ -86,11 +85,11 @@ async function buscarDadosDashboard(idUsuario, idFiltro = null) {
             COALESCE(SUM(m.qt_stream), 0) AS total_streams
          FROM ArtistaGravadora a
     LEFT JOIN MusicaClient m ON m.fk_artista = a.id_artista
-    ${paisesFiltro.length ? `AND m.nm_pais IN (${paisesFiltro.map(() => "?").join(",")})` : `AND m.nm_pais = 'Brasil'`}
     WHERE a.fk_id_usuario = ?
+    ${wherePais("m")}
     GROUP BY a.id_artista, a.nm_artista
     ORDER BY total_streams DESC;`,
-        [...paisesFiltro, idUsuario]
+        [...(paisesFiltro || []), idUsuario]
     );
 
     const [ouvintes, artistasGlobais, generosGlobais, artistasUsuario] = await Promise.all([
@@ -110,22 +109,22 @@ async function buscarDadosDashboard(idUsuario, idFiltro = null) {
 
     // Labels dinâmicos
     const ouvintesLabel = paisesFiltro.length === 1
-        ? `N° de ouvintes de ${paisesFiltro[0]}`
+        ? `N° de ouvintes de ${paisesFiltro[0] || "desconhecido"}`
         : paisesFiltro.length > 1
             ? "N° de ouvintes dos países selecionados"
-            : "N° de ouvintes do Brasil";
+            : "N° de ouvintes globais"; // ✅ alterado
 
     const artistaLabel = paisesFiltro.length
         ? "Artista mais ouvido nos países selecionados"
-        : "Artista mais ouvido";
+        : "Artista mais ouvido globalmente"; // ✅ alterado
 
     const generoLabelMais = generosFiltro.length
         ? "Gênero mais ouvido nos gêneros selecionados"
-        : "Gênero mais ouvido";
+        : "Gênero mais ouvido globalmente"; // ✅ alterado
 
     const generoLabelMenos = generosFiltro.length
         ? "Gênero menos ouvido nos gêneros selecionados"
-        : "Gênero menos ouvido";
+        : "Gênero menos ouvido globalmente"; // ✅ alterado
 
     return {
         // Valores
