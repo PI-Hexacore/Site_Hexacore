@@ -149,7 +149,7 @@ body {
 }
 
 .btn {
-    width: auto;
+    width: 15vw;
     padding: 0.8rem 1.2rem;
     border: 2px solid transparent;
     border-radius: 8px;
