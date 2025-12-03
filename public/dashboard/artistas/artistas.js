@@ -84,7 +84,6 @@ function renderizarLista(artistas = []) {
         listaArtistasElemento.appendChild(card);
     });
 }
-
 async function listarArtistas() {
     const idUsuario = sessionStorage.ID_USUARIO;
     if (!idUsuario) {
@@ -107,7 +106,17 @@ async function listarArtistas() {
         }
 
         const payload = await resposta.json();
-        renderizarLista(payload?.data || payload || []);
+
+        // ✅ Normaliza para array
+        const artistas = Array.isArray(payload?.data)
+            ? payload.data
+            : Array.isArray(payload)
+                ? payload
+                : payload
+                    ? [payload] // força em array se vier objeto único
+                    : [];
+
+        renderizarLista(artistas);
     } catch (erro) {
         console.error('Erro ao listar artistas:', erro);
         if (listaArtistasElemento) {

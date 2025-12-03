@@ -34,14 +34,13 @@ async function listarPorUsuario(idUsuario) {
                 a.nm_artista,
                 a.ds_genero_musical
            FROM ArtistaGravadora a
-      LEFT JOIN MusicaClient m ON m.fk_artista = a.id_artista
           WHERE a.fk_id_usuario = ?
        ORDER BY a.nm_artista ASC;`,
         [idUsuario]
     );
 }
 
-async function cadastrar({ nome, genero, fkUsuario, fkSpotifyTop, fkSpotifyYoutube }) {
+async function cadastrar({ nome, genero, fkUsuario}) {
     const resultado = await database.executar(
         `INSERT INTO ArtistaGravadora (
             nm_artista,
@@ -54,7 +53,7 @@ async function cadastrar({ nome, genero, fkUsuario, fkSpotifyTop, fkSpotifyYoutu
     return resultado.insertId;
 }
 
-async function atualizar({ idArtista, idUsuario, nome, genero, fkSpotifyTop, fkSpotifyYoutube }) {
+async function atualizar({ idArtista, idUsuario, nome, genero}) {
     return database.executar(
         `UPDATE ArtistaGravadora
             SET nm_artista = ?,
