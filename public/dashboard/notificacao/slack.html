@@ -64,17 +64,17 @@
             <p class="titulo-canais">Notificações disponíveis:</p>
 
             <label class="opcao-canal">
-              <input type="checkbox" name="canais" value="País">
+              <input type="checkbox" checked name="canais" value="País">
               País
             </label>
 
             <label class="opcao-canal">
-              <input type="checkbox" name="canais" value="Música">
+              <input type="checkbox" checked name="canais" value="Música">
               Música
             </label>
 
             <label class="opcao-canal">
-              <input type="checkbox" name="canais" value="Artista">
+              <input type="checkbox" checked name="canais" value="Artista">
               Artista
             </label>
           </div>
@@ -103,25 +103,86 @@
 
 </html>
 
-
 <script>
-
   const canaisCheckboxes = Array.from(document.querySelectorAll('.opcao-canal input'));
-  const desativarCheckbox = canaisCheckboxes.find((checkbox) => checkbox.value === 'Desativar');
-
   const btnToggle = document.getElementById("btnToggle");
   let ativo = true;
 
-  // ativa / desativa notificações
+  function getCheckbox(value) {
+    return canaisCheckboxes.find((c) => c.value === value);
+  }
+
+  function atualizarUI(config) {
+    ativo = !!config.ativo;
+    btnToggle.textContent = ativo ? "Desativar notificações" : "Ativar notificações";
+
+    const pais = getCheckbox("País");
+    const musica = getCheckbox("Música");
+    const artista = getCheckbox("Artista");
+
+    if (pais) pais.checked = !!config.receber_pais;
+    if (musica) musica.checked = !!config.receber_musica;
+    if (artista) artista.checked = !!config.receber_artista;
+
+    // Se desativado, desmarca tudo visualmente (opcional)
+    const disabled = !ativo;
+    canaisCheckboxes.forEach(c => c.disabled = disabled);
+  }
+
+  async function carregarConfigSlack() {
+    const idUsuario = sessionStorage.ID_USUARIO;
+    if (!idUsuario) return;
+
+    try {
+      const resp = await fetch("/slack", {
+        headers: { "x-user-id": idUsuario }
+      });
+      if (!resp.ok) throw new Error("Falha ao carregar config.");
+      const payload = await resp.json();
+      atualizarUI(payload.data || {});
+    } catch (e) {
+      console.error("Erro ao carregar config Slack:", e);
+    }
+  }
+
   btnToggle.addEventListener("click", () => {
     ativo = !ativo;
-    btnToggle.textContent = ativo
-      ? "Desativar notificações"
-      : "Ativar notificações";
+    btnToggle.textContent = ativo ? "Desativar notificações" : "Ativar notificações";
+    // opcional: desabilitar checkboxes quando desativado
+    canaisCheckboxes.forEach(c => c.disabled = !ativo);
   });
 
+  document.getElementById("btnSalvar").addEventListener("click", async () => {
+    const idUsuario = sessionStorage.ID_USUARIO;
+    if (!idUsuario) return;
 
+    const receber_pais = getCheckbox("País")?.checked ? 1 : 0;
+    const receber_musica = getCheckbox("Música")?.checked ? 1 : 0;
+    const receber_artista = getCheckbox("Artista")?.checked ? 1 : 0;
 
+    try {
+      const resp = await fetch("/slack/configurar", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "x-user-id": idUsuario
+        },
+        body: JSON.stringify({
+          notificacoes_desativadas: ativo ? 0 : 1,
+          receber_pais,
+          receber_musica,
+          receber_artista
+        })
+      });
+      if (!resp.ok) throw new Error("Falha ao salvar config.");
+      const payload = await resp.json();
+      atualizarUI(payload.data || {});
+      alert("Configurações salvas com sucesso!");
+    } catch (e) {
+      console.error("Erro ao salvar config Slack:", e);
+      alert("Falha ao salvar configurações.");
+    }
+  });
 
-
+  window.addEventListener("load", carregarConfigSlack);
 </script>

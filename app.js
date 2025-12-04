@@ -22,6 +22,7 @@ var dashboardRouter = require("./src/routes/dashboard");
 var artistasRouter = require("./src/routes/artistas");
 var musicasRouter = require("./src/routes/musicas");
 var filtrosRouter = require("./src/routes/filtros")
+var slackRouter = require("./src/routes/slack")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -36,6 +37,7 @@ app.use("/", dashboardRouter);
 app.use("/artistas", artistasRouter);
 app.use("/musicas", musicasRouter);
 app.use("/filtros", filtrosRouter)
+app.use("/slack", slackRouter)
 
 app.listen(PORTA_APP, function () {
     console.log(`
