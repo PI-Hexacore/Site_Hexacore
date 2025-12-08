@@ -1,15 +1,16 @@
-const listaArtistasElemento = document.getElementById('listaArtistas');
-const formArtistaWrapper = document.getElementById('formArtistaWrapper');
-const formArtista = document.getElementById('formArtista');
-const btnToggleForm = document.getElementById('btnToggleForm');
-const btnCancelar = document.getElementById('btnCancelar');
+// formatador de numeros padrao br. ta fora pra nao depender de html/dom
 const numeroFormatter = new Intl.NumberFormat('pt-BR');
 
 function alternarFormulario(exibir) {
+    // busca o elemento so quando a funcao roda. isso evita quebrar o teste se o html ainda nao existir
+    const formArtistaWrapper = document.getElementById('formArtistaWrapper');
+    
+    // se nao achou o elemento (tipo no teste unitario), so para
     if (!formArtistaWrapper) {
         return;
     }
 
+    // logica pra forcar abrir/fechar ou so inverter o estado atual
     if (typeof exibir === 'boolean') {
         formArtistaWrapper.classList.toggle('aberta', exibir);
     } else {
@@ -17,6 +18,7 @@ function alternarFormulario(exibir) {
     }
 }
 
+// helper pra criar elementos html sem ficar repetindo document.createElement toda hora
 function criarElemento(tipo, classe) {
     const elemento = document.createElement(tipo);
     if (classe) {
@@ -27,6 +29,7 @@ function criarElemento(tipo, classe) {
 
 function formatarStreams(valor) {
     const numero = Number(valor);
+    // validacao basica pra nao mostrar "NaN streams" na tela
     if (!Number.isFinite(numero) || numero <= 0) {
         return 'Sem dados de streams';
     }
@@ -35,12 +38,17 @@ function formatarStreams(valor) {
 }
 
 function renderizarLista(artistas = []) {
+    const listaArtistasElemento = document.getElementById('listaArtistas');
+
+    // seguranca caso o elemento nao exista na pagina
     if (!listaArtistasElemento) {
         return;
     }
 
+    // limpa a lista atual pra nao duplicar cards
     listaArtistasElemento.innerHTML = '';
 
+    // se a lista veio vazia, avisa o usuario
     if (!artistas.length) {
         const mensagem = criarElemento('p', 'lista-vazia');
         mensagem.textContent = 'Nenhum artista cadastrado ainda. Adicione o primeiro!';
@@ -48,25 +56,32 @@ function renderizarLista(artistas = []) {
         return;
     }
 
+    // monta o html de cada card
     artistas.forEach((artista) => {
         const card = criarElemento('article', 'artist-card');
 
+        // pega a primeira letra pro avatar
         const avatar = criarElemento('div', 'artist-avatar');
         avatar.textContent = (artista.nm_artista || '?').charAt(0).toUpperCase();
 
         const info = criarElemento('div', 'artist-info');
         const titulo = criarElemento('h3');
         titulo.textContent = artista.nm_artista;
+        
         const descricao = criarElemento('p');
         const genero = artista.ds_genero_musical ? artista.ds_genero_musical : 'Gênero não informado';
         descricao.textContent = `Dados do artista: ${formatarStreams(artista.total_streams)} | Gênero: ${genero}`;
+        
         info.appendChild(titulo);
         info.appendChild(descricao);
 
+        // botoes de acao (editar/excluir)
         const acoes = criarElemento('div', 'artist-actions');
+        
         const btnEditar = criarElemento('button', 'btn btn-edit');
         btnEditar.type = 'button';
         btnEditar.textContent = 'Editar';
+        // arrow function aqui pra nao chamar a funcao direto ao carregar a pagina
         btnEditar.addEventListener('click', () => editarArtista(artista));
 
         const btnExcluir = criarElemento('button', 'btn btn-delete');
@@ -84,12 +99,16 @@ function renderizarLista(artistas = []) {
         listaArtistasElemento.appendChild(card);
     });
 }
+
 async function listarArtistas() {
     const idUsuario = sessionStorage.ID_USUARIO;
+    const listaArtistasElemento = document.getElementById('listaArtistas');
+
     if (!idUsuario) {
         return;
     }
 
+    // feedback visual pro usuario saber que ta carregando
     if (listaArtistasElemento) {
         listaArtistasElemento.innerHTML = '<p class="lista-vazia">Carregando artistas...</p>';
     }
@@ -107,13 +126,14 @@ async function listarArtistas() {
 
         const payload = await resposta.json();
 
-        // ✅ Normaliza para array
+        // garante que seja sempre array, 
+        // mesmo se o banco devolver um objeto unico ou null
         const artistas = Array.isArray(payload?.data)
             ? payload.data
             : Array.isArray(payload)
                 ? payload
                 : payload
-                    ? [payload] // força em array se vier objeto único
+                    ? [payload] 
                     : [];
 
         renderizarLista(artistas);
@@ -126,15 +146,21 @@ async function listarArtistas() {
 }
 
 async function cadastrarArtista(evento) {
-    evento.preventDefault();
+    // previne o refresh da pagina se vier de um submit de form
+    if (evento) evento.preventDefault();
 
+    const formArtista = document.getElementById('formArtista');
     const idUsuario = sessionStorage.ID_USUARIO;
+    
     if (!idUsuario || !formArtista) {
         return;
     }
 
+    // coleta os dados do form de jeito facil
     const dadosFormulario = new FormData(formArtista);
     const payload = Object.fromEntries(dadosFormulario.entries());
+    
+    // limpa espacos em branco nas pontas
     payload.nm_artista = (payload.nm_artista || '').trim();
     payload.ds_genero_musical = (payload.ds_genero_musical || '').trim();
 
@@ -158,6 +184,7 @@ async function cadastrarArtista(evento) {
             throw new Error(erro.message || 'Erro ao cadastrar artista');
         }
 
+        // limpa o form e atualiza a lista
         formArtista.reset();
         alternarFormulario(false);
         listarArtistas();
@@ -174,6 +201,8 @@ async function editarArtista(artista) {
     }
 
     const novoNome = prompt('Atualize o nome do artista:', artista.nm_artista || '');
+    
+    // se clicar em cancelar, para tudo
     if (novoNome === null) {
         return;
     }
@@ -189,6 +218,7 @@ async function editarArtista(artista) {
     const payload = {
         nm_artista: nomeFinal,
         ds_genero_musical: novoGenero.trim(),
+        // mantem os dados antigos que nao mudaram
         fk_dados_spotify_top: artista.fk_dados_spotify_top || '',
         fk_dados_spotify_youtube: artista.fk_dados_spotify_youtube || ''
     };
@@ -246,11 +276,17 @@ async function excluirArtista(idArtista) {
 }
 
 function iniciarPaginaArtistas() {
+    // verifica se o usuario ta logado antes de qualquer coisa
     if (typeof validarSessao === 'function' && !validarSessao()) {
         return;
     }
 
     listarArtistas();
+
+    // captura os botoes aqui dentro pra garantir que o dom ja carregou
+    const btnToggleForm = document.getElementById('btnToggleForm');
+    const btnCancelar = document.getElementById('btnCancelar');
+    const formArtista = document.getElementById('formArtista');
 
     if (btnToggleForm) {
         btnToggleForm.addEventListener('click', () => alternarFormulario());
@@ -258,7 +294,7 @@ function iniciarPaginaArtistas() {
 
     if (btnCancelar) {
         btnCancelar.addEventListener('click', () => {
-            formArtista?.reset();
+            if(formArtista) formArtista.reset();
             alternarFormulario(false);
         });
     }
@@ -268,9 +304,14 @@ function iniciarPaginaArtistas() {
     }
 }
 
-window.addEventListener('load', iniciarPaginaArtistas);
+// so adiciona o evento de load se tiver rodando no navegador
+// isso evita erro no node/jest
+if (typeof window !== 'undefined') {
+    window.addEventListener('load', iniciarPaginaArtistas);
+}
 
-
+// exporta as funcoes pro jest conseguir testar
+// se tiver no navegador, ele ignora esse bloco
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         alternarFormulario,
