@@ -81,15 +81,18 @@ async function buscarDadosDashboard(idUsuario, idFiltro = null) {
     // Artistas do usuário
     const artistasUsuarioPromise = database.executar(
         `SELECT 
-            a.nm_artista AS nome,
+            ag.nm_artista AS nome,
             COALESCE(SUM(m.qt_stream), 0) AS total_streams
-         FROM ArtistaGravadora a
-    LEFT JOIN MusicaClient m ON m.fk_artista = a.id_artista
-    WHERE a.fk_id_usuario = ?
-    ${wherePais("m")}
-    GROUP BY a.id_artista, a.nm_artista
-    ORDER BY total_streams DESC;`,
-        [...(paisesFiltro || []), idUsuario]
+         FROM ArtistaGravadora ag
+         LEFT JOIN ArtistaClient ac
+                ON UPPER(ac.nm_artista) = UPPER(ag.nm_artista)
+         LEFT JOIN MusicaClient m
+                ON m.fk_artista = ac.id_artista
+        WHERE ag.fk_id_usuario = ?
+        ${wherePais("m")}
+        GROUP BY ag.id_artista, ag.nm_artista
+        ORDER BY total_streams DESC;`,
+        [idUsuario, ...(paisesFiltro || [])]
     );
 
     const [ouvintes, artistasGlobais, generosGlobais, artistasUsuario] = await Promise.all([

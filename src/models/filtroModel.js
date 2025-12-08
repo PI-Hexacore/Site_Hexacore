@@ -11,8 +11,11 @@ async function buscarPaises() {
 
 async function buscarGeneros() {
     return database.executar(
-        'SELECT DISTINCT ds_genero_musical FROM artistaclient WHERE ds_genero_musical IS NOT NULL ORDER BY ds_genero_musical;'
-    )
+        `SELECT DISTINCT ds_genero_musical
+           FROM ArtistaClient
+          WHERE ds_genero_musical IS NOT NULL
+       ORDER BY ds_genero_musical;`
+    );
 }
 
 async function criarFiltroDashboard(nomeFiltro, tipoAlbum, idUsuario) {
