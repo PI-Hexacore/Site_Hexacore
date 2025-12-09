@@ -2,18 +2,21 @@ const { validarEntradaLogin, processarDadosSessao } = require('./login');
 
 describe("Validação de Entrada (Login)", () => {
     
+    // teste pra ver se barra quando o email ta vazio
     test("Deve retornar falso se o email estiver vazio", () => {
         const resultado = validarEntradaLogin("", "123456B!");
         expect(resultado.valido).toBe(false);
         expect(resultado.erro).toBe("Preencha todos os campos!");
     });
 
+    // teste pra ver se barra quando a senha ta vazia
     test("Deve retornar falso se a senha estiver vazia", () => {
         const resultado = validarEntradaLogin("usuario@teste.com", "");
         expect(resultado.valido).toBe(false);
         expect(resultado.erro).toBe("Preencha todos os campos!");
     });
 
+    // caso feliz :) se tiver tudo preenchido, tem que passar
     test("Deve retornar verdadeiro se ambos os campos estiverem preenchidos", () => {
         const resultado = validarEntradaLogin("usuario@teste.com", "123456B!");
         expect(resultado.valido).toBe(true);
@@ -24,6 +27,7 @@ describe("Validação de Entrada (Login)", () => {
 
 describe("Processamento de Dados da Sessão (SessionStorage)", () => {
 
+    // cria dados so pra simular o que viria do banco
     const idUsuarioMock = 10;
     
     const respostaEmpresaMock = [{
@@ -43,6 +47,7 @@ describe("Processamento de Dados da Sessão (SessionStorage)", () => {
         uf: "SP"
     }];
 
+    // testo se ele monta o objeto certinho quando tem endereco
     test("Deve gerar o objeto de sessão corretamente com endereço completo", () => {
         const resultadoSessao = processarDadosSessao(idUsuarioMock, respostaEmpresaMock, respostaEnderecoMock);
 
@@ -57,6 +62,7 @@ describe("Processamento de Dados da Sessão (SessionStorage)", () => {
         expect(resultadoSessao.UF).toBe("SP");
     });
 
+    // testo se nao quebra quando o usuario ainda nao tem endereco cadastrado (array vazio)
     test("Deve gerar o objeto de sessão corretamente sem endereço", () => {
         // simulando uma empresa que acabou de cadastrar e ainda não tem endereço
         const resultadoSessao = processarDadosSessao(idUsuarioMock, respostaEmpresaMock, []);
@@ -70,6 +76,7 @@ describe("Processamento de Dados da Sessão (SessionStorage)", () => {
         expect(resultadoSessao.LOGRADOURO).toBeUndefined();
     });
 
+    // testo se nao quebra caso o banco retorne null no endereco por algum erro
     test("Deve gerar o objeto de sessão corretamente sem endereço", () => {
         // simulando caso o backend retorne null por algum erro
         const resultadoSessao = processarDadosSessao(idUsuarioMock, respostaEmpresaMock, null);

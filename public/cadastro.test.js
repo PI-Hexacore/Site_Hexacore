@@ -1,19 +1,22 @@
 const { validarCriteriosSenha, validarCadastroEmpresa, verificarCoincidenciaSenha } = require('./cadastro');
 
-
+// agrupa os testes de senha pra ficar organizado
 describe("Validação de critérios de senha", () => {
 
   test("senha com menos de 8 caracteres falha no comprimento", () => {
+    // testa senha curta
     const res = validarCriteriosSenha("Ab1!");
     expect(res.comprimento).toBe(false);
   });
 
   test("senha válida no comprimento", () => {
+    // essa tem tamanho bom
     const res = validarCriteriosSenha("Abcdef12!");
     expect(res.comprimento).toBe(true);
   });
 
   test("senha precisa conter número", () => {
+    // senha sem numero tem que falhar
     const res = validarCriteriosSenha("Abcdefgh!");
     expect(res.numero).toBe(false);
   });
@@ -24,6 +27,7 @@ describe("Validação de critérios de senha", () => {
   });
 
   test("senha precisa conter caractere especial", () => {
+    // sem simbolo especial nao pode passar
     const res = validarCriteriosSenha("Abcdef12");
     expect(res.especial).toBe(false);
   });
@@ -34,6 +38,7 @@ describe("Validação de critérios de senha", () => {
   });
 
   test("senha precisa ter letra maiúscula", () => {
+    // tudo minusculo nao pode
     const res = validarCriteriosSenha("abcdef12!");
     expect(res.maiuscula).toBe(false);
   });
@@ -44,7 +49,7 @@ describe("Validação de critérios de senha", () => {
   });
 
 
-
+  // confere se os campos de senha e confirmacao batem
   test("as senhas devem ser iguais", () => {
     const res = verificarCoincidenciaSenha("Abcdef12", "Abcdef12");
     expect(res.valido).toBe(true);
@@ -59,7 +64,7 @@ describe("Validação de critérios de senha", () => {
 });
 
 
-
+// funcoes so pra simular a limpeza do cnpj e telefone
 function mockDesformatarCNPJ(cnpj) {
   return cnpj.replace(/\D/g, "");
 }
@@ -69,6 +74,7 @@ function mockDesformatarTell(tell) {
 }
 
 test("retorna erro se faltarem campos", () => {
+  // razao social vazia 
   const res = validarCadastroEmpresa({
     razaoEmp: "",
     nomeEmp: "Empresa X",
@@ -78,11 +84,13 @@ test("retorna erro se faltarem campos", () => {
     telefoneEmp: "(11) 98888-7777"
   }, mockDesformatarCNPJ, mockDesformatarTell);
 
+  // tem que dar erro
   expect(res.valido).toBe(false);
   expect(res.erro).toBe("Preencha todos os campos!");
 });
 
 test("monta o objeto final corretamente", () => {
+  // mando os dados sujos
   const res = validarCadastroEmpresa({
     razaoEmp: "Razão",
     nomeEmp: "Fantasia",
@@ -93,6 +101,8 @@ test("monta o objeto final corretamente", () => {
   }, mockDesformatarCNPJ, mockDesformatarTell);
 
   expect(res.valido).toBe(true);
+  
+  // verifica se ele limpou o cnpj e telefone no objeto final
   expect(res.corpo).toEqual({
     razaoEmp: "Razão",
     nomeEmp: "Fantasia",

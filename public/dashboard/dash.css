@@ -14,7 +14,6 @@
 .botao-estilo-filtro,
 #btnCriarFiltro {
   width: 100%;
-  padding: 16px;
   font-size: 18px;
   background-color: var(--azul-primario, #007bff);
   color: #fff;
@@ -102,7 +101,7 @@
 .conteudo-modal-filtro {
   background-color: #fff;
   margin: 2% auto;
-  padding: 30px;
+  padding: 20px;
   width: 95%;
   height: 90%;
   border-radius: 12px;
@@ -298,7 +297,7 @@ body {
 .parent {
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
-    gap: 20px;
+    gap: 15px;
 }
 
 .kpi-card,
