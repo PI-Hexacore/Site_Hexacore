@@ -83,23 +83,58 @@ function showTab(tabName) {
     }
 }
 
-function carregarDadosEmpresa() {
-    // busca os inputs e preenche com o que ta na sessao
+function preencherCamposEmpresa(dados = {}) {
+    if (typeof document === 'undefined') return;
+    const sessao = typeof sessionStorage !== 'undefined' ? sessionStorage : {};
+
     var elRazao = document.getElementById("razaoSocial");
     var elNome = document.getElementById("nomeFantasia");
     var elCnpj = document.getElementById("cnpj");
     var elEmail = document.getElementById("email");
     var elTel = document.getElementById("telefone");
 
-    if (elRazao) elRazao.value = sessionStorage.RAZAO_SOCIAL || "";
-    if (elNome) elNome.value = sessionStorage.NOME_USUARIO || "";
-    if (elCnpj) elCnpj.value = sessionStorage.CNPJ || "";
-    if (elEmail) elEmail.value = sessionStorage.EMAIL_USUARIO || "";
-    if (elTel) elTel.value = sessionStorage.TELEFONE || "";
+    if (elRazao) elRazao.value = dados.razaoSocial ?? sessao.RAZAO_SOCIAL ?? "";
+    if (elNome) elNome.value = dados.nomeFantasia ?? sessao.NOME_USUARIO ?? "";
+    if (elCnpj) elCnpj.value = dados.cnpj ?? sessao.CNPJ ?? "";
+    if (elEmail) elEmail.value = dados.email ?? sessao.EMAIL_USUARIO ?? "";
+    if (elTel) elTel.value = dados.telefone ?? sessao.TELEFONE ?? "";
 }
 
-function carregarDadosEndereco() {
-    // mesma coisa pro endereco
+async function carregarDadosEmpresa() {
+    const sessao = typeof sessionStorage !== 'undefined' ? sessionStorage : null;
+    const idUsuario = sessao ? sessao.ID_USUARIO : null;
+
+    if (!idUsuario || typeof fetch !== 'function') {
+        preencherCamposEmpresa();
+        return;
+    }
+
+    try {
+        const resposta = await fetch(`/empresas/buscar/${idUsuario}`);
+        if (!resposta.ok) throw new Error("Falha ao buscar a empresa no banco.");
+
+        const dados = await resposta.json();
+        const empresa = Array.isArray(dados) ? dados[0] : dados;
+
+        if (empresa && sessao) {
+            sessao.RAZAO_SOCIAL = empresa.razaoSocial || "";
+            sessao.NOME_USUARIO = empresa.nomeFantasia || "";
+            sessao.CNPJ = empresa.cnpj || "";
+            sessao.EMAIL_USUARIO = empresa.email || "";
+            sessao.TELEFONE = empresa.telefone || "";
+        }
+
+        preencherCamposEmpresa(empresa || {});
+    } catch (erro) {
+        console.error("Erro ao carregar dados da empresa:", erro);
+        preencherCamposEmpresa();
+    }
+}
+
+function preencherCamposEndereco(dados = {}) {
+    if (typeof document === 'undefined') return;
+    const sessao = typeof sessionStorage !== 'undefined' ? sessionStorage : {};
+
     var elCep = document.getElementById("cep");
     var elLog = document.getElementById("logradouro");
     var elNum = document.getElementById("numero");
@@ -107,12 +142,44 @@ function carregarDadosEndereco() {
     var elCidade = document.getElementById("cidade");
     var elUf = document.getElementById("uf");
 
-    if (elCep) elCep.value = sessionStorage.CEP || "";
-    if (elLog) elLog.value = sessionStorage.LOGRADOURO || "";
-    if (elNum) elNum.value = sessionStorage.NUMERO || "";
-    if (elBairro) elBairro.value = sessionStorage.BAIRRO || "";
-    if (elCidade) elCidade.value = sessionStorage.CIDADE || "";
-    if (elUf) elUf.value = sessionStorage.UF || "";
+    if (elCep) elCep.value = dados.cep ?? sessao.CEP ?? "";
+    if (elLog) elLog.value = dados.logradouro ?? sessao.LOGRADOURO ?? "";
+    if (elNum) elNum.value = dados.numero ?? sessao.NUMERO ?? "";
+    if (elBairro) elBairro.value = dados.bairro ?? sessao.BAIRRO ?? "";
+    if (elCidade) elCidade.value = dados.cidade ?? sessao.CIDADE ?? "";
+    if (elUf) elUf.value = dados.uf ?? sessao.UF ?? "";
+}
+
+async function carregarDadosEndereco() {
+    const sessao = typeof sessionStorage !== 'undefined' ? sessionStorage : null;
+    const idUsuario = sessao ? sessao.ID_USUARIO : null;
+
+    if (!idUsuario || typeof fetch !== 'function') {
+        preencherCamposEndereco();
+        return;
+    }
+
+    try {
+        const resposta = await fetch(`/endereco/buscar/${idUsuario}`);
+        if (!resposta.ok) throw new Error("Falha ao buscar o endereço no banco.");
+
+        const dados = await resposta.json();
+        const endereco = Array.isArray(dados) ? dados[0] : dados;
+
+        if (endereco && sessao) {
+            sessao.CEP = endereco.cep || "";
+            sessao.LOGRADOURO = endereco.logradouro || "";
+            sessao.NUMERO = endereco.numero || "";
+            sessao.BAIRRO = endereco.bairro || "";
+            sessao.CIDADE = endereco.cidade || "";
+            sessao.UF = endereco.uf || "";
+        }
+
+        preencherCamposEndereco(endereco || {});
+    } catch (erro) {
+        console.error("Erro ao carregar dados do endereço:", erro);
+        preencherCamposEndereco();
+    }
 }
 
 function atualizarEmpresa() {
